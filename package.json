@@ -1,0 +1,45 @@
+{
+  "name": "quitbet-ai",
+  "version": "1.0.0",
+  "description": "AI-powered support app for gambling addiction recovery",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "setup": "node scripts/setup.js",
+    "quick-setup": "node scripts/quick-setup.js",
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:mobile\"",
+    "dev:api": "npm run dev --workspace=apps/api",
+    "dev:mobile": "npm run dev --workspace=apps/mobile",
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces",
+    "test:auth": "node apps/api/src/test-auth.js",
+    "test:smoke": "node apps/api/src/test-smoke.js",
+    "chatbot": "node chatbot.js",
+    "lint": "npm run lint --workspaces",
+    "type-check": "npm run type-check --workspaces"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.45.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.1.6"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "dependencies": {
+    "@react-native-vector-icons/material-design-icons": "^12.3.0",
+    "dotenv": "^17.2.3",
+    "express-rate-limit": "^8.1.0",
+    "helmet": "^8.1.0",
+    "openai": "^6.1.0",
+    "qrcode-terminal": "^0.12.0"
+  }
+}

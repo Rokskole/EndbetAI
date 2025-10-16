@@ -1,0 +1,50 @@
+{
+  "expo": {
+    "name": "QuitBet AI",
+    "slug": "quitbet-ai",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "colorScheme": "dark",
+    "theme": {
+      "dark": {
+        "backgroundColor": "#111827",
+        "textColor": "#f9fafb"
+      }
+    },
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#111827"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.quitbetai.app",
+      "buildNumber": "1"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#111827"
+      },
+      "package": "com.quitbetai.app",
+      "versionCode": 1
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "scheme": "quitbet-ai",
+    "plugins": [
+      "expo-notifications"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "your-project-id-here"
+      }
+    }
+  }
+}

@@ -1,0 +1,2880 @@
+<!DOCTYPE html>
+<html lang="en" style="background-color: #000000 !important; background: #000000 !important;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <meta name="color-scheme" content="dark">
+    <title>QuitBet AI</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="QuitBet AI">
+    <link rel="manifest" href="/manifest.json">
+    <style>
+        /* Immediate background fix - loaded before any other styles */
+        html, body {
+            background-color: #000000 !important;
+            background: #000000 !important;
+        }
+    </style>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #000000 !important;
+            background: #000000 !important;
+            color: #f9fafb;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        html {
+            background-color: #000000 !important;
+            background: #000000 !important;
+        }
+        
+        * {
+            background-color: inherit;
+        }
+        
+        .app-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background-color: #000000;
+            padding: 8px 12px;
+            border-bottom: 1px solid #374151;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            color: #60a5fa;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background-color: #000000;
+            border-bottom: 1px solid #374151;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* Internet Explorer 10+ */
+            white-space: nowrap;
+            padding: 0 8px;
+            position: relative;
+        }
+        
+        .nav-tabs::-webkit-scrollbar {
+            display: none; /* WebKit */
+        }
+        
+        .nav-tabs::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 20px;
+            background: linear-gradient(to right, #000000, transparent);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .nav-tabs::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 20px;
+            background: linear-gradient(to left, #000000, transparent);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .nav-tab {
+            flex: 0 0 auto;
+            padding: 6px 10px;
+            text-align: center;
+            background: none;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 60px;
+            white-space: nowrap;
+            font-size: 0.7rem;
+        }
+        
+        .nav-tab.active {
+            color: #60a5fa;
+            border-bottom: 2px solid #60a5fa;
+        }
+        
+        .content {
+            flex: 1;
+            padding: 8px;
+            overflow-y: auto;
+        }
+        
+        .screen {
+            display: none;
+        }
+        
+        .screen.active {
+            display: block;
+        }
+        
+        .card {
+            background-color: #000000;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #374151;
+        }
+        
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #f9fafb;
+        }
+        
+        .card-text {
+            color: #d1d5db;
+            line-height: 1.4;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .button {
+            background-color: #60a5fa;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 4px 2px;
+            transition: background-color 0.3s;
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        .button:hover {
+            background-color: #3b82f6;
+        }
+        
+        .button.emergency {
+            background-color: #dc2626;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+        }
+        
+        .button.emergency:hover {
+            background-color: #b91c1c;
+        }
+        
+        .button.secondary {
+            background-color: #374151;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+        }
+        
+        .button.secondary:hover {
+            background-color: #4b5563;
+        }
+        
+        
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 120px);
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            scroll-behavior: smooth;
+        }
+        
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .chat-messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #374151;
+            border-radius: 3px;
+        }
+        
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #4b5563;
+        }
+        
+        .message {
+            display: flex;
+            width: 100%;
+            align-items: flex-end;
+        }
+        
+        .message.user {
+            justify-content: flex-end;
+        }
+        
+        .message.assistant {
+            justify-content: flex-start;
+        }
+        
+        .message-bubble {
+            max-width: 75%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            word-wrap: break-word;
+            word-break: break-word;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .message.user .message-bubble {
+            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+            color: #ffffff;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .message.assistant .message-bubble {
+            background-color: #374151;
+            color: #f9fafb;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .chat-input-container {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background-color: #000000;
+            border-top: 1px solid #374151;
+            gap: 8px;
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #374151;
+            border-radius: 24px;
+            background-color: #1f2937;
+            color: #f9fafb;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+        
+        .chat-input:focus {
+            border-color: #60a5fa;
+            background-color: #374151;
+        }
+        
+        .chat-input::placeholder {
+            color: #9ca3af;
+        }
+        
+        .send-button {
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+            color: white;
+            border: none;
+            border-radius: 24px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(96, 165, 250, 0.3);
+        }
+        
+        .send-button:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(96, 165, 250, 0.4);
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .send-button:hover {
+            background-color: #3b82f6;
+        }
+        
+        .send-button:disabled {
+            background-color: #6b7280;
+            cursor: not-allowed;
+        }
+        
+        
+        .phone-number {
+            font-size: 1.2rem;
+            font-weight: bold;
+            background-color: rgba(255,255,255,0.2);
+            padding: 8px 12px;
+            border-radius: 6px;
+            display: inline-block;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .helpline-number {
+            color: #dc2626 !important;
+            font-weight: bold !important;
+            font-size: 1.3rem !important;
+            display: inline-block !important;
+            margin: 4px 0 !important;
+        }
+        
+        /* Ultra-specific rule for helpline number */
+        #crisis-screen div[style*="1-800-522-4700"],
+        #crisis-screen div:contains("1-800-522-4700"),
+        div:contains("1-800-522-4700") {
+            color: #dc2626 !important;
+            font-weight: bold !important;
+            font-size: 1.3rem !important;
+            background-color: transparent !important;
+            border: none !important;
+            text-decoration: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+        }
+        
+        .phone-number:hover {
+            background-color: rgba(255,255,255,0.3);
+        }
+        
+        .text-number {
+            font-size: 1.2rem;
+            font-weight: bold;
+            background-color: rgba(96, 165, 250, 0.2);
+            padding: 8px 12px;
+            border-radius: 6px;
+            display: inline-block;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            color: #60a5fa;
+        }
+        
+        .text-number:hover {
+            background-color: rgba(96, 165, 250, 0.3);
+        }
+        
+        .step {
+            margin: 6px 0;
+            padding: 8px;
+            background-color: #374151;
+            border-radius: 6px;
+            font-size: 0.85rem;
+        }
+        
+        .step-number {
+            background-color: #60a5fa;
+            color: #111827;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 6px;
+            font-size: 11px;
+        }
+        
+        .contact-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            background-color: #374151;
+            border-radius: 6px;
+            margin-bottom: 6px;
+        }
+        
+        .contact-info {
+            flex: 1;
+        }
+        
+        .contact-name {
+            font-weight: bold;
+            color: #f9fafb;
+            font-size: 0.85rem;
+        }
+        
+        .contact-phone {
+            color: #9ca3af;
+            font-size: 0.75rem;
+        }
+        
+        .contact-actions {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .contact-button {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            border-radius: 4px;
+        }
+        
+        .add-contact-form {
+            background-color: #374151;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+        
+        .journal-entry {
+            background-color: #374151;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border-left: 3px solid #60a5fa;
+        }
+        
+        .journal-date {
+            font-weight: bold;
+            color: #60a5fa;
+            margin-bottom: 4px;
+            font-size: 0.8rem;
+        }
+        
+        .journal-content {
+            color: #d1d5db;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            font-size: 0.85rem;
+        }
+        
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            background-color: #374151;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            border-left: 3px solid #60a5fa;
+        }
+        
+        .task-info {
+            flex: 1;
+        }
+        
+        .task-description {
+            font-weight: 500;
+            color: #f9fafb;
+            margin-bottom: 2px;
+            font-size: 0.85rem;
+        }
+        
+        .task-priority {
+            font-size: 0.7rem;
+            padding: 2px 4px;
+            border-radius: 3px;
+            display: inline-block;
+        }
+        
+        .task-priority.low {
+            background-color: #10b981;
+            color: white;
+        }
+        
+        .task-priority.medium {
+            background-color: #f59e0b;
+            color: white;
+        }
+        
+        .task-priority.high {
+            background-color: #ef4444;
+            color: white;
+        }
+        
+        .task-actions {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .task-button {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            border-radius: 4px;
+        }
+        
+        .grounding-step {
+            margin-bottom: 12px;
+            padding: 10px;
+            background-color: #374151;
+            border-radius: 6px;
+            border-left: 3px solid #7c3aed;
+        }
+        
+        .grounding-step h4 {
+            color: #7c3aed;
+            margin-bottom: 6px;
+            font-size: 1rem;
+        }
+        
+        .grounding-tips {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        
+        .tip-item {
+            background-color: #374151;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 3px solid #60a5fa;
+        }
+        
+        .tip-item strong {
+            color: #60a5fa;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .tip-item br {
+            margin-bottom: 5px;
+        }
+        
+        @keyframes breatheIn {
+            0% { transform: scale(1); background-color: #60a5fa; }
+            100% { transform: scale(1.2); background-color: #3b82f6; }
+        }
+        
+        @keyframes breatheOut {
+            0% { transform: scale(1.2); background-color: #3b82f6; }
+            100% { transform: scale(1); background-color: #60a5fa; }
+        }
+        
+        .breathing-in {
+            animation: breatheIn 4s ease-in-out;
+        }
+        
+        .breathing-out {
+            animation: breatheOut 4s ease-in-out;
+        }
+        
+        .thinking-message {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background-color: #374151;
+            border-radius: 18px;
+            border-bottom-left-radius: 4px;
+            color: #9ca3af;
+            font-style: italic;
+            max-width: 75%;
+            font-size: 0.95rem;
+        }
+        
+        .thinking-dots {
+            display: inline-flex;
+            align-items: center;
+            margin-left: 8px;
+        }
+        
+        .thinking-dots span {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #60a5fa;
+            margin: 0 2px;
+            animation: thinking 1.4s infinite ease-in-out both;
+        }
+        
+        .thinking-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .thinking-dots span:nth-child(2) { animation-delay: -0.16s; }
+        .thinking-dots span:nth-child(3) { animation-delay: 0s; }
+        
+        @keyframes thinking {
+            0%, 80%, 100% {
+                transform: scale(0);
+                opacity: 0.5;
+            }
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .chat-input:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .send-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .form-group {
+            margin-bottom: 12px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 4px;
+            color: #d1d5db;
+            font-weight: 500;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 6px 10px;
+            border: 1px solid #6b7280;
+            border-radius: 4px;
+            background-color: #000000;
+            color: #f9fafb;
+            font-size: 14px;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #60a5fa;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #9ca3af;
+        }
+        
+        .progress-bar {
+            background-color: #374151;
+            border-radius: 10px;
+            height: 20px;
+            margin: 8px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background-color: #60a5fa;
+            height: 100%;
+            transition: width 0.3s;
+        }
+        
+        /* Gambling-Free Counter Styles */
+        .gambling-free-card {
+            background: linear-gradient(135deg, #000000, #374151);
+            border: 2px solid #10b981;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        
+        .gambling-counter {
+            margin: 8px 0;
+        }
+        
+        .counter-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #10b981;
+            text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+            margin: 6px 0;
+            line-height: 1;
+        }
+        
+        .counter-subtitle {
+            color: #9ca3af;
+            font-size: 0.85rem;
+            margin: 6px 0;
+        }
+        
+        .button.danger {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .button.danger:hover {
+            background-color: #b91c1c;
+        }
+        
+        /* Finance Screen Styles */
+        .instructions-card {
+            background: linear-gradient(135deg, #000000, #374151);
+            border: 2px solid #60a5fa;
+        }
+        
+        .instructions-content {
+            margin-top: 8px;
+        }
+        
+        .instruction-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            padding: 6px;
+            background-color: rgba(96, 165, 250, 0.1);
+            border-radius: 6px;
+        }
+        
+        .step-number {
+            background-color: #60a5fa;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+            flex-shrink: 0;
+            font-size: 12px;
+        }
+        
+        .step-content {
+            color: #f9fafb;
+            font-size: 0.85rem;
+        }
+        
+        .finance-summary-card {
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: white;
+        }
+        
+        .finance-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+            opacity: 0.9;
+            margin-bottom: 4px;
+        }
+        
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .stat-value.saved {
+            color: #34d399;
+        }
+        
+        .stat-value.spent {
+            color: #ef4444;
+        }
+        
+        .empty-message {
+            text-align: center;
+            color: #9ca3af;
+            font-style: italic;
+            font-size: 0.8rem;
+            padding: 12px;
+        }
+        
+        /* Breathing Exercise Button Hover Effects */
+        #breathing-start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(96, 165, 250, 0.5) !important;
+        }
+        
+        #breathing-stop-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(107, 114, 128, 0.5) !important;
+        }
+        
+        #breathing-circle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 35px rgba(96, 165, 250, 0.6) !important;
+        }
+        
+        /* Remove any border/background from breathing text */
+        #breathing-text {
+            border: none !important;
+            background: transparent !important;
+            background-color: transparent !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            box-shadow: none !important;
+            outline: none !important;
+        }
+        
+        .transaction-form {
+            margin-top: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 10px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 3px;
+            color: #f9fafb;
+            font-weight: 500;
+            font-size: 0.8rem;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #4b5563;
+            border-radius: 6px;
+            background-color: #374151;
+            color: #f9fafb;
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+        }
+        
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            margin-bottom: 6px;
+            background-color: #374151;
+            border-radius: 6px;
+            border-left: 3px solid #60a5fa;
+        }
+        
+        .transaction-item.saved {
+            border-left-color: #10b981;
+        }
+        
+        .transaction-item.spent {
+            border-left-color: #ef4444;
+        }
+        
+        .transaction-info {
+            flex: 1;
+        }
+        
+        .transaction-amount {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .transaction-amount.saved {
+            color: #10b981;
+        }
+        
+        .transaction-amount.spent {
+            color: #ef4444;
+        }
+        
+        .analysis-item {
+            padding: 10px;
+            margin-bottom: 8px;
+            background-color: #374151;
+            border-radius: 6px;
+            border-left: 4px solid #60a5fa;
+        }
+        
+        .analysis-date {
+            font-size: 0.8rem;
+            color: #9ca3af;
+            margin-bottom: 5px;
+        }
+        
+        .analysis-content {
+            color: #f9fafb;
+        }
+        
+        @media (max-width: 480px) {
+            .content {
+                padding: 12px;
+            }
+            
+            .card {
+                padding: 16px;
+            }
+            
+            .message-bubble {
+                max-width: 85%;
+            }
+            
+            .chat-messages {
+                padding: 12px;
+            }
+            
+            .chat-input-container {
+                padding: 10px 12px;
+            }
+            
+            .thinking-message {
+                max-width: 85%;
+            }
+        }
+    </style>
+</head>
+<body style="background-color: #000000 !important; background: #000000 !important;">
+    <div class="app-container">
+        <div class="header">
+            <h1>QuitBet AI</h1>
+            <div id="user-info">Welcome, Friend</div>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showScreen('dashboard')">🏠 Dashboard</button>
+            <button class="nav-tab" onclick="showScreen('chat')">💬 Chat</button>
+            <button class="nav-tab" onclick="showScreen('journal')">📝 Journal</button>
+            <button class="nav-tab" onclick="showScreen('tasks')">✅ Tasks</button>
+            <button class="nav-tab" onclick="showScreen('contacts')">👥 Contacts</button>
+            <button class="nav-tab" onclick="showScreen('finance')">💰 Finance</button>
+            <button class="nav-tab" onclick="showScreen('grounding')">🧘 Grounding</button>
+            <button class="nav-tab" onclick="showScreen('crisis')">🚨 Crisis</button>
+            <button class="nav-tab" onclick="showScreen('sos')">🆘 SOS</button>
+        </div>
+        
+        <div class="content">
+            <!-- Dashboard Screen -->
+            <div id="dashboard-screen" class="screen active">
+                <!-- Gambling-Free Days Counter -->
+                <div class="card gambling-free-card">
+                    <h2 class="card-title">🎯 Days Gambling-Free</h2>
+                    <div class="gambling-counter">
+                        <div class="counter-number" id="gambling-free-days">0</div>
+                        <p class="counter-subtitle">Keep going! You're doing amazing!</p>
+                    </div>
+                    <button onclick="resetGamblingCounter()" class="button danger" style="background-color: #dc2626; margin-top: 10px;">Reset Counter</button>
+                </div>
+                
+                <div class="card">
+                    <h2 class="card-title">Today's Goal</h2>
+                    <p class="card-text">Stay focused on your recovery journey. Take it one day at a time.</p>
+                    <button class="button" onclick="showScreen('tasks')">Start Now</button>
+                </div>
+                
+                <div class="card">
+                    <h2 class="card-title">Progress This Week</h2>
+                    <p class="card-text">Tasks completed: <strong id="completed-tasks-count">0</strong></p>
+                    <p class="card-text">Journal entries: <strong id="journal-entries-count">0</strong></p>
+                    <p class="card-text">Grounding exercises: <strong id="grounding-exercises-count">0</strong></p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <p class="card-text" style="font-size: 0.9rem; color: #9ca3af; margin-top: 8px;">
+                        <span id="progress-text">Keep going! Every step counts.</span>
+                    </p>
+                </div>
+                
+                <!-- Financial Summary on Dashboard -->
+                <div class="card" style="background: linear-gradient(135deg, #059669, #10b981); color: white;">
+                    <h2 class="card-title" style="color: white;">💰 Financial Recovery</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; margin-top: 15px;">
+                        <div style="text-align: center; padding: 10px; background-color: rgba(255, 255, 255, 0.1); border-radius: 6px;">
+                            <div style="font-size: 0.8rem; opacity: 0.9; margin-bottom: 5px;">Money Saved</div>
+                            <div style="font-size: 1.2rem; font-weight: bold; color: #34d399;" id="dashboard-money-saved">$0.00</div>
+                        </div>
+                        <div style="text-align: center; padding: 10px; background-color: rgba(255, 255, 255, 0.1); border-radius: 6px;">
+                            <div style="font-size: 0.8rem; opacity: 0.9; margin-bottom: 5px;">Net Savings</div>
+                            <div style="font-size: 1.2rem; font-weight: bold;" id="dashboard-net-savings">$0.00</div>
+                        </div>
+                        <div style="text-align: center; padding: 10px; background-color: rgba(255, 255, 255, 0.1); border-radius: 6px;">
+                            <div style="font-size: 0.8rem; opacity: 0.9; margin-bottom: 5px;">Daily Avg</div>
+                            <div style="font-size: 1.2rem; font-weight: bold; color: #34d399;" id="dashboard-daily-savings">$0.00</div>
+                        </div>
+                    </div>
+                    <button class="button" onclick="showScreen('finance')" style="margin-top: 15px; background-color: rgba(255, 255, 255, 0.2); color: white; border: 1px solid rgba(255, 255, 255, 0.3);">
+                        📊 View Full Finance Report
+                    </button>
+                </div>
+                
+                
+                <div class="card">
+                    <h3 class="card-title">Data Management</h3>
+                    <p class="card-text">Your data is automatically saved and will persist between sessions.</p>
+                    <button class="button secondary" onclick="clearAllData()" style="background-color: #dc2626;">🗑️ Clear All Data</button>
+                    <button class="button secondary" onclick="resetDailyTasks()" style="background-color: #6b7280; margin-top: 10px;">🔄 Reset Daily Tasks</button>
+                    <button class="button secondary" onclick="forceUpdateCounter()" style="background-color: #10b981; margin-top: 10px;">🔄 Force Update Counter</button>
+                </div>
+            </div>
+            
+            <!-- Chat Screen -->
+            <div id="chat-screen" class="screen">
+                <div class="chat-container">
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="message assistant">
+                            <div class="message-bubble">
+                                Hello! I'm your AI companion here to help with any topic. Whether you want to talk about recovery, ask questions, or just have a conversation, I'm here for you. What's on your mind?
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="chat-input-container">
+                        <input type="text" class="chat-input" id="chat-input" placeholder="Write a message..." onkeypress="handleChatKeyPress(event)">
+                        <button class="send-button" id="send-btn" onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Journal Screen -->
+            <div id="journal-screen" class="screen">
+                <div class="card">
+                    <h2 class="card-title">Journal Entries</h2>
+                    <p class="card-text">Track your thoughts and progress daily.</p>
+                    <button class="button" onclick="showAddJournalForm()">+ New Entry</button>
+                    <button class="button secondary" onclick="clearJournalEntries()" style="background-color: #dc2626; margin-left: 10px;">🗑️ Clear All</button>
+                </div>
+                
+                <div id="add-journal-form" class="add-contact-form hidden">
+                    <h3 class="card-title" style="font-size: 1rem; margin-bottom: 8px;">New Journal Entry</h3>
+                    <div class="form-group">
+                        <label class="form-label" style="font-size: 0.8rem; margin-bottom: 4px;">Date</label>
+                        <input type="date" class="form-input" id="journal-date" value="">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" style="font-size: 0.8rem; margin-bottom: 4px;">Entry</label>
+                        <textarea class="form-input" id="journal-entry" placeholder="Write your thoughts, feelings, and progress..." rows="4" style="resize: vertical; font-size: 14px;"></textarea>
+                    </div>
+                    <button class="button" onclick="addJournalEntry()" style="padding: 6px 12px; font-size: 0.8rem;">Save Entry</button>
+                    <button class="button secondary" onclick="hideAddJournalForm()" style="padding: 6px 12px; font-size: 0.8rem; margin-left: 8px;">Cancel</button>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Recent Entries</h3>
+                    <div id="journal-entries">
+                        <!-- Journal entries will be dynamically loaded here -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tasks Screen -->
+            <div id="tasks-screen" class="screen">
+                <div class="card">
+                    <h2 class="card-title">Today's Tasks</h2>
+                    <button class="button" onclick="showAddTaskForm()">+ Add Task</button>
+                </div>
+                
+                <div id="add-task-form" class="add-contact-form hidden">
+                    <h3 class="card-title" style="font-size: 1rem; margin-bottom: 8px;">New Task</h3>
+                    <div class="form-group">
+                        <label class="form-label" style="font-size: 0.8rem; margin-bottom: 4px;">Task Description</label>
+                        <input type="text" class="form-input" id="task-description" placeholder="Enter task description">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" style="font-size: 0.8rem; margin-bottom: 4px;">Priority</label>
+                        <select class="form-input" id="task-priority">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <button class="button" onclick="addTask()" style="padding: 6px 12px; font-size: 0.8rem;">Save Task</button>
+                    <button class="button secondary" onclick="hideAddTaskForm()" style="padding: 6px 12px; font-size: 0.8rem; margin-left: 8px;">Cancel</button>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Task List</h3>
+                    <div id="tasks-list">
+                        <div class="task-item">
+                            <div class="task-info">
+                                <div class="task-description">Morning meditation</div>
+                                <div class="task-priority low">Low Priority</div>
+                            </div>
+                            <div class="task-actions">
+                                <button class="button task-button" onclick="toggleTask(1)">✓ Done</button>
+                                <button class="button secondary task-button" onclick="deleteTask(1)">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-info">
+                                <div class="task-description">Call support contact</div>
+                                <div class="task-priority high">High Priority</div>
+                            </div>
+                            <div class="task-actions">
+                                <button class="button secondary task-button" onclick="toggleTask(2)">Pending</button>
+                                <button class="button secondary task-button" onclick="deleteTask(2)">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-info">
+                                <div class="task-description">Write in journal</div>
+                                <div class="task-priority medium">Medium Priority</div>
+                            </div>
+                            <div class="task-actions">
+                                <button class="button task-button" onclick="toggleTask(3)">✓ Done</button>
+                                <button class="button secondary task-button" onclick="deleteTask(3)">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contacts Screen -->
+            <div id="contacts-screen" class="screen">
+                <div class="card">
+                    <h2 class="card-title">Trusted Contacts</h2>
+                    <p class="card-text">Add people you can reach out to for support.</p>
+                    <button class="button" onclick="showAddContactForm()">+ Add Contact</button>
+                </div>
+                
+                <div id="add-contact-form" class="add-contact-form hidden">
+                    <h3 class="card-title" style="font-size: 1rem; margin-bottom: 8px;">Add New Contact</h3>
+                    <div class="form-group">
+                        <label class="form-label" style="font-size: 0.8rem; margin-bottom: 4px;">Name</label>
+                        <input type="text" class="form-input" id="contact-name" placeholder="Enter name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" style="font-size: 0.8rem; margin-bottom: 4px;">Phone Number</label>
+                        <input type="tel" class="form-input" id="contact-phone" placeholder="Enter phone number">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" style="font-size: 0.8rem; margin-bottom: 4px;">Relationship</label>
+                        <input type="text" class="form-input" id="contact-relationship" placeholder="e.g., Family, Friend, Counselor">
+                    </div>
+                    <button class="button" onclick="addContact()" style="padding: 6px 12px; font-size: 0.8rem;">Save Contact</button>
+                    <button class="button secondary" onclick="hideAddContactForm()" style="padding: 6px 12px; font-size: 0.8rem; margin-left: 8px;">Cancel</button>
+                </div>
+                
+                <div id="contacts-list">
+                    <div class="contact-item">
+                        <div class="contact-info">
+                            <div class="contact-name">Sarah (Sister)</div>
+                            <div class="contact-phone">+1 (555) 123-4567</div>
+                        </div>
+                        <div class="contact-actions">
+                            <button class="button contact-button" onclick="callContact('+15551234567')">📞 Call</button>
+                            <button class="button secondary contact-button" onclick="editContact(1)">✏️ Edit</button>
+                            <button class="button secondary contact-button" onclick="deleteContact(1)">🗑️</button>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-info">
+                            <div class="contact-name">Mike (Counselor)</div>
+                            <div class="contact-phone">+1 (555) 987-6543</div>
+                        </div>
+                        <div class="contact-actions">
+                            <button class="button contact-button" onclick="callContact('+15559876543')">📞 Call</button>
+                            <button class="button secondary contact-button" onclick="editContact(2)">✏️ Edit</button>
+                            <button class="button secondary contact-button" onclick="deleteContact(2)">🗑️</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Grounding Exercise Screen -->
+            <div id="grounding-screen" class="screen">
+                <div class="card" style="background-color: #7c3aed; color: white; padding: 10px;">
+                    <h2 class="card-title" style="color: white; font-size: 1.1rem; margin-bottom: 6px;">🧘 Grounding Exercise</h2>
+                    <p class="card-text" style="color: white; font-size: 0.9rem; margin-bottom: 8px;">
+                        Take a moment to ground yourself with breathing exercises and mindfulness techniques.
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Breathing Exercise</h3>
+                    <p class="card-text">Follow the breathing pattern to calm your mind and body.</p>
+                    
+                    <div id="breathing-container" style="text-align: center; margin: 12px 0;">
+                        <div id="breathing-circle" style="width: 150px; height: 150px; border-radius: 50%; background: linear-gradient(135deg, #60a5fa, #3b82f6); margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white; transition: all 4s ease-in-out; box-shadow: 0 8px 25px rgba(96, 165, 250, 0.4);">
+                            <span id="breathing-text">Breathe In</span>
+                        </div>
+                        <div id="breathing-instructions" style="font-size: 1rem; margin-bottom: 12px;">
+                            Breathe in for 4 seconds, hold for 4 seconds, breathe out for 4 seconds
+                        </div>
+                        <button id="breathing-start-btn" class="button" onclick="startBreathingExercise()" style="padding: 10px 20px; font-size: 0.9rem; border-radius: 25px; background: linear-gradient(135deg, #60a5fa, #3b82f6); box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); transition: all 0.3s ease;">🧘 Start Breathing</button>
+                        <button id="breathing-stop-btn" class="button secondary" onclick="stopBreathingExercise()" style="display: none; padding: 10px 20px; font-size: 0.9rem; margin-left: 12px; border-radius: 25px; background: linear-gradient(135deg, #6b7280, #4b5563); box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3); transition: all 0.3s ease;">⏹️ Stop</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">5-4-3-2-1 Grounding Technique</h3>
+                    <p class="card-text">Use your senses to ground yourself in the present moment.</p>
+                    
+                    <div id="grounding-steps">
+                        <div class="grounding-step">
+                            <h4>5 Things You Can See</h4>
+                            <textarea id="see-5" placeholder="Look around and name 5 things you can see..." rows="2" style="width: 100%; padding: 6px; border-radius: 4px; border: 1px solid #374151; background-color: #000000; color: #f9fafb; resize: vertical; font-size: 14px;"></textarea>
+                        </div>
+                        
+                        <div class="grounding-step">
+                            <h4>4 Things You Can Touch</h4>
+                            <textarea id="touch-4" placeholder="Name 4 things you can touch or feel..." rows="2" style="width: 100%; padding: 6px; border-radius: 4px; border: 1px solid #374151; background-color: #000000; color: #f9fafb; resize: vertical; font-size: 14px;"></textarea>
+                        </div>
+                        
+                        <div class="grounding-step">
+                            <h4>3 Things You Can Hear</h4>
+                            <textarea id="hear-3" placeholder="Listen and name 3 things you can hear..." rows="2" style="width: 100%; padding: 6px; border-radius: 4px; border: 1px solid #374151; background-color: #000000; color: #f9fafb; resize: vertical; font-size: 14px;"></textarea>
+                        </div>
+                        
+                        <div class="grounding-step">
+                            <h4>2 Things You Can Smell</h4>
+                            <textarea id="smell-2" placeholder="Name 2 things you can smell..." rows="2" style="width: 100%; padding: 6px; border-radius: 4px; border: 1px solid #374151; background-color: #000000; color: #f9fafb; resize: vertical; font-size: 14px;"></textarea>
+                        </div>
+                        
+                        <div class="grounding-step">
+                            <h4>1 Thing You Can Taste</h4>
+                            <textarea id="taste-1" placeholder="Name 1 thing you can taste..." rows="2" style="width: 100%; padding: 6px; border-radius: 4px; border: 1px solid #374151; background-color: #000000; color: #f9fafb; resize: vertical; font-size: 14px;"></textarea>
+                        </div>
+                    </div>
+                    
+                    <button class="button" onclick="saveGroundingExercise()" style="margin-top: 15px;">Save Exercise</button>
+                    <button class="button secondary" onclick="clearGroundingExercise()" style="margin-top: 15px; margin-left: 10px;">Clear</button>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Quick Grounding Tips</h3>
+                    <div class="grounding-tips">
+                        <div class="tip-item">
+                            <strong>💧 Cold Water</strong><br>
+                            Splash cold water on your face or hold an ice cube
+                        </div>
+                        <div class="tip-item">
+                            <strong>🏃‍♀️ Physical Movement</strong><br>
+                            Do 10 jumping jacks or walk around the room
+                        </div>
+                        <div class="tip-item">
+                            <strong>📞 Call Someone</strong><br>
+                            Reach out to a trusted friend or family member
+                        </div>
+                        <div class="tip-item">
+                            <strong>🎵 Music</strong><br>
+                            Listen to calming music or your favorite song
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Crisis Support Screen -->
+            <div id="crisis-screen" class="screen">
+                <div class="card">
+                    <h2 class="card-title">🚨 Crisis Support</h2>
+                    <p class="card-text">
+                        If you're in immediate danger or having thoughts of self-harm, please reach out for help now.
+                    </p>
+                    <div class="phone-number" style="background-color: #dc2626; color: white; font-size: 1.2rem; padding: 10px; text-align: center; margin: 10px 0; border-radius: 6px;">
+                        Call 911
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h2 class="card-title">Immediate Help Resources</h2>
+                <p class="card-text">
+                    <strong>National Problem Gambling Helpline:</strong><br>
+                    <div style="color: #dc2626 !important; font-weight: bold !important; font-size: 1.3rem !important; display: inline-block !important; margin: 4px 0 !important; background-color: transparent !important; border: none !important; text-decoration: none !important; font-family: inherit !important; width: auto !important; height: auto !important; padding: 0 !important;">1-800-522-4700</div>
+                </p>
+                    <p class="card-text">
+                        <strong>Crisis Text Line:</strong><br>
+                        Text HOME to <span class="text-number" onclick="textCrisisLine()">741741</span>
+                    </p>
+                    <p class="card-text">
+                        <strong>National Suicide Prevention Lifeline:</strong><br>
+                        <span class="phone-number">988</span>
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <h2 class="card-title">5-4-3-2-1 Grounding Exercise</h2>
+                    <p class="card-text">When you feel overwhelmed, use this technique to stay present:</p>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <strong>5 things you can see</strong> - Look around and name 5 things you can see
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>4 things you can touch</strong> - Name 4 things you can feel
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>3 things you can hear</strong> - Listen and name 3 sounds
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>2 things you can smell</strong> - Notice 2 different scents
+                    </div>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>1 thing you can taste</strong> - Focus on 1 taste in your mouth
+                    </div>
+                    <p class="card-text" style="margin-top: 15px; font-style: italic; color: #60a5fa;">
+                        Take 3 slow, deep breaths. You are safe. You are in control.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- SOS Screen -->
+            <div id="sos-screen" class="screen">
+                <div class="card" style="background-color: #ef4444; color: white;">
+                    <h2 class="card-title" style="color: white;">🆘 SOS Emergency Help</h2>
+                    <p class="card-text" style="color: white;">
+                        Your safety is the top priority. If you're in immediate danger, call 911 now.
+                    </p>
+                    <div class="phone-number" style="background-color: rgba(255,255,255,0.3); color: white; font-size: 1.2rem; padding: 10px; text-align: center; margin: 10px 0; border-radius: 6px;">
+                        Call 911
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h2 class="card-title">Emergency Contacts</h2>
+                    <p class="card-text">
+                        <strong>911 - Emergency Services</strong><br>
+                        For immediate danger or medical emergencies
+                    </p>
+                    <p class="card-text">
+                        <strong>National Suicide Prevention Lifeline</strong><br>
+                        <span class="phone-number">988</span> (24/7)
+                    </p>
+                    <p class="card-text">
+                        <strong>Crisis Text Line</strong><br>
+                        Text HOME to <span class="text-number" onclick="textCrisisLine()">741741</span>
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <h2 class="card-title">Your Trusted Contacts</h2>
+                    <p class="card-text">Quick access to your support network:</p>
+                    <div id="sos-trusted-contacts" style="margin: 15px 0;">
+                        <!-- Trusted contacts will be dynamically loaded here -->
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h2 class="card-title">Safety Plan</h2>
+                    <p class="card-text">
+                        <strong>If you're having thoughts of self-harm:</strong>
+                    </p>
+                    <ul style="color: #d1d5db; margin: 10px 0; padding-left: 20px;">
+                        <li>Call 911 or go to the nearest emergency room</li>
+                        <li>Call the National Suicide Prevention Lifeline: 988</li>
+                        <li>Text HOME to 741741 for crisis support</li>
+                        <li>Reach out to a trusted friend or family member</li>
+                        <li>Use grounding techniques to stay present</li>
+                    </ul>
+                    <button class="button" onclick="showScreen('grounding')" style="margin-top: 15px; background-color: #7c3aed;">
+                        🧘 Try Grounding Exercise
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Finance Screen -->
+            <div id="finance-screen" class="screen">
+                <div class="container">
+                    <h1 class="screen-title" style="font-size: 1.3rem; margin-bottom: 8px;">💰 Finance Summary</h1>
+                    <p class="screen-subtitle" style="font-size: 0.9rem; margin-bottom: 12px;">Track your financial recovery progress</p>
+                    
+                    <!-- Instructions Card -->
+                    <div class="card instructions-card">
+                        <h3 class="card-title">📋 How It Works</h3>
+                        <div class="instructions-content">
+                            <div class="instruction-step">
+                                <span class="step-number">1</span>
+                                <div class="step-content">
+                                    <strong>Write in your journal</strong> about gambling urges or money spent
+                                </div>
+                            </div>
+                            <div class="instruction-step">
+                                <span class="step-number">2</span>
+                                <div class="step-content">
+                                    <strong>Chat with the AI</strong> about your spending habits
+                                </div>
+                            </div>
+                            <div class="instruction-step">
+                                <span class="step-number">3</span>
+                                <div class="step-content">
+                                    <strong>See your savings</strong> calculated automatically
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Financial Summary -->
+                    <div class="card finance-summary-card">
+                        <h3 class="card-title">💵 Your Financial Recovery</h3>
+                        <div class="finance-stats">
+                            <div class="stat-item">
+                                <div class="stat-label">Money Saved</div>
+                                <div class="stat-value saved" id="money-saved">$0.00</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Money Spent</div>
+                                <div class="stat-value spent" id="money-spent">$0.00</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Net Savings</div>
+                                <div class="stat-value" id="net-savings">$0.00</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Days Gambling-Free</div>
+                                <div class="stat-value" id="finance-days-free">0</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Average Daily Savings</div>
+                                <div class="stat-value" id="daily-savings">$0.00</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Analysis -->
+                    <div class="card">
+                        <h3 class="card-title">📊 Recent Analysis</h3>
+                        <div id="finance-analysis">
+                            <p class="empty-message">Start writing in your journal to see financial analysis</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Manual Entry -->
+                    <div class="card">
+                        <h3 class="card-title">➕ Add Transaction</h3>
+                        <div class="transaction-form">
+                            <div class="form-group">
+                                <label>Type</label>
+                                <select id="transaction-type">
+                                    <option value="saved">Money Saved (not gambled)</option>
+                                    <option value="spent">Money Spent (on other things)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Amount ($)</label>
+                                <input type="number" id="transaction-amount" placeholder="0.00" step="0.01">
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <input type="text" id="transaction-description" placeholder="What did you do with this money?">
+                            </div>
+                            <button class="button" onclick="addTransaction()">Add Transaction</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Transaction History -->
+                    <div class="card">
+                        <h3 class="card-title">📈 Transaction History</h3>
+                        <div id="transaction-history">
+                            <p class="empty-message">No transactions yet</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data storage with localStorage
+        let contacts = JSON.parse(localStorage.getItem('endbet_contacts') || JSON.stringify([
+            { id: 1, name: 'Sarah (Sister)', phone: '+1 (555) 123-4567', relationship: 'Family' },
+            { id: 2, name: 'Mike (Counselor)', phone: '+1 (555) 987-6543', relationship: 'Counselor' }
+        ]));
+        
+        let journalEntries = JSON.parse(localStorage.getItem('endbet_journal') || JSON.stringify([
+            { id: 1, date: 'Today', content: 'Feeling more confident about my recovery journey.' },
+            { id: 2, date: 'Yesterday', content: 'Had a challenging moment but used grounding techniques.' },
+            { id: 3, date: '2 days ago', content: 'Completed all my daily tasks successfully.' }
+        ]));
+        
+        let tasks = JSON.parse(localStorage.getItem('endbet_tasks') || JSON.stringify([
+            { id: 1, description: 'Morning meditation', priority: 'low', completed: true },
+            { id: 2, description: 'Call support contact', priority: 'high', completed: false },
+            { id: 3, description: 'Write in journal', priority: 'medium', completed: false }
+        ]));
+        
+        let transactions = JSON.parse(localStorage.getItem('endbet_transactions') || JSON.stringify([]));
+        let financeAnalysis = JSON.parse(localStorage.getItem('endbet_finance_analysis') || JSON.stringify([]));
+        
+        // Helper functions for localStorage
+        function saveContacts() {
+            localStorage.setItem('endbet_contacts', JSON.stringify(contacts));
+        }
+        
+        // Daily task reset system
+        function checkAndResetDailyTasks() {
+            const today = new Date().toDateString();
+            const lastResetDate = localStorage.getItem('endbet_last_reset_date');
+            
+            if (lastResetDate !== today) {
+                // Reset ALL tasks to pending (uncompleted)
+                tasks = tasks.map(task => ({
+                    ...task,
+                    completed: false
+                }));
+                
+                // Save the reset tasks
+                saveTasks();
+                
+                // Update the last reset date
+                localStorage.setItem('endbet_last_reset_date', today);
+                
+                // Update the UI
+                updateTasksList();
+                updateGamblingCounter(); // Update gambling counter for new day
+                updateDashboardProgress();
+                
+                console.log('Daily tasks reset for new day! All tasks set to pending.');
+                
+                // Show a notification that tasks have been reset
+                setTimeout(() => {
+                    alert('🌅 Good morning! All your tasks have been reset to pending for a fresh start today.');
+                }, 500);
+            }
+        }
+        
+        // Gambling-free counter system
+        function updateGamblingCounter() {
+            const lastGamblingDate = localStorage.getItem('endbet_last_gambling_date');
+            const today = new Date();
+            
+            let gamblingFreeDays = 0;
+            
+            if (lastGamblingDate) {
+                const lastGambling = new Date(lastGamblingDate);
+                const timeDiff = today.getTime() - lastGambling.getTime();
+                gamblingFreeDays = Math.floor(timeDiff / (1000 * 3600 * 24));
+            } else {
+                // If no gambling date recorded, set it to today and start counting
+                localStorage.setItem('endbet_last_gambling_date', today.toISOString());
+                gamblingFreeDays = 0;
+            }
+            
+            // Update the counter display
+            const counterElement = document.getElementById('gambling-free-days');
+            if (counterElement) {
+                counterElement.textContent = gamblingFreeDays;
+                
+                // Update subtitle based on days
+                const subtitleElement = document.querySelector('.counter-subtitle');
+                if (subtitleElement) {
+                    subtitleElement.textContent = getMotivationalMessage(gamblingFreeDays);
+                }
+                
+                // Check for milestone celebrations
+                const milestones = [1, 7, 14, 30, 60, 90, 180, 365];
+                if (milestones.includes(gamblingFreeDays)) {
+                    setTimeout(() => {
+                        alert(`🎉 MILESTONE ACHIEVED! 🎉\n\nYou've been gambling-free for ${gamblingFreeDays} day${gamblingFreeDays > 1 ? 's' : ''}!\n\n${getMotivationalMessage(gamblingFreeDays)}`);
+                    }, 1000);
+                }
+            }
+            
+            return gamblingFreeDays;
+        }
+        
+        // Check for day changes and update counter
+        function checkForDayChange() {
+            const today = new Date().toDateString();
+            const lastCheckDate = localStorage.getItem('endbet_last_counter_check');
+            
+            if (lastCheckDate !== today) {
+                // New day detected, update counter
+                updateGamblingCounter();
+                updateDashboardFinancialSummary();
+                
+                // Update last check date
+                localStorage.setItem('endbet_last_counter_check', today);
+                
+                console.log('Day change detected - counter updated');
+            }
+        }
+        
+        function resetGamblingCounter() {
+            if (confirm('Are you sure you want to reset your gambling-free counter? This will set your days back to 0.')) {
+                const today = new Date().toISOString();
+                localStorage.setItem('endbet_last_gambling_date', today);
+                updateGamblingCounter();
+                alert('Counter reset. Remember, every journey starts with a single step. You\'ve got this!');
+            }
+        }
+        
+        function getMotivationalMessage(days) {
+            const messages = {
+                0: "Start your journey today!",
+                1: "Great start! Keep it up!",
+                2: "Two days strong! You're building momentum!",
+                3: "Three days in a row! You're on fire!",
+                4: "Four days! You're proving you can do this!",
+                5: "Five days! Halfway to a week!",
+                6: "Six days! Almost a full week!",
+                7: "One week! You're amazing!",
+                14: "Two weeks! You're unstoppable!",
+                30: "One month! You're a true champion!",
+                60: "Two months! Incredible dedication!",
+                90: "Three months! You're an inspiration!",
+                180: "Six months! Outstanding achievement!",
+                365: "One year! You're legendary!"
+            };
+            
+            // Find the appropriate message based on days
+            const milestones = Object.keys(messages).map(Number).sort((a, b) => b - a);
+            for (const milestone of milestones) {
+                if (days >= milestone) {
+                    return messages[milestone];
+                }
+            }
+            
+            return "Keep going! You're doing amazing!";
+        }
+        
+        function saveJournalEntries() {
+            localStorage.setItem('endbet_journal', JSON.stringify(journalEntries));
+        }
+        
+        function saveTasks() {
+            localStorage.setItem('endbet_tasks', JSON.stringify(tasks));
+        }
+        
+        function saveTransactions() {
+            localStorage.setItem('endbet_transactions', JSON.stringify(transactions));
+        }
+        
+        function saveFinanceAnalysis() {
+            localStorage.setItem('endbet_finance_analysis', JSON.stringify(financeAnalysis));
+        }
+        
+        // Finance Analysis Functions
+        function analyzeJournalForFinance() {
+            const gamblingKeywords = ['gambling', 'gamble', 'bet', 'casino', 'poker', 'slots', 'lottery', 'scratch', 'betting', 'wager'];
+            const moneyKeywords = ['dollar', 'money', 'cash', 'spent', 'lost', 'won', 'earned', 'saved'];
+            
+            let totalSaved = 0;
+            let analysis = [];
+            
+            journalEntries.forEach(entry => {
+                const content = entry.content.toLowerCase();
+                const hasGambling = gamblingKeywords.some(keyword => content.includes(keyword));
+                const hasMoney = moneyKeywords.some(keyword => content.includes(keyword));
+                
+                if (hasGambling || hasMoney) {
+                    // Extract money amounts from text
+                    const moneyMatches = content.match(/\$?(\d+(?:\.\d{2})?)/g);
+                    if (moneyMatches) {
+                        moneyMatches.forEach(match => {
+                            const amount = parseFloat(match.replace('$', ''));
+                            if (amount > 0 && amount < 10000) { // Reasonable range
+                                if (hasGambling && content.includes('saved') || content.includes('didn\'t gamble')) {
+                                    totalSaved += amount;
+                                    analysis.push({
+                                        date: entry.date,
+                                        type: 'saved',
+                                        amount: amount,
+                                        description: `Saved $${amount} by not gambling (from journal)`,
+                                        source: 'journal'
+                                    });
+                                } else if (hasGambling && (content.includes('lost') || content.includes('spent'))) {
+                                    analysis.push({
+                                        date: entry.date,
+                                        type: 'spent',
+                                        amount: amount,
+                                        description: `Previously lost $${amount} gambling (from journal)`,
+                                        source: 'journal'
+                                    });
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+            
+            // Save analysis
+            financeAnalysis = analysis;
+            saveFinanceAnalysis();
+            
+            return { totalSaved, analysis };
+        }
+        
+        function analyzeChatForFinance() {
+            // This would analyze chat messages for financial information
+            // For now, we'll use a simple approach
+            return { totalSaved: 0, analysis: [] };
+        }
+        
+        function calculateFinanceSummary() {
+            const journalAnalysis = analyzeJournalForFinance();
+            const chatAnalysis = analyzeChatForFinance();
+            
+            // Calculate totals from journal/chat analysis
+            const journalSaved = journalAnalysis.totalSaved;
+            const chatSaved = chatAnalysis.totalSaved;
+            
+            // Calculate totals from manual transactions
+            const transactionSaved = transactions
+                .filter(t => t.type === 'saved')
+                .reduce((sum, t) => sum + t.amount, 0);
+            
+            const transactionSpent = transactions
+                .filter(t => t.type === 'spent')
+                .reduce((sum, t) => sum + t.amount, 0);
+            
+            // Total saved = journal analysis + manual saved transactions
+            const totalSaved = journalSaved + chatSaved + transactionSaved;
+            const totalSpent = transactionSpent;
+            const netSavings = totalSaved - totalSpent;
+            
+            const gamblingFreeDays = updateGamblingCounter();
+            const dailySavings = gamblingFreeDays > 0 ? totalSaved / gamblingFreeDays : 0;
+            
+            return {
+                totalSaved: totalSaved,
+                totalSpent: totalSpent,
+                netSavings: netSavings,
+                gamblingFreeDays: gamblingFreeDays,
+                dailySavings: dailySavings,
+                analysis: [...journalAnalysis.analysis, ...chatAnalysis.analysis]
+            };
+        }
+        
+        function updateFinanceDisplay() {
+            const summary = calculateFinanceSummary();
+            
+            // Update summary stats
+            document.getElementById('money-saved').textContent = `$${summary.totalSaved.toFixed(2)}`;
+            document.getElementById('money-spent').textContent = `$${summary.totalSpent.toFixed(2)}`;
+            document.getElementById('net-savings').textContent = `$${summary.netSavings.toFixed(2)}`;
+            document.getElementById('finance-days-free').textContent = summary.gamblingFreeDays;
+            document.getElementById('daily-savings').textContent = `$${summary.dailySavings.toFixed(2)}`;
+            
+            // Update net savings color based on positive/negative
+            const netSavingsElement = document.getElementById('net-savings');
+            if (summary.netSavings >= 0) {
+                netSavingsElement.style.color = '#10b981';
+            } else {
+                netSavingsElement.style.color = '#ef4444';
+            }
+            
+            // Apply spent styling to money-spent element
+            const moneySpentElement = document.getElementById('money-spent');
+            moneySpentElement.className = 'stat-value spent';
+            
+            // Update analysis section
+            const analysisContainer = document.getElementById('finance-analysis');
+            if (summary.analysis.length > 0) {
+                analysisContainer.innerHTML = summary.analysis.slice(0, 5).map(item => `
+                    <div class="analysis-item">
+                        <div class="analysis-date">${item.date}</div>
+                        <div class="analysis-content">${item.description}</div>
+                    </div>
+                `).join('');
+            } else {
+                analysisContainer.innerHTML = '<p class="empty-message">Start writing in your journal to see financial analysis</p>';
+            }
+            
+            // Update transaction history
+            updateTransactionHistory();
+        }
+        
+        function addTransaction() {
+            const type = document.getElementById('transaction-type').value;
+            const amount = parseFloat(document.getElementById('transaction-amount').value);
+            const description = document.getElementById('transaction-description').value.trim();
+            
+            if (!amount || amount <= 0) {
+                alert('Please enter a valid amount.');
+                return;
+            }
+            
+            if (!description) {
+                alert('Please enter a description.');
+                return;
+            }
+            
+            const newTransaction = {
+                id: transactions.length + 1,
+                type: type,
+                amount: amount,
+                description: description,
+                date: new Date().toLocaleDateString(),
+                timestamp: new Date().toISOString()
+            };
+            
+            transactions.unshift(newTransaction);
+            saveTransactions();
+            updateTransactionHistory();
+            updateFinanceDisplay();
+            
+            // Clear form
+            document.getElementById('transaction-amount').value = '';
+            document.getElementById('transaction-description').value = '';
+            
+            alert('Transaction added successfully!');
+        }
+        
+        function updateTransactionHistory() {
+            const historyContainer = document.getElementById('transaction-history');
+            
+            if (transactions.length === 0) {
+                historyContainer.innerHTML = '<p class="empty-message">No transactions yet</p>';
+                return;
+            }
+            
+            historyContainer.innerHTML = transactions.map(transaction => `
+                <div class="transaction-item ${transaction.type}">
+                    <div class="transaction-info">
+                        <div style="font-weight: 500; color: #f9fafb;">${transaction.description}</div>
+                        <div style="font-size: 0.8rem; color: #9ca3af;">${transaction.date}</div>
+                    </div>
+                    <div class="transaction-amount ${transaction.type}">
+                        ${transaction.type === 'saved' ? '+' : '-'}$${transaction.amount.toFixed(2)}
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function clearAllData() {
+            if (confirm('Are you sure you want to clear all data? This will delete all contacts, journal entries, tasks, and finance data.')) {
+                localStorage.removeItem('endbet_contacts');
+                localStorage.removeItem('endbet_journal');
+                localStorage.removeItem('endbet_tasks');
+                localStorage.removeItem('endbet_transactions');
+                localStorage.removeItem('endbet_finance_analysis');
+                location.reload(); // Reload to reset to default data
+            }
+        }
+        
+        function resetDailyTasks() {
+            if (confirm('Reset all tasks to pending? This will mark all tasks (including custom ones) as uncompleted.')) {
+                // Reset ALL tasks to pending (uncompleted)
+                tasks = tasks.map(task => ({
+                    ...task,
+                    completed: false
+                }));
+                
+                // Save the reset tasks
+                saveTasks();
+                
+                // Update the last reset date to today
+                localStorage.setItem('endbet_last_reset_date', new Date().toDateString());
+                
+                // Update the UI
+                updateTasksList();
+                updateDashboardProgress();
+                
+                alert('✅ All tasks have been reset to pending!');
+            }
+        }
+        
+        function forceUpdateCounter() {
+            // Force update the gambling counter
+            updateGamblingCounter();
+            updateDashboardFinancialSummary();
+            updateDashboardProgress();
+            
+            // Show current status
+            const lastGamblingDate = localStorage.getItem('endbet_last_gambling_date');
+            const today = new Date();
+            let days = 0;
+            
+            if (lastGamblingDate) {
+                const lastGambling = new Date(lastGamblingDate);
+                const timeDiff = today.getTime() - lastGambling.getTime();
+                days = Math.floor(timeDiff / (1000 * 3600 * 24));
+            }
+            
+            alert(`Counter updated! Current status:\n\nDays gambling-free: ${days}\nLast gambling date: ${lastGamblingDate ? new Date(lastGamblingDate).toLocaleDateString() : 'Not set'}\nToday: ${today.toLocaleDateString()}`);
+        }
+        
+        function clearJournalEntries() {
+            if (confirm('Are you sure you want to clear all journal entries?')) {
+                journalEntries = [];
+                saveJournalEntries();
+                updateJournalEntries();
+                updateDashboardProgress();
+            }
+        }
+        
+        function updateDashboardProgress() {
+            // Count completed tasks
+            const completedTasks = tasks.filter(task => task.completed).length;
+            document.getElementById('completed-tasks-count').textContent = completedTasks;
+            
+            // Count journal entries
+            const journalCount = journalEntries.length;
+            document.getElementById('journal-entries-count').textContent = journalCount;
+            
+            // Count grounding exercises (from localStorage)
+            const groundingExercises = JSON.parse(localStorage.getItem('endbet_grounding') || '[]');
+            const groundingCount = groundingExercises.length;
+            document.getElementById('grounding-exercises-count').textContent = groundingCount;
+            
+            // Calculate total progress (tasks + journal + grounding)
+            const totalActivities = completedTasks + journalCount + groundingCount;
+            const maxActivities = 20; // Target for the week
+            const progressPercentage = Math.min((totalActivities / maxActivities) * 100, 100);
+            
+            // Update progress bar
+            const progressFill = document.getElementById('progress-fill');
+            progressFill.style.width = progressPercentage + '%';
+            
+            // Update progress text
+            const progressText = document.getElementById('progress-text');
+            if (totalActivities === 0) {
+                progressText.textContent = 'Start your journey! Complete a task or write in your journal.';
+            } else if (totalActivities < 5) {
+                progressText.textContent = 'Great start! Keep building momentum.';
+            } else if (totalActivities < 10) {
+                progressText.textContent = 'You\'re making excellent progress!';
+            } else if (totalActivities < 15) {
+                progressText.textContent = 'Outstanding! You\'re really committed to your recovery.';
+            } else {
+                progressText.textContent = 'Incredible! You\'re crushing your goals this week!';
+            }
+            
+            // Update financial summary on dashboard
+            updateDashboardFinancialSummary();
+        }
+        
+        function updateDashboardFinancialSummary() {
+            const summary = calculateFinanceSummary();
+            
+            // Update dashboard financial metrics
+            document.getElementById('dashboard-money-saved').textContent = `$${summary.totalSaved.toFixed(2)}`;
+            document.getElementById('dashboard-net-savings').textContent = `$${summary.netSavings.toFixed(2)}`;
+            document.getElementById('dashboard-daily-savings').textContent = `$${summary.dailySavings.toFixed(2)}`;
+            
+            // Update net savings color
+            const netSavingsElement = document.getElementById('dashboard-net-savings');
+            if (summary.netSavings >= 0) {
+                netSavingsElement.style.color = '#34d399';
+            } else {
+                netSavingsElement.style.color = '#f87171';
+            }
+        }
+        
+        function showScreen(screenName) {
+            // Hide all screens
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected screen
+            document.getElementById(screenName + '-screen').classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+            
+            // Scroll the clicked tab into view
+            event.target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'center'
+            });
+            
+            // Update dashboard progress if switching to dashboard
+            if (screenName === 'dashboard') {
+                checkAndResetDailyTasks(); // Check for daily reset
+                checkForDayChange(); // Check for day changes
+                updateGamblingCounter(); // Update gambling-free counter
+                updateDashboardProgress();
+            }
+            
+            // Update finance display if switching to finance
+            if (screenName === 'finance') {
+                updateFinanceDisplay();
+            }
+        }
+        
+        function showCrisisSupport() {
+            showScreen('crisis');
+            // Force helpline number to be red when crisis screen is shown
+            setTimeout(() => {
+                console.log('Crisis screen shown, fixing helpline color...');
+                const allElements = document.querySelectorAll('*');
+                allElements.forEach(element => {
+                    if (element.textContent && element.textContent.includes('1-800-522-4700')) {
+                        console.log('Found helpline in crisis screen:', element.tagName);
+                        element.style.color = '#dc2626';
+                        element.style.fontWeight = 'bold';
+                        element.style.fontSize = '1.3rem';
+                        element.style.backgroundColor = 'transparent';
+                        element.style.border = 'none';
+                        element.style.textDecoration = 'none';
+                        element.style.outline = 'none';
+                        element.style.boxShadow = 'none';
+                    }
+                });
+            }, 50);
+        }
+        
+        function showSOS() {
+            showScreen('sos');
+        }
+        
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const sendBtn = document.getElementById('send-btn');
+            const message = input.value.trim();
+            
+            if (message && !input.disabled) {
+                // Disable input while processing
+                input.disabled = true;
+                sendBtn.disabled = true;
+                sendBtn.textContent = 'Sending...';
+                
+                // Add user message
+                addChatMessage('user', message);
+                
+                // Add thinking message
+                addThinkingMessage();
+                
+                // Clear input
+                input.value = '';
+                
+                // Generate AI response
+                setTimeout(() => {
+                    generateAIResponse(message);
+                }, 1500 + Math.random() * 2000); // Random delay between 1.5-3.5 seconds
+            }
+        }
+        
+        function addChatMessage(role, content) {
+            const messagesContainer = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${role}`;
+            messageDiv.innerHTML = `<div class="message-bubble">${content}</div>`;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+        
+        function addThinkingMessage() {
+            const messagesContainer = document.getElementById('chat-messages');
+            const thinkingDiv = document.createElement('div');
+            thinkingDiv.className = 'message assistant';
+            thinkingDiv.id = 'thinking-message';
+            
+            thinkingDiv.innerHTML = `
+                <div class="thinking-message">
+                    AI is thinking
+                    <div class="thinking-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            `;
+            
+            messagesContainer.appendChild(thinkingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+        
+        function removeThinkingMessage() {
+            const thinkingMsg = document.getElementById('thinking-message');
+            if (thinkingMsg) {
+                thinkingMsg.remove();
+            }
+        }
+        
+        function generateAIResponse(userMessage) {
+            // Remove thinking message
+            removeThinkingMessage();
+            
+            // Generate contextual response
+            const response = getAIResponse(userMessage);
+            
+            // Add AI response
+            addChatMessage('assistant', response);
+            
+            // Re-enable input
+            const input = document.getElementById('chat-input');
+            const sendBtn = document.getElementById('send-btn');
+            input.disabled = false;
+            sendBtn.disabled = false;
+            sendBtn.textContent = 'Send';
+            input.focus();
+        }
+        
+        function getAIResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            // Create a more dynamic response system
+            const responseCategories = [];
+            
+            // Check for multiple topics and add them to categories
+            if (lowerMessage.includes('recovery') || lowerMessage.includes('addiction') || lowerMessage.includes('sober')) {
+                responseCategories.push('recovery');
+            }
+            if (lowerMessage.includes('gambling') || lowerMessage.includes('gambeling') || lowerMessage.includes('gamble') || lowerMessage.includes('betting') || lowerMessage.includes('bet') || lowerMessage.includes('casino') || lowerMessage.includes('poker') || lowerMessage.includes('slots') || lowerMessage.includes('stop gambling') || lowerMessage.includes('quit gambling') || lowerMessage.includes('gambling addiction') || lowerMessage.includes('gambling problem')) {
+                responseCategories.push('gambling');
+            }
+            if (lowerMessage.includes('sad') || lowerMessage.includes('depressed') || lowerMessage.includes('down') || lowerMessage.includes('upset')) {
+                responseCategories.push('emotional');
+            }
+            if (lowerMessage.includes('anxious') || lowerMessage.includes('anxiety') || lowerMessage.includes('stressed') || lowerMessage.includes('worried') || lowerMessage.includes('panic')) {
+                responseCategories.push('anxiety');
+            }
+            if (lowerMessage.includes('angry') || lowerMessage.includes('mad') || lowerMessage.includes('frustrated') || lowerMessage.includes('irritated')) {
+                responseCategories.push('anger');
+            }
+            if (lowerMessage.includes('happy') || lowerMessage.includes('good') || lowerMessage.includes('great') || lowerMessage.includes('excited')) {
+                responseCategories.push('positive');
+            }
+            if (lowerMessage.includes('tired') || lowerMessage.includes('exhausted') || lowerMessage.includes('sleep') || lowerMessage.includes('energy')) {
+                responseCategories.push('energy');
+            }
+            if (lowerMessage.includes('family') || lowerMessage.includes('friend') || lowerMessage.includes('relationship') || lowerMessage.includes('social')) {
+                responseCategories.push('relationships');
+            }
+            if (lowerMessage.includes('work') || lowerMessage.includes('job') || lowerMessage.includes('career') || lowerMessage.includes('money')) {
+                responseCategories.push('work');
+            }
+            if (lowerMessage.includes('app') || lowerMessage.includes('feature') || lowerMessage.includes('function') || lowerMessage.includes('tool')) {
+                responseCategories.push('app');
+            }
+            if (lowerMessage.includes('help') || lowerMessage.includes('support') || lowerMessage.includes('advice')) {
+                responseCategories.push('help');
+            }
+            if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey') || lowerMessage.includes('greetings')) {
+                responseCategories.push('greeting');
+            }
+            if (lowerMessage.includes('how are you') || lowerMessage.includes('how do you feel') || lowerMessage.includes('what\'s up')) {
+                responseCategories.push('how_are_you');
+            }
+            
+            // If no specific categories, use general responses
+            if (responseCategories.length === 0) {
+                responseCategories.push('general');
+            }
+            
+            // Select a random category and get response
+            const selectedCategory = responseCategories[Math.floor(Math.random() * responseCategories.length)];
+            
+            const responses = {
+                recovery: [
+                    "I understand you're dealing with gambling addiction, and I want you to know that recovery is absolutely possible. Here are some proven strategies: 1) Self-exclusion - Block gambling sites and apps on all devices, 2) Financial barriers - Give someone you trust control of your money, 3) Replace the habit - Find new activities that give you excitement, 4) Support groups - Consider Gamblers Anonymous or similar programs. What's your biggest trigger right now?",
+                    "Stopping gambling requires a multi-layered approach. Here are practical steps: 1) Identify your triggers - What situations make you want to gamble? 2) Create barriers - Use website blockers, remove payment methods, 3) Build a support network - Tell trusted people about your goal, 4) Find alternatives - Exercise, hobbies, or social activities, 5) Professional help - Consider therapy or counseling. Which of these feels most doable for you right now?",
+                    "Recovery from gambling addiction is challenging but very achievable. Key strategies include: 1) Complete abstinence - No 'just one bet' or 'small amounts', 2) Financial management - Have someone else handle your money temporarily, 3) Environmental changes - Avoid places where you used to gamble, 4) Emotional support - Connect with others who understand, 5) Professional treatment - Consider specialized gambling addiction therapy. What's been your experience with any of these approaches?",
+                    "You're taking a huge step by wanting to stop gambling. Here's what works: 1) Immediate action - Block all gambling sites and apps right now, 2) Financial safety - Put your money in accounts you can't easily access, 3) Accountability - Tell someone you trust about your goal, 4) Replacement activities - Find something else that gives you a rush, 5) Support - Join a group or get professional help. What's your biggest concern about stopping?",
+                    "Gambling addiction recovery requires both practical and emotional strategies. Practical: Remove access to money, block gambling sites, avoid triggers. Emotional: Address underlying issues like stress or depression, build healthy coping skills, create a support system. The key is taking it one day at a time and being kind to yourself when you struggle. What's been the hardest part of trying to stop?",
+                    "Recovery from gambling is absolutely possible with the right approach. Here are evidence-based strategies: 1) Cognitive Behavioral Therapy (CBT) - Helps change gambling thoughts, 2) Financial counseling - Learn to manage money without gambling, 3) Medication - Some people benefit from addiction medications, 4) Support groups - Connect with others in recovery, 5) Lifestyle changes - Build a fulfilling life without gambling. What support do you have in your life right now?"
+                ],
+                gambling: [
+                    "I understand you're struggling with gambling, and I want to help you with specific strategies to stop. Here's what works: 1) IMMEDIATE ACTION - Block all gambling websites and apps on your phone and computer right now, 2) FINANCIAL SAFETY - Give your bank cards to someone you trust, or use a financial app that blocks gambling transactions, 3) TRIGGER IDENTIFICATION - What situations make you want to gamble? (boredom, stress, loneliness?), 4) REPLACEMENT ACTIVITIES - Find something else that gives you excitement (exercise, video games, hobbies), 5) SUPPORT - Tell someone you trust about your goal. What's your biggest trigger?",
+                    "Stopping gambling is absolutely possible with the right approach. Here are proven strategies: 1) Self-exclusion programs - Register with gambling sites to permanently ban yourself, 2) Financial barriers - Use prepaid cards with limited funds, or have someone else manage your money, 3) Environmental changes - Avoid places where you used to gamble, 4) Professional help - Consider therapy specifically for gambling addiction, 5) Support groups - Gamblers Anonymous meetings (online or in-person), 6) Medication - Some people benefit from addiction medications. Which of these feels most helpful for you?",
+                    "You're taking a huge step by wanting to stop gambling. Here are actionable strategies: 1) BLOCK EVERYTHING - Use website blockers like Cold Turkey or Freedom, block gambling apps, 2) MONEY MANAGEMENT - Put your money in accounts that require two people to access, 3) ACCOUNTABILITY - Tell family/friends about your goal, ask them to check in, 4) HEALTHY ALTERNATIVES - Find activities that give you the same rush (sports, music, art, gaming), 5) EMERGENCY PLAN - When you feel the urge, call someone, go for a walk, or use the grounding exercises in this app. What's been your biggest challenge so far?",
+                    "Gambling addiction recovery requires both practical and emotional strategies. Practical steps: Remove all access to money, block all gambling sites, avoid triggers, get professional help. Emotional steps: Address underlying issues (depression, anxiety, trauma), build healthy coping skills, create a strong support system. The key is taking it one day at a time and being kind to yourself. What's been the hardest part of trying to stop?",
+                    "Recovery from gambling is challenging but very achievable. Here are evidence-based strategies: 1) Complete abstinence - No 'just one bet' or 'small amounts', 2) Cognitive Behavioral Therapy (CBT) - Helps change gambling thoughts and behaviors, 3) Financial counseling - Learn to manage money without gambling, 4) Support groups - Connect with others who understand, 5) Lifestyle changes - Build a fulfilling life without gambling, 6) Professional treatment - Consider specialized gambling addiction therapy. What support do you have in your life right now?",
+                    "I want to help you stop gambling with specific, actionable strategies. Here's what works: 1) IMMEDIATE BARRIERS - Block all gambling sites and apps on every device, 2) FINANCIAL PROTECTION - Use apps like Gamban or BetBlocker, give someone else control of your money, 3) TRIGGER MANAGEMENT - Identify what makes you want to gamble and create a plan, 4) REPLACEMENT ACTIVITIES - Find new hobbies that give you excitement and purpose, 5) SUPPORT NETWORK - Tell trusted people about your goal, join Gamblers Anonymous, 6) PROFESSIONAL HELP - Consider therapy or counseling. What's your biggest concern about stopping?"
+                ],
+                emotional: [
+                    "I hear that you're feeling down, and I want you to know that your feelings are valid. It's okay to not be okay sometimes. What's been weighing on your mind?",
+                    "Feeling sad is a natural part of being human. You don't have to go through this alone. What would feel supportive to you right now?",
+                    "I'm sorry you're going through a difficult time. Remember that this feeling is temporary, even when it doesn't feel that way. What's one small thing that usually brings you comfort?",
+                    "Your emotions are important, and it's brave of you to share them. Sometimes just talking about what we're feeling can help. What's on your heart today?",
+                    "It takes strength to acknowledge difficult emotions. You're not alone in this. What's been the hardest part of what you're experiencing?",
+                    "Emotions can feel overwhelming sometimes. It's okay to feel whatever you're feeling. What would help you feel a little better right now?"
+                ],
+                anxiety: [
+                    "Anxiety can feel overwhelming, but you're not alone in this. Have you tried any grounding techniques? The breathing exercise in this app might help.",
+                    "I understand anxiety can make everything feel uncertain. What's one thing that usually helps you feel more grounded?",
+                    "Anxiety is your body's way of trying to protect you, even when it doesn't feel helpful. What's making you feel most anxious right now?",
+                    "It's completely normal to feel anxious, especially during challenging times. What would help you feel more supported right now?",
+                    "Anxiety can make everything feel bigger than it is. Sometimes it helps to break things down. What's one small step you could take?",
+                    "I hear that anxiety is affecting you. That must be really difficult. What usually helps you when you're feeling this way?"
+                ],
+                anger: [
+                    "I can sense that you're feeling angry or frustrated. Those are completely valid emotions. What's been making you feel this way?",
+                    "Anger can be a powerful emotion, and sometimes it's telling us something important. What's underneath this feeling for you?",
+                    "It sounds like you're dealing with some strong emotions right now. That's okay - it's human. What would help you process this?",
+                    "Anger often comes from feeling hurt or powerless. What's making you feel this way, and how can I support you?",
+                    "I hear your frustration. Sometimes anger is a signal that something needs to change. What would you like to be different?",
+                    "It's okay to feel angry. These emotions are part of being human. What's been the most frustrating part of your situation?"
+                ],
+                positive: [
+                    "That's wonderful to hear! I'm so glad you're feeling good. What's contributing to this positive feeling?",
+                    "It's great that you're experiencing some positive emotions! What's been going well for you lately?",
+                    "I love hearing about positive moments! These are so important to celebrate. What made today (or recently) feel good?",
+                    "That's fantastic! Positive feelings are worth savoring. What's been the highlight of your day or week?",
+                    "I'm really happy to hear that you're feeling good! What's been working well for you?",
+                    "It's wonderful when we can recognize and appreciate positive moments. What's bringing you joy right now?"
+                ],
+                energy: [
+                    "It sounds like energy levels are on your mind. How are you feeling physically and mentally right now?",
+                    "Energy can really affect how we feel about everything else. What's been impacting your energy levels?",
+                    "Sometimes when we're tired, everything feels harder. What's been draining your energy lately?",
+                    "Energy management is so important for wellbeing. What usually helps you feel more energized?",
+                    "I hear that energy is a concern for you. What would help you feel more rested and recharged?",
+                    "Energy levels can really affect our mood and motivation. What's been affecting yours recently?"
+                ],
+                relationships: [
+                    "Relationships can be both supportive and challenging. What's going on with the people in your life?",
+                    "It sounds like relationships are on your mind. How are things with the important people in your life?",
+                    "Relationships are such an important part of our wellbeing. What's been happening in your social connections?",
+                    "I hear that relationships are affecting you. What's been the most challenging or supportive aspect?",
+                    "Relationships can be complicated. What would you like to be different in your connections with others?",
+                    "It sounds like you're thinking about relationships. What's been on your mind regarding the people in your life?"
+                ],
+                work: [
+                    "Work can really impact how we feel overall. What's been going on in your professional life?",
+                    "It sounds like work is on your mind. How are things going in that area of your life?",
+                    "Work stress can affect everything else. What's been challenging or positive about work lately?",
+                    "I hear that work is affecting you. What would help you feel more balanced in this area?",
+                    "Work-life balance can be tricky. What's been the most stressful or rewarding part recently?",
+                    "It sounds like work is a concern. What would you like to be different in this area of your life?"
+                ],
+                app: [
+                    "This app has several features to support you: journaling for reflection, grounding exercises for anxiety, task management, trusted contacts, and crisis resources. Which feature interests you most?",
+                    "I can help you explore the app's features! There's journaling, breathing exercises, task tracking, contact management, and emergency resources. What would you like to know more about?",
+                    "The app is designed to be your recovery companion. You can journal your thoughts, use grounding techniques, manage tasks, and access crisis support. How can I help you make the most of these tools?",
+                    "This app is here to support your wellbeing with various tools and resources. Each feature is designed to help you in different ways. What aspect would you like to explore?",
+                    "I'm here to help you navigate the app! There are many features designed to support your mental health and recovery. What would be most helpful for you right now?",
+                    "The app has different tools for different needs. What specific support are you looking for today?"
+                ],
+                help: [
+                    "I'm here to help in whatever way I can. You can talk to me about anything - your feelings, questions, or just to have a conversation. What do you need support with?",
+                    "I'm designed to be supportive and non-judgmental. Whether you need to vent, ask questions, or just chat, I'm here. What's on your mind?",
+                    "I want to help you feel supported. You can use the grounding exercises, journal, or crisis resources in this app, or just talk to me. What feels most helpful right now?",
+                    "I'm here to listen and support you. Sometimes just talking things through can help. What would be most helpful for you to discuss right now?",
+                    "I'm designed to be a supportive companion. What kind of help or support are you looking for today?",
+                    "I'm here to help however I can. What's the most important thing I can do to support you right now?"
+                ],
+                greeting: [
+                    "Hello! It's great to hear from you. I'm here to chat about anything you'd like - your day, your feelings, questions, or just to have a conversation. What's on your mind?",
+                    "Hi there! I'm your AI companion, and I'm here to listen and support you. What would you like to talk about today?",
+                    "Hey! Thanks for reaching out. I'm here to help with whatever you need - whether that's emotional support, answering questions, or just having a friendly chat. What's going on?",
+                    "Hello! I'm glad you're here. I'm designed to be a supportive listener and can discuss any topic you're interested in. What's on your heart today?",
+                    "Hi! It's wonderful to connect with you. I'm here to listen and support you in whatever way I can. What would you like to talk about?",
+                    "Hey there! I'm your AI companion, ready to chat about anything that's on your mind. What's going on in your world today?"
+                ],
+                how_are_you: [
+                    "I'm here and ready to listen! I don't have feelings like humans do, but I'm designed to be supportive and helpful. How are you doing today?",
+                    "I'm functioning well and here to help however I can. I'm curious about how you're feeling - what's on your mind?",
+                    "I'm doing well, thank you for asking! I'm here to support you. What would you like to talk about today?",
+                    "I'm here and ready to chat! I don't experience emotions, but I'm designed to be empathetic and helpful. How can I support you today?",
+                    "I'm doing great, thanks for asking! I'm here to listen and support you. How are you feeling today?",
+                    "I'm functioning well and ready to help! I don't have feelings like humans, but I'm designed to be supportive. What's on your mind?"
+                ],
+                general: [
+                    "I'm here to listen and support you. It sounds like you're sharing something important. Can you tell me more about what's on your mind?",
+                    "I appreciate you opening up to me. What you're sharing seems meaningful to you. How are you feeling about this situation?",
+                    "That's really interesting, and I want to understand better. What's been your experience with this? How has it been affecting you?",
+                    "I'm listening and I care about what you're going through. What would be most helpful for you to talk about right now?",
+                    "Thank you for sharing that with me. It takes courage to open up. What's been the most challenging part of this for you?",
+                    "I'm here to support you however I can. What you're sharing sounds important. What would help you feel better about this?",
+                    "I appreciate you being open with me. What you're experiencing sounds significant. How can I best support you right now?",
+                    "That's a thoughtful perspective, and I want to understand more. What's been your journey with this? How are you coping?",
+                    "I'm really interested in what you're sharing. It sounds like this has been impactful for you. What's been the hardest part?",
+                    "I'm here to listen and help however I can. What you're sharing seems important to you. What support do you need right now?",
+                    "Thank you for trusting me with this. I want to understand better. What's been your experience, and how are you feeling about it?",
+                    "I appreciate you opening up. What you're sharing sounds meaningful. What would be most helpful for you to discuss right now?"
+                ]
+            };
+            
+            const categoryResponses = responses[selectedCategory] || responses.general;
+            return categoryResponses[Math.floor(Math.random() * categoryResponses.length)];
+        }
+        
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+        
+        function showAddJournalForm() {
+            document.getElementById('add-journal-form').classList.remove('hidden');
+            // Set today's date as default
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('journal-date').value = today;
+        }
+        
+        function hideAddJournalForm() {
+            document.getElementById('add-journal-form').classList.add('hidden');
+            document.getElementById('journal-date').value = '';
+            document.getElementById('journal-entry').value = '';
+        }
+        
+        function addJournalEntry() {
+            const date = document.getElementById('journal-date').value;
+            const content = document.getElementById('journal-entry').value.trim();
+            
+            if (!content) {
+                alert('Please write something in your journal entry.');
+                return;
+            }
+            
+            const newEntry = {
+                id: journalEntries.length + 1,
+                date: formatDate(date),
+                content: content
+            };
+            
+            journalEntries.unshift(newEntry); // Add to beginning of array
+            saveJournalEntries();
+            updateJournalEntries();
+            
+            // Mark journal-related tasks as completed
+            const journalTasks = tasks.filter(task => 
+                !task.completed && 
+                (task.description.toLowerCase().includes('write in journal') ||
+                 task.description.toLowerCase().includes('journal') || 
+                 task.description.toLowerCase().includes('write') ||
+                 task.description.toLowerCase().includes('reflect'))
+            );
+            
+            if (journalTasks.length > 0) {
+                journalTasks.forEach(task => {
+                    task.completed = true;
+                });
+                saveTasks();
+                updateTasksList();
+                
+                // Show confirmation message
+                setTimeout(() => {
+                    if (journalTasks.length === 1) {
+                        alert(`Great job! "${journalTasks[0].description}" task marked as completed.`);
+                    } else {
+                        alert(`Excellent! ${journalTasks.length} journal-related tasks marked as completed.`);
+                    }
+                }, 100);
+            }
+            
+            updateDashboardProgress();
+            updateFinanceDisplay(); // Update finance analysis
+            hideAddJournalForm();
+        }
+        
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const today = new Date();
+            const yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+            
+            if (date.toDateString() === today.toDateString()) {
+                return 'Today';
+            } else if (date.toDateString() === yesterday.toDateString()) {
+                return 'Yesterday';
+            } else {
+                return date.toLocaleDateString('en-US', { 
+                    month: 'short', 
+                    day: 'numeric',
+                    year: date.getFullYear() !== today.getFullYear() ? 'numeric' : undefined
+                });
+            }
+        }
+        
+        function updateJournalEntries() {
+            const entriesContainer = document.getElementById('journal-entries');
+            entriesContainer.innerHTML = '';
+            
+            if (journalEntries.length === 0) {
+                entriesContainer.innerHTML = '<p class="card-text" style="color: #9ca3af; font-style: italic; text-align: center; padding: 20px;">No journal entries yet. Click "New Entry" to start writing!</p>';
+                return;
+            }
+            
+            journalEntries.forEach(entry => {
+                const entryDiv = document.createElement('div');
+                entryDiv.className = 'journal-entry';
+                entryDiv.innerHTML = `
+                    <div class="journal-date">${entry.date}</div>
+                    <div class="journal-content">${entry.content}</div>
+                `;
+                entriesContainer.appendChild(entryDiv);
+            });
+        }
+        
+        function showAddTaskForm() {
+            document.getElementById('add-task-form').classList.remove('hidden');
+        }
+        
+        function hideAddTaskForm() {
+            document.getElementById('add-task-form').classList.add('hidden');
+            document.getElementById('task-description').value = '';
+            document.getElementById('task-priority').value = 'medium';
+        }
+        
+        function addTask() {
+            const description = document.getElementById('task-description').value.trim();
+            const priority = document.getElementById('task-priority').value;
+            
+            if (!description) {
+                alert('Please enter a task description.');
+                return;
+            }
+            
+            const newTask = {
+                id: tasks.length + 1,
+                description: description,
+                priority: priority,
+                completed: false
+            };
+            
+            tasks.push(newTask);
+            saveTasks();
+            updateTasksList();
+            updateDashboardProgress();
+            hideAddTaskForm();
+        }
+        
+        function toggleTask(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            if (task) {
+                task.completed = !task.completed;
+                saveTasks();
+                updateTasksList();
+                updateDashboardProgress();
+            }
+        }
+        
+        function deleteTask(taskId) {
+            if (confirm('Are you sure you want to delete this task?')) {
+                tasks = tasks.filter(t => t.id !== taskId);
+                saveTasks();
+                updateTasksList();
+                updateDashboardProgress();
+            }
+        }
+        
+        function updateTasksList() {
+            const tasksContainer = document.getElementById('tasks-list');
+            tasksContainer.innerHTML = '';
+            
+            tasks.forEach(task => {
+                const taskDiv = document.createElement('div');
+                taskDiv.className = 'task-item';
+                taskDiv.innerHTML = `
+                    <div class="task-info">
+                        <div class="task-description" style="${task.completed ? 'text-decoration: line-through; opacity: 0.7;' : ''}">${task.description}</div>
+                        <div class="task-priority ${task.priority}">${task.priority.charAt(0).toUpperCase() + task.priority.slice(1)} Priority</div>
+                    </div>
+                    <div class="task-actions">
+                        <button class="button ${task.completed ? '' : 'secondary'} task-button" onclick="toggleTask(${task.id})">
+                            ${task.completed ? '✓ Done' : 'Pending'}
+                        </button>
+                        <button class="button secondary task-button" onclick="deleteTask(${task.id})">🗑️</button>
+                    </div>
+                `;
+                tasksContainer.appendChild(taskDiv);
+            });
+        }
+        
+        function showAddContactForm() {
+            document.getElementById('add-contact-form').classList.remove('hidden');
+        }
+        
+        function hideAddContactForm() {
+            document.getElementById('add-contact-form').classList.add('hidden');
+            document.getElementById('contact-name').value = '';
+            document.getElementById('contact-phone').value = '';
+            document.getElementById('contact-relationship').value = '';
+        }
+        
+        function addContact() {
+            const name = document.getElementById('contact-name').value.trim();
+            const phone = document.getElementById('contact-phone').value.trim();
+            const relationship = document.getElementById('contact-relationship').value.trim();
+            
+            if (!name || !phone) {
+                alert('Please fill in name and phone number.');
+                return;
+            }
+            
+            const newContact = {
+                id: contacts.length + 1,
+                name: `${name} (${relationship || 'Contact'})`,
+                phone: phone,
+                relationship: relationship || 'Contact'
+            };
+            
+            contacts.push(newContact);
+            saveContacts();
+            updateContactsList();
+            updateSOSTrustedContacts();
+            hideAddContactForm();
+        }
+        
+        function deleteContact(contactId) {
+            if (confirm('Are you sure you want to delete this contact?')) {
+                contacts = contacts.filter(c => c.id !== contactId);
+                saveContacts();
+                updateContactsList();
+                updateSOSTrustedContacts();
+            }
+        }
+        
+        function updateContactsList() {
+            const contactsList = document.getElementById('contacts-list');
+            contactsList.innerHTML = '';
+            
+            contacts.forEach(contact => {
+                const contactDiv = document.createElement('div');
+                contactDiv.className = 'contact-item';
+                contactDiv.innerHTML = `
+                    <div class="contact-info">
+                        <div class="contact-name">${contact.name}</div>
+                        <div class="contact-phone">${contact.phone}</div>
+                    </div>
+                    <div class="contact-actions">
+                        <button class="button contact-button" onclick="callContact('${contact.phone}')">📞 Call</button>
+                        <button class="button secondary contact-button" onclick="editContact(${contact.id})">✏️ Edit</button>
+                        <button class="button secondary contact-button" onclick="deleteContact(${contact.id})">🗑️</button>
+                    </div>
+                `;
+                contactsList.appendChild(contactDiv);
+            });
+        }
+        
+        function updateSOSTrustedContacts() {
+            const sosContactsContainer = document.getElementById('sos-trusted-contacts');
+            sosContactsContainer.innerHTML = '';
+            
+            if (contacts.length === 0) {
+                sosContactsContainer.innerHTML = '<p class="card-text" style="color: #9ca3af; font-style: italic;">No trusted contacts added yet. Add contacts in the Contacts tab.</p>';
+                return;
+            }
+            
+            contacts.forEach(contact => {
+                const contactButton = document.createElement('button');
+                contactButton.className = 'button';
+                contactButton.style.cssText = 'width: 100%; margin: 5px 0;';
+                contactButton.innerHTML = `📞 Call ${contact.name}`;
+                contactButton.onclick = () => callContact(contact.phone);
+                sosContactsContainer.appendChild(contactButton);
+            });
+        }
+        
+        function callContact(phone) {
+            // Mark relevant call tasks as completed
+            const callTasks = tasks.filter(task => 
+                !task.completed && 
+                task.description.toLowerCase().includes('call') && 
+                (task.description.toLowerCase().includes('support') || 
+                 task.description.toLowerCase().includes('contact') ||
+                 task.description.toLowerCase().includes('family') ||
+                 task.description.toLowerCase().includes('friend') ||
+                 task.description.toLowerCase().includes('counselor'))
+            );
+            
+            if (callTasks.length > 0) {
+                callTasks.forEach(task => {
+                    task.completed = true;
+                });
+                
+                saveTasks();
+                updateTasksList();
+                updateDashboardProgress();
+                
+                // Show a brief confirmation
+                setTimeout(() => {
+                    if (callTasks.length === 1) {
+                        alert(`Great job! "${callTasks[0].description}" task marked as completed.`);
+                    } else {
+                        alert(`Excellent! ${callTasks.length} call-related tasks marked as completed.`);
+                    }
+                }, 100);
+            }
+            
+            // Make the phone call
+            window.location.href = `tel:${phone}`;
+        }
+        
+        function textCrisisLine() {
+            window.location.href = `sms:741741&body=HOME`;
+        }
+        
+        // Grounding Exercise Functions
+        let breathingInterval;
+        let breathingPhase = 0; // 0: breathe in, 1: hold, 2: breathe out, 3: hold
+        
+        function startBreathingExercise() {
+            const startBtn = document.getElementById('breathing-start-btn');
+            const stopBtn = document.getElementById('breathing-stop-btn');
+            const circle = document.getElementById('breathing-circle');
+            const text = document.getElementById('breathing-text');
+            const instructions = document.getElementById('breathing-instructions');
+            
+            startBtn.style.display = 'none';
+            stopBtn.style.display = 'inline-block';
+            instructions.textContent = 'Follow the circle - breathe in, hold, breathe out, hold';
+            
+            breathingPhase = 0;
+            
+            // Function to update breathing state
+            const updateBreathingState = () => {
+                switch(breathingPhase) {
+                    case 0: // Breathe in
+                        text.textContent = 'Breathe In';
+                        circle.style.transform = 'scale(1.2)';
+                        circle.style.background = 'linear-gradient(135deg, #3b82f6, #2563eb)';
+                        break;
+                    case 1: // Hold
+                        text.textContent = 'Hold';
+                        circle.style.transform = 'scale(1.2)';
+                        circle.style.background = 'linear-gradient(135deg, #3b82f6, #2563eb)';
+                        break;
+                    case 2: // Breathe out
+                        text.textContent = 'Breathe Out';
+                        circle.style.transform = 'scale(1)';
+                        circle.style.background = 'linear-gradient(135deg, #60a5fa, #3b82f6)';
+                        break;
+                    case 3: // Hold
+                        text.textContent = 'Hold';
+                        circle.style.transform = 'scale(1)';
+                        circle.style.background = 'linear-gradient(135deg, #60a5fa, #3b82f6)';
+                        break;
+                }
+                
+                breathingPhase = (breathingPhase + 1) % 4;
+            };
+            
+            // Start immediately
+            updateBreathingState();
+            
+            // Then continue with interval
+            breathingInterval = setInterval(updateBreathingState, 4000); // 4 seconds per phase
+        }
+        
+        function stopBreathingExercise() {
+            const startBtn = document.getElementById('breathing-start-btn');
+            const stopBtn = document.getElementById('breathing-stop-btn');
+            const circle = document.getElementById('breathing-circle');
+            const text = document.getElementById('breathing-text');
+            const instructions = document.getElementById('breathing-instructions');
+            
+            clearInterval(breathingInterval);
+            startBtn.style.display = 'inline-block';
+            stopBtn.style.display = 'none';
+            
+            // Reset to initial state
+            text.textContent = 'Breathe In';
+            circle.style.transform = 'scale(1)';
+            circle.style.background = 'linear-gradient(135deg, #60a5fa, #3b82f6)';
+            instructions.textContent = 'Breathe in for 4 seconds, hold for 4 seconds, breathe out for 4 seconds';
+            breathingPhase = 0;
+        }
+        
+        function saveGroundingExercise() {
+            const see5 = document.getElementById('see-5').value.trim();
+            const touch4 = document.getElementById('touch-4').value.trim();
+            const hear3 = document.getElementById('hear-3').value.trim();
+            const smell2 = document.getElementById('smell-2').value.trim();
+            const taste1 = document.getElementById('taste-1').value.trim();
+            
+            if (!see5 || !touch4 || !hear3 || !smell2 || !taste1) {
+                alert('Please complete all grounding steps before saving.');
+                return;
+            }
+            
+            const groundingData = {
+                see5: see5,
+                touch4: touch4,
+                hear3: hear3,
+                smell2: smell2,
+                taste1: taste1,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Save to localStorage
+            const existingExercises = JSON.parse(localStorage.getItem('endbet_grounding') || '[]');
+            existingExercises.unshift(groundingData);
+            localStorage.setItem('endbet_grounding', JSON.stringify(existingExercises));
+            
+            alert('Grounding exercise saved! You can find it in your journal entries.');
+            
+            // Add to journal entries
+            const journalEntry = {
+                id: journalEntries.length + 1,
+                date: 'Today',
+                content: `Grounding Exercise Completed:\n\n5 Things I Can See: ${see5}\n4 Things I Can Touch: ${touch4}\n3 Things I Can Hear: ${hear3}\n2 Things I Can Smell: ${smell2}\n1 Thing I Can Taste: ${taste1}`
+            };
+            
+            journalEntries.unshift(journalEntry);
+            saveJournalEntries();
+            updateJournalEntries();
+            
+            // Mark grounding-related tasks as completed
+            const groundingTasks = tasks.filter(task => 
+                !task.completed && 
+                (task.description.toLowerCase().includes('grounding') || 
+                 task.description.toLowerCase().includes('breathing') ||
+                 task.description.toLowerCase().includes('meditation') ||
+                 task.description.toLowerCase().includes('mindfulness'))
+            );
+            
+            if (groundingTasks.length > 0) {
+                groundingTasks.forEach(task => {
+                    task.completed = true;
+                });
+                saveTasks();
+                updateTasksList();
+            }
+            
+            updateDashboardProgress();
+            
+            // Clear the form
+            clearGroundingExercise();
+        }
+        
+        function clearGroundingExercise() {
+            document.getElementById('see-5').value = '';
+            document.getElementById('touch-4').value = '';
+            document.getElementById('hear-3').value = '';
+            document.getElementById('smell-2').value = '';
+            document.getElementById('taste-1').value = '';
+        }
+        
+        function editContact(contactId) {
+            const contact = contacts.find(c => c.id === contactId);
+            if (contact) {
+                const newName = prompt('Edit name:', contact.name.split(' (')[0]);
+                const newPhone = prompt('Edit phone:', contact.phone);
+                if (newName && newPhone) {
+                    contact.name = newName + ' (' + contact.relationship + ')';
+                    contact.phone = newPhone;
+                    updateContactsList();
+                }
+            }
+        }
+        
+        // Make phone numbers clickable and initialize journal
+        document.addEventListener('DOMContentLoaded', function() {
+            // Force black background
+            document.body.style.backgroundColor = '#000000';
+            document.body.style.background = '#000000';
+            document.documentElement.style.backgroundColor = '#000000';
+            document.documentElement.style.background = '#000000';
+            
+            checkAndResetDailyTasks(); // Check for daily reset first
+            checkForDayChange(); // Check for day changes and update counter    
+            updateGamblingCounter(); // Update gambling-free counter
+            
+            // Set up periodic check for daily reset (every hour)
+            setInterval(() => {
+                checkAndResetDailyTasks();
+                checkForDayChange();
+            }, 60 * 60 * 1000); // Check every hour
+
+            // Force helpline number to be red - multiple approaches
+            setTimeout(() => {
+                console.log('Attempting to fix helpline number color...');
+                
+                // Method 1: Find by text content in all elements
+                const allElements = document.querySelectorAll('*');
+                allElements.forEach(element => {
+                    if (element.textContent && element.textContent.includes('1-800-522-4700')) {
+                        console.log('Found helpline number in element:', element.tagName);
+                        element.style.setProperty('color', '#dc2626', 'important');
+                        element.style.setProperty('font-weight', 'bold', 'important');
+                        element.style.setProperty('font-size', '1.3rem', 'important');
+                        element.style.setProperty('background-color', 'transparent', 'important');
+                        element.style.setProperty('border', 'none', 'important');
+                        element.style.setProperty('text-decoration', 'none', 'important');
+                        element.style.setProperty('outline', 'none', 'important');
+                        element.style.setProperty('box-shadow', 'none', 'important');
+                    }
+                });
+                
+                // Method 2: Force all divs in crisis section
+                const crisisSection = document.querySelector('#crisis-screen');
+                if (crisisSection) {
+                    const divs = crisisSection.querySelectorAll('div');
+                    divs.forEach(div => {
+                        if (div.textContent.includes('1-800-522-4700')) {
+                            console.log('Found helpline number in crisis section div');
+                            div.style.cssText = 'color: #dc2626 !important; font-weight: bold !important; font-size: 1.3rem !important; background-color: transparent !important; border: none !important; text-decoration: none !important; outline: none !important; box-shadow: none !important;';
+                        }
+                    });
+                }
+                
+                // Method 3: Use a more aggressive approach
+                const helplineElements = document.querySelectorAll('div, span, p, strong');
+                helplineElements.forEach(element => {
+                    if (element.textContent && element.textContent.trim() === '1-800-522-4700') {
+                        console.log('Found exact match for helpline number');
+                        element.style.color = '#dc2626';
+                        element.style.fontWeight = 'bold';
+                        element.style.fontSize = '1.3rem';
+                        element.style.backgroundColor = 'transparent';
+                        element.style.border = 'none';
+                        element.style.textDecoration = 'none';
+                        element.style.outline = 'none';
+                        element.style.boxShadow = 'none';
+                    }
+                });
+            }, 100);
+
+            const phoneNumbers = document.querySelectorAll('.phone-number');    
+            phoneNumbers.forEach(phone => {
+                phone.onclick = function() {
+                    const number = this.textContent.replace(/\D/g, '');
+                    window.location.href = `tel:${number}`;
+                };
+            });
+            
+            // Initialize journal entries, tasks, contacts, and SOS trusted contacts
+            updateJournalEntries();
+            updateTasksList();
+            updateContactsList();
+            updateSOSTrustedContacts();
+            updateDashboardProgress();
+            
+            // Set up periodic checks for day changes (every 5 minutes)
+            setInterval(checkForDayChange, 5 * 60 * 1000);
+            
+            // Continuously fix helpline number color every second
+            setInterval(() => {
+                const allElements = document.querySelectorAll('*');
+                allElements.forEach(element => {
+                    if (element.textContent && element.textContent.includes('1-800-522-4700')) {
+                        element.style.color = '#dc2626';
+                        element.style.fontWeight = 'bold';
+                        element.style.fontSize = '1.3rem';
+                        element.style.backgroundColor = 'transparent';
+                        element.style.border = 'none';
+                        element.style.textDecoration = 'none';
+                        element.style.outline = 'none';
+                        element.style.boxShadow = 'none';
+                    }
+                });
+            }, 1000);
+            
+            // Add touch scrolling improvements for navigation
+            const navTabs = document.querySelector('.nav-tabs');
+            if (navTabs) {
+                navTabs.addEventListener('touchstart', function(e) {
+                    this.style.scrollBehavior = 'auto';
+                });
+                
+                navTabs.addEventListener('touchend', function(e) {
+                    this.style.scrollBehavior = 'smooth';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
