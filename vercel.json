@@ -1,14 +1,14 @@
 {
   "version": 2,
   "functions": {
-    "api/index.js": {
+    "apps/api/dist/apps/api/src/index.js": {
       "runtime": "nodejs18.x"
     }
   },
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "api/index.js"
+      "destination": "apps/api/dist/apps/api/src/index.js"
     }
   ]
 }
