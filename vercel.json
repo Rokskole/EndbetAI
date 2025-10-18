@@ -8,7 +8,7 @@
       "runtime": "nodejs18.x"
     }
   },
-  "routes": [
+  "rewrites": [
     {
       "source": "/(.*)",
       "destination": "apps/api/src/index.ts"
