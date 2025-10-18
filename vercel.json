@@ -1,15 +1,17 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "apps/api/src/index.ts",
-      "use": "@vercel/node"
+  "buildCommand": "npm install && npm run build --workspace=packages/config && npm run build --workspace=packages/types && npm run build --workspace=packages/validation && npm run build --workspace=apps/api",
+  "outputDirectory": "apps/api/dist",
+  "installCommand": "npm install",
+  "functions": {
+    "apps/api/src/index.ts": {
+      "runtime": "nodejs18.x"
     }
-  ],
+  },
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "apps/api/src/index.ts"
+      "source": "/(.*)",
+      "destination": "apps/api/src/index.ts"
     }
   ]
 }
