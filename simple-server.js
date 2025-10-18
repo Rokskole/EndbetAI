@@ -387,7 +387,7 @@ const securityConfig = {
         styleSrc: ["'self'", "'unsafe-inline'"],
         scriptSrc: ["'self'", "'unsafe-inline'"],
         imgSrc: ["'self'", "data:", "https:"],
-        connectSrc: ["'self'", "http://localhost:3001", "http://192.168.1.11:3001"],
+        connectSrc: ["'self'", "https://endbet-ai-api-749k.vercel.app", "http://192.168.1.11:3001"],
         fontSrc: ["'self'"],
         objectSrc: ["'none'"],
         mediaSrc: ["'self'"],

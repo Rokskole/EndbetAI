@@ -1,5 +1,5 @@
 // Simple test script for authentication endpoints
-const API_BASE = 'http://localhost:3001/api';
+const API_BASE = 'https://endbet-ai-api-749k.vercel.app/api';
 
 async function testAuth() {
   console.log('🧪 Testing QuitBet AI Authentication System\n');

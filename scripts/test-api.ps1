@@ -2,7 +2,7 @@
 # This script helps you test the API endpoints including authentication and chat
 
 param(
-    [string]$ApiUrl = "http://localhost:3001",
+    [string]$ApiUrl = "https://endbet-ai-api-749k.vercel.app",
     [string]$Email = "test@example.com"
 )
 
@@ -87,7 +87,7 @@ Write-Host '       type = "magiclink"' -ForegroundColor DarkGray
 Write-Host '       email = "test@example.com"' -ForegroundColor DarkGray
 Write-Host '   } | ConvertTo-Json' -ForegroundColor DarkGray
 Write-Host ""
-Write-Host '   $session = Invoke-RestMethod -Uri "http://localhost:3001/api/auth/verify" `' -ForegroundColor DarkGray
+Write-Host '   $session = Invoke-RestMethod -Uri "https://endbet-ai-api-749k.vercel.app/api/auth/verify" `' -ForegroundColor DarkGray
 Write-Host '       -Method POST -Headers @{ "Content-Type" = "application/json" } `' -ForegroundColor DarkGray
 Write-Host '       -Body $verifyBody' -ForegroundColor DarkGray
 Write-Host ""
@@ -96,7 +96,7 @@ Write-Host ""
 Write-Host '   $sessionId = $session.data.session.id' -ForegroundColor DarkGray
 Write-Host '   $chatBody = @{ content = "Hello! I need help staying away from gambling." } | ConvertTo-Json' -ForegroundColor DarkGray
 Write-Host ""
-Write-Host '   $chatResponse = Invoke-RestMethod -Uri "http://localhost:3001/api/chat/messages" `' -ForegroundColor DarkGray
+Write-Host '   $chatResponse = Invoke-RestMethod -Uri "https://endbet-ai-api-749k.vercel.app/api/chat/messages" `' -ForegroundColor DarkGray
 Write-Host '       -Method POST `' -ForegroundColor DarkGray
 Write-Host '       -Headers @{ ' -ForegroundColor DarkGray
 Write-Host '           "Content-Type" = "application/json"' -ForegroundColor DarkGray

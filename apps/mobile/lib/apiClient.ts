@@ -1,7 +1,7 @@
 import { config } from '@packages/config';
 import { ApiResponse } from '@packages/types';
 
-const API_BASE_URL = `${config.api.host}:${config.api.port}/api`;
+const API_BASE_URL = 'https://endbet-ai-api-749k.vercel.app/api';
 
 export class ApiClient {
   private sessionId: string | null = null;

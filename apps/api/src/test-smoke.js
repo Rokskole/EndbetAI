@@ -1,10 +1,10 @@
 // Minimal smoke tests for key endpoints
-const API = 'http://localhost:3001/api';
+const API = 'https://endbet-ai-api-749k.vercel.app/api';
 
 async function main() {
   console.log('🧪 Smoke tests starting...');
 
-  const health = await fetch('http://localhost:3001/health').then(r=>r.json());
+  const health = await fetch('https://endbet-ai-api-749k.vercel.app/health').then(r=>r.json());
   console.log('Health:', health.status);
 
   const endpoints = [

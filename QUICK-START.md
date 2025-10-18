@@ -1,7 +1,7 @@
 # Quick Start - Testing Your Chat API
 
 ## ✅ API is Running
-Your API is now running on `http://localhost:3001` with proper Supabase configuration!
+Your API is now running on `https://endbet-ai-api-749k.vercel.app` with proper Supabase configuration!
 
 ## Your Original Command (FIXED)
 
@@ -15,7 +15,7 @@ curl -Uri "@https://vercel.com/rok3 /chat" `
 
 ### ✅ Corrected version:
 ```powershell
-curl -Uri "http://localhost:3001/api/chat/messages" `
+curl -Uri "https://endbet-ai-api-749k.vercel.app/api/chat/messages" `
   -Method POST `
   -Headers @{ 
     "Content-Type" = "application/json"
@@ -28,7 +28,7 @@ curl -Uri "http://localhost:3001/api/chat/messages" `
 
 1. **URL**: 
    - ❌ `@https://vercel.com/rok3 /chat` (Vercel dashboard URL with @ symbol)
-   - ✅ `http://localhost:3001/api/chat/messages` (your local API endpoint)
+   - ✅ `https://endbet-ai-api-749k.vercel.app/api/chat/messages` (your local API endpoint)
 
 2. **Endpoint Path**:
    - ❌ `/chat`
@@ -46,12 +46,12 @@ curl -Uri "http://localhost:3001/api/chat/messages" `
 
 ### Step 1: Test API Health (No auth needed)
 ```powershell
-curl http://localhost:3001/health
+curl https://endbet-ai-api-749k.vercel.app/health
 ```
 
 ### Step 2: Test Chat Endpoint (Will fail - needs auth)
 ```powershell
-curl -Uri "http://localhost:3001/api/chat/messages" `
+curl -Uri "https://endbet-ai-api-749k.vercel.app/api/chat/messages" `
   -Method POST `
   -Headers @{ "Content-Type" = "application/json" } `
   -Body '{"content":"Hello!"}'
@@ -62,7 +62,7 @@ curl -Uri "http://localhost:3001/api/chat/messages" `
 
 First, send a magic link:
 ```powershell
-curl -Uri "http://localhost:3001/api/auth/login" `
+curl -Uri "https://endbet-ai-api-749k.vercel.app/api/auth/login" `
   -Method POST `
   -Headers @{ "Content-Type" = "application/json" } `
   -Body '{"email":"test@example.com"}'
@@ -74,7 +74,7 @@ Then check your email for the magic link, or check the API logs for the token.
 ```powershell
 $sessionToken = "paste-your-session-id-here"
 
-curl -Uri "http://localhost:3001/api/chat/messages" `
+curl -Uri "https://endbet-ai-api-749k.vercel.app/api/chat/messages" `
   -Method POST `
   -Headers @{ 
     "Content-Type" = "application/json"
@@ -102,7 +102,7 @@ I've created several PowerShell scripts to make testing easier:
 
 ## Current API Status:
 
-- 🚀 Running on: `http://localhost:3001`
+- 🚀 Running on: `https://endbet-ai-api-749k.vercel.app`
 - 📊 Environment: Production
 - 🔒 Crisis detection: Disabled (enable with ENABLE_CRISIS_DETECTION=true)
 - 🤖 AI chat: Disabled (add DEEPSEEK_API_KEY to enable)
@@ -121,7 +121,7 @@ POST /api/chat/analyze           - Analyze message (auth required)
 
 ## For Production/Vercel:
 
-When you deploy to Vercel, replace `http://localhost:3001` with your Vercel URL:
+When you deploy to Vercel, replace `https://endbet-ai-api-749k.vercel.app` with your Vercel URL:
 
 ```powershell
 curl -Uri "https://your-app.vercel.app/api/chat/messages" `

@@ -2,7 +2,7 @@
 # This script provides an interactive way to test the chat API
 
 param(
-    [string]$ApiUrl = "http://localhost:3001",
+    [string]$ApiUrl = "https://endbet-ai-api-749k.vercel.app",
     [string]$SessionToken = ""
 )
 

@@ -6,7 +6,7 @@ param(
     [Parameter(Mandatory=$true)]
     [string]$SessionToken,
     
-    [string]$ApiUrl = "http://localhost:3001"
+    [string]$ApiUrl = "https://endbet-ai-api-749k.vercel.app"
 )
 
 try {

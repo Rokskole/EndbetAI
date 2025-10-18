@@ -3,7 +3,7 @@
 ## The Mobile App is Starting! 📱
 
 You now have **TWO servers running**:
-1. ✅ **API Server** - `http://localhost:3001` (for backend)
+1. ✅ **API Server** - `https://endbet-ai-api-749k.vercel.app` (for backend)
 2. ✅ **Mobile App** - Expo development server (for the app)
 
 ## How to Open the App:
@@ -83,7 +83,7 @@ Once the app opens:
 ## Both Servers Need to Run:
 
 Keep **BOTH** terminal windows open:
-- Terminal 1: API server (localhost:3001)
+- Terminal 1: API server (endbet-ai-api-749k.vercel.app)
 - Terminal 2: Expo mobile app (localhost:8081)
 
 ## Your Original Question Fixed:
@@ -95,7 +95,7 @@ curl -Uri "@https://vercel.com/rok3 /chat" ...
 
 Now you know:
 - That URL was for **Vercel's dashboard**, not your API
-- Your **API** runs at `http://localhost:3001/api/chat/messages`
+- Your **API** runs at `https://endbet-ai-api-749k.vercel.app/api/chat/messages`
 - Your **mobile app** runs through Expo at `http://localhost:8081`
 - They work together: App → API → Database
 

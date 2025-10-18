@@ -48,7 +48,7 @@ Provides an interactive chat interface to test the chat API in real-time.
 .\scripts\chat-test.ps1 -SessionToken "your-session-id-here"
 
 # With custom API URL
-.\scripts\chat-test.ps1 -SessionToken "your-session-id" -ApiUrl "http://localhost:3001"
+.\scripts\chat-test.ps1 -SessionToken "your-session-id" -ApiUrl "https://endbet-ai-api-749k.vercel.app"
 ```
 
 **Features:**
@@ -110,7 +110,7 @@ $verifyBody = @{
     email = "your-email@example.com"
 } | ConvertTo-Json
 
-$response = Invoke-RestMethod -Uri "http://localhost:3001/api/auth/verify" `
+$response = Invoke-RestMethod -Uri "https://endbet-ai-api-749k.vercel.app/api/auth/verify" `
     -Method POST `
     -Headers @{ "Content-Type" = "application/json" } `
     -Body $verifyBody
