@@ -10,6 +10,9 @@ build/
 .next/
 .expo/
 
+# But allow packages dist folders for Vercel
+!packages/*/dist/
+
 # Environment variables
 .env
 .env.local
