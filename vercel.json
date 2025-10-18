@@ -1,17 +1,14 @@
 {
   "version": 2,
-  "buildCommand": "npm install -g typescript && npm install --save-dev @types/cors @types/morgan @types/compression @types/express-rate-limit && npm run build",
-  "outputDirectory": "apps/api/dist",
-  "installCommand": "npm install",
   "functions": {
-    "apps/api/src/index.ts": {
+    "api/index.js": {
       "runtime": "nodejs18.x"
     }
   },
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "apps/api/src/index.ts"
+      "destination": "api/index.js"
     }
   ]
 }
