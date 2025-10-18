@@ -8,18 +8,26 @@ export default function WelcomeScreen() {
   const router = useRouter();
   const { user, isLoading } = useAuth();
 
+  // Force authentication - always show login first
   useEffect(() => {
-    if (user) {
+    if (!isLoading && !user) {
+      router.replace('/auth');
+    } else if (!isLoading && user) {
       router.replace('/(tabs)');
     }
-  }, [user, router]);
+  }, [user, isLoading, router]);
 
   if (isLoading) {
     return (
       <View style={styles.container}>
-        <Text>Loading...</Text>
+        <Text style={styles.loadingText}>Loading...</Text>
       </View>
     );
+  }
+
+  // Always redirect to auth if no user
+  if (!user) {
+    return null;
   }
 
   return (
@@ -131,5 +139,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#9ca3af', // Light gray for dark theme
     fontStyle: 'italic',
+  },
+  loadingText: {
+    color: '#60a5fa',
+    fontSize: 18,
+    textAlign: 'center',
   },
 });
