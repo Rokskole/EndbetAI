@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
+  "buildCommand": "npm install -g typescript && npm run build",
   "outputDirectory": "apps/api/dist",
   "installCommand": "npm install",
   "functions": {
