@@ -21,6 +21,11 @@ export const authController = {
     }
 
     try {
+      // Debug: Log environment variables
+      console.log('Supabase URL:', process.env.SUPABASE_URL);
+      console.log('Supabase Anon Key:', process.env.SUPABASE_ANON_KEY ? 'Set' : 'Not set');
+      console.log('Supabase Service Key:', process.env.SUPABASE_SERVICE_ROLE_KEY ? 'Set' : 'Not set');
+      
       // Send magic link via Supabase Auth
       const { error } = await supabase.auth.signInWithOtp({
         email,
@@ -30,6 +35,7 @@ export const authController = {
       });
 
       if (error) {
+        console.error('Supabase error:', error);
         throw createError('Failed to send magic link', 400);
       }
 
