@@ -2,7 +2,7 @@
   "name": "endbet-ai-api",
   "version": "1.0.0",
   "description": "QuitBet AI API",
-  "main": "apps/api/dist/apps/api/src/index.js",
+  "main": "api/index.js",
   "scripts": {
     "start": "node apps/api/dist/apps/api/src/index.js",
     "build": "echo 'Build completed'"
