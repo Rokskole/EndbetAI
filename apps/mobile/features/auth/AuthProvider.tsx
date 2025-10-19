@@ -53,19 +53,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const checkSession = async () => {
     try {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session?.user) {
-        // Verify the session with our API
-        const authData = await apiClient.verifyMagicLink(
-          session.access_token,
-          'magiclink',
-          session.user.email!
-        );
-        
-        setUser(authData.data.user);
-        setSessionId(authData.data.session.id);
-        apiClient.setSessionId(authData.data.session.id);
-      }
+      // Don't auto-login for demo - always show login page
+      setUser(null);
     } catch (error) {
       console.error('Failed to check session:', error);
     } finally {
@@ -76,7 +65,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signIn = async (email: string) => {
     setIsLoading(true);
     try {
-      await apiClient.sendMagicLink(email);
+      // Simulate successful login for demo
+      const user = {
+        id: 'user123',
+        email: email,
+        name: 'User'
+      };
+      
+      setUser(user);
+      setSessionId('mock_session');
+      apiClient.setSessionId('mock_session');
+      
+      // Return success
+      return { success: true, user };
     } catch (error) {
       console.error('Sign in error:', error);
       throw error;

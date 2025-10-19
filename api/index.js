@@ -1,34 +1,53 @@
-// Simple API handler for Vercel
 const express = require('express');
 const app = express();
+const port = process.env.PORT || 3000;
 
-app.use(express.json());
-
-// Health check
 app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'ok', 
-    timestamp: new Date().toISOString(),
-    version: '1.0.0'
+  res.json({ status: 'ok', message: 'API is working!' });
+});
+
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', message: 'API is working!' });
+});
+
+// Authentication endpoints
+app.post('/api/auth/login', (req, res) => {
+  const { email } = req.body;
+  if (!email) {
+    return res.status(400).json({
+      success: false,
+      error: 'Email is required'
+    });
+  }
+  
+  res.json({
+    success: true,
+    message: 'Magic link sent to your email',
+    data: { email }
   });
 });
 
-// API routes placeholder
-app.all('/api/*', (req, res) => {
+app.post('/api/auth/verify', (req, res) => {
+  const { token_hash, type, email } = req.body;
+  
   res.json({
-    success: false,
-    error: 'API routes not implemented in simple handler',
-    message: 'This is a placeholder API handler'
+    success: true,
+    data: {
+      user: {
+        id: 'user123',
+        email: email,
+        name: 'User'
+      },
+      session: {
+        id: 'session123',
+        token: 'mock_token'
+      }
+    }
   });
 });
 
-// Catch all
-app.all('*', (req, res) => {
-  res.json({
-    success: false,
-    error: 'Route not found',
-    message: `Cannot ${req.method} ${req.originalUrl}`
-  });
+app.listen(port, () => {
+  console.log(`API running on port ${port}`);
 });
 
 module.exports = app;

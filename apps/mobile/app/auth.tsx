@@ -30,8 +30,20 @@ export default function AuthScreen() {
   const onSubmit = async (data: EmailForm) => {
     setIsLoading(true);
     try {
-      await signIn(data.email);
-      setEmailSent(true);
+      // Simulate login - just set user and redirect
+      const mockUser = {
+        id: 'user123',
+        email: data.email,
+        name: 'User'
+      };
+      
+      // Set user in context (this will trigger redirect)
+      signIn(data.email);
+      
+      // Small delay to show loading state
+      setTimeout(() => {
+        router.replace('/(tabs)');
+      }, 1000);
     } catch (error) {
       console.error('Sign in error:', error);
     } finally {
@@ -70,16 +82,28 @@ export default function AuthScreen() {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.content}>
-        <Text variant="headlineLarge" style={styles.title}>
-          Sign In
-        </Text>
-        
-        <Text variant="bodyLarge" style={styles.subtitle}>
-          Enter your email address to receive a magic link
-        </Text>
+        <View style={styles.header}>
+          <View style={styles.logoContainer}>
+            <Text style={styles.logo}>🎯</Text>
+          </View>
+          <Text variant="headlineLarge" style={styles.title}>
+            QuitBet AI
+          </Text>
+          
+          <Text variant="bodyLarge" style={styles.subtitle}>
+            Your compassionate companion for gambling recovery
+          </Text>
+        </View>
 
         <Card style={styles.card}>
           <Card.Content>
+            <Text variant="titleMedium" style={styles.cardTitle}>
+              Welcome Back
+            </Text>
+            <Text variant="bodyMedium" style={styles.cardSubtitle}>
+              Enter your email to continue your recovery journey
+            </Text>
+
             <Controller
               control={control}
               name="email"
@@ -95,6 +119,15 @@ export default function AuthScreen() {
                     autoComplete="email"
                     style={styles.input}
                     error={!!errors.email}
+                    mode="outlined"
+                    theme={{
+                      colors: {
+                        primary: '#60a5fa',
+                        onSurface: '#f9fafb',
+                        surface: '#374151',
+                        outline: '#4b5563'
+                      }
+                    }}
                   />
                   {errors.email && (
                     <HelperText type="error" visible={!!errors.email}>
@@ -111,14 +144,53 @@ export default function AuthScreen() {
               onPress={handleSubmit(onSubmit)}
               loading={isLoading}
               disabled={isLoading}
+              labelStyle={styles.buttonLabel}
             >
-              Send Magic Link
+              {isLoading ? 'Signing In...' : 'Continue Journey'}
             </Button>
           </Card.Content>
         </Card>
 
+        <View style={styles.features}>
+          <Text variant="titleSmall" style={styles.featuresTitle}>
+            Your Recovery Toolkit
+          </Text>
+          <View style={styles.featureItem}>
+            <Text style={styles.featureIcon}>💬</Text>
+            <Text variant="bodySmall" style={styles.featureText}>AI-powered chat support</Text>
+          </View>
+          <View style={styles.featureItem}>
+            <Text style={styles.featureIcon}>📊</Text>
+            <Text variant="bodySmall" style={styles.featureText}>Progress tracking & insights</Text>
+          </View>
+          <View style={styles.featureItem}>
+            <Text style={styles.featureIcon}>🆘</Text>
+            <Text variant="bodySmall" style={styles.featureText}>24/7 crisis support</Text>
+          </View>
+          <View style={styles.featureItem}>
+            <Text style={styles.featureIcon}>📝</Text>
+            <Text variant="bodySmall" style={styles.featureText}>Journal & reflection tools</Text>
+          </View>
+        </View>
+
+        <View style={styles.crisisCard}>
+          <Text variant="titleSmall" style={styles.crisisTitle}>
+            Need Immediate Help?
+          </Text>
+          <Text variant="bodySmall" style={styles.crisisText}>
+            If you're in crisis, please reach out for immediate support
+          </Text>
+          <Button 
+            mode="outlined" 
+            style={styles.crisisButton}
+            onPress={() => router.push('/crisis-support')}
+          >
+            Get Help Now
+          </Button>
+        </View>
+
         <Text variant="bodySmall" style={styles.disclaimer}>
-          By signing in, you agree to our Terms of Service and Privacy Policy.
+          By continuing, you agree to our Terms of Service and Privacy Policy.
         </Text>
       </View>
     </ScrollView>
@@ -163,5 +235,89 @@ const styles = StyleSheet.create({
   disclaimer: {
     textAlign: 'center',
     color: '#9ca3af', // Light gray for dark theme
+  },
+  header: {
+    marginBottom: 40,
+    alignItems: 'center',
+  },
+  cardTitle: {
+    color: '#f9fafb',
+    fontWeight: 'bold',
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  cardSubtitle: {
+    color: '#9ca3af',
+    marginBottom: 24,
+    textAlign: 'center',
+  },
+  buttonLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  features: {
+    marginBottom: 32,
+    padding: 20,
+    backgroundColor: '#1f2937',
+    borderRadius: 12,
+  },
+  featuresTitle: {
+    color: '#f9fafb',
+    fontWeight: 'bold',
+    marginBottom: 16,
+    textAlign: 'center',
+  },
+  featureItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  featureIcon: {
+    fontSize: 20,
+    marginRight: 12,
+  },
+  featureText: {
+    color: '#d1d5db',
+    flex: 1,
+  },
+  logoContainer: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: '#1e3a8a',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+    shadowColor: '#60a5fa',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  logo: {
+    fontSize: 40,
+  },
+  crisisCard: {
+    marginBottom: 24,
+    padding: 20,
+    backgroundColor: '#dc2626',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#f87171',
+  },
+  crisisTitle: {
+    color: '#ffffff',
+    fontWeight: 'bold',
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  crisisText: {
+    color: '#fecaca',
+    marginBottom: 16,
+    textAlign: 'center',
+  },
+  crisisButton: {
+    borderColor: '#ffffff',
+    borderWidth: 2,
   },
 });

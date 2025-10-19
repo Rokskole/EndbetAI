@@ -4,7 +4,7 @@
   "description": "QuitBet AI API",
   "main": "index.js",
   "scripts": {
-    "start": "node apps/api/dist/apps/api/src/index.js",
+    "start": "node index.js",
     "build": "echo 'Build completed'"
   },
   "dependencies": {

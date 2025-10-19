@@ -6,29 +6,17 @@ import { useAuth } from '@/features/auth/AuthProvider';
 
 export default function WelcomeScreen() {
   const router = useRouter();
-  const { user, isLoading } = useAuth();
 
-  // Force authentication - always show login first
+  // Immediately redirect to auth page
   useEffect(() => {
-    if (!isLoading && !user) {
-      router.replace('/auth');
-    } else if (!isLoading && user) {
-      router.replace('/(tabs)');
-    }
-  }, [user, isLoading, router]);
+    router.replace('/auth');
+  }, [router]);
 
-  if (isLoading) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.loadingText}>Loading...</Text>
-      </View>
-    );
-  }
-
-  // Always redirect to auth if no user
-  if (!user) {
-    return null;
-  }
+  return (
+    <View style={styles.container}>
+      <Text style={styles.loadingText}>Redirecting to login...</Text>
+    </View>
+  );
 
   return (
     <View style={styles.container}>
