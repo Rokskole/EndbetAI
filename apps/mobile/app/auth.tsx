@@ -30,20 +30,11 @@ export default function AuthScreen() {
   const onSubmit = async (data: EmailForm) => {
     setIsLoading(true);
     try {
-      // Simulate login - just set user and redirect
-      const mockUser = {
-        id: 'user123',
-        email: data.email,
-        name: 'User'
-      };
+      // Simulate successful login
+      await signIn(data.email);
       
-      // Set user in context (this will trigger redirect)
-      signIn(data.email);
-      
-      // Small delay to show loading state
-      setTimeout(() => {
-        router.replace('/(tabs)');
-      }, 1000);
+      // Navigate to main app
+      router.replace('/(tabs)');
     } catch (error) {
       console.error('Sign in error:', error);
     } finally {
