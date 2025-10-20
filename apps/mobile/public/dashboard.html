@@ -16,96 +16,276 @@
             color: #f9fafb;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             min-height: 100vh;
-            padding: 20px;
+            padding: 0;
+            overflow-x: hidden;
         }
         
         .container {
-            max-width: 800px;
-            margin: 0 auto;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
         }
         
         .header {
             text-align: center;
-            margin-bottom: 40px;
+            padding: 40px 24px 20px;
+            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+            border-bottom: 1px solid #374151;
         }
         
         .title {
-            font-size: 32px;
-            font-weight: bold;
+            font-size: 28px;
+            font-weight: 700;
             color: #60a5fa;
-            margin-bottom: 16px;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
         }
         
         .subtitle {
-            font-size: 18px;
+            font-size: 16px;
             color: #9ca3af;
+            font-weight: 400;
         }
         
         .nav {
             display: flex;
             justify-content: space-around;
-            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
-            border-radius: 16px;
-            padding: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            border: 1px solid #374151;
+            background: #1f2937;
+            padding: 8px;
+            margin: 0;
+            border-bottom: 1px solid #374151;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         
         .nav-item {
-            padding: 12px 20px;
+            padding: 12px 8px;
             color: #9ca3af;
             cursor: pointer;
             border-radius: 12px;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             font-weight: 500;
-            position: relative;
-            overflow: hidden;
+            font-size: 14px;
+            text-align: center;
+            flex: 1;
+            margin: 0 2px;
         }
         
         .nav-item:hover {
             background: rgba(96, 165, 250, 0.1);
             color: #60a5fa;
-            transform: translateY(-2px);
         }
         
         .nav-item.active {
-            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+            background: #60a5fa;
             color: #000;
-            box-shadow: 0 4px 15px rgba(96, 165, 250, 0.3);
-            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(96, 165, 250, 0.3);
         }
         
         .content {
-            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
-            border-radius: 16px;
-            padding: 40px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            border: 1px solid #374151;
-            backdrop-filter: blur(10px);
+            background: transparent;
+            padding: 24px;
+            margin: 0;
+            min-height: calc(100vh - 200px);
         }
         
-        .content h2 {
+        .card {
+            background: #1f2937;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 16px;
+            border: 1px solid #374151;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card h2 {
             color: #f9fafb;
             margin-bottom: 16px;
+            font-size: 20px;
+            font-weight: 600;
         }
         
-        .content p {
+        .card p {
             color: #d1d5db;
             margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        
+        .progress-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+        
+        .progress-item {
+            background: #374151;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #4b5563;
+        }
+        
+        .progress-item h3 {
+            color: #60a5fa;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .progress-item p {
+            color: #9ca3af;
+            font-size: 14px;
+            margin: 0;
+        }
+        
+        .fab-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 1000;
+        }
+        
+        .fab {
+            width: 56px;
+            height: 56px;
+            border-radius: 28px;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .fab:hover {
+            transform: scale(1.05);
+        }
+        
+        .fab.crisis {
+            background: #60a5fa;
+        }
+        
+        .fab.sos {
+            background: #dc2626;
         }
         
         .logout-button {
             background: #dc2626;
             color: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 16px 24px;
+            border-radius: 12px;
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
             width: 100%;
+            margin-top: 24px;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+            transition: all 0.2s ease;
+        }
+        
+        .logout-button:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+        }
+        
+        .button {
+            background: #60a5fa;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 12px;
+            box-shadow: 0 2px 8px rgba(96, 165, 250, 0.3);
+            transition: all 0.2s ease;
+        }
+        
+        .button:hover {
+            background: #3b82f6;
+            transform: translateY(-1px);
+        }
+        
+        .textarea {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid #4b5563;
+            background: #374151;
+            color: #f9fafb;
+            font-size: 14px;
+            resize: vertical;
+            font-family: inherit;
+            margin-bottom: 12px;
+        }
+        
+        .textarea:focus {
+            outline: none;
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+        }
+        
+        .contact-card {
+            background: #374151;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #4b5563;
+        }
+        
+        .contact-card h4 {
+            color: #f9fafb;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        
+        .contact-card p {
+            color: #d1d5db;
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+        
+        .contact-button {
+            background: #60a5fa;
+            color: #000;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+        
+        .task-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #374151;
+        }
+        
+        .task-item:last-child {
+            border-bottom: none;
+        }
+        
+        .task-checkbox {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+        
+        .task-label {
+            color: #f9fafb;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -113,7 +293,7 @@
     <div class="container">
         <div class="header">
             <h1 class="title">QuitBet AI</h1>
-            <p class="subtitle">Welcome to your recovery dashboard</p>
+            <p class="subtitle">Welcome back, <span id="userName">Rok</span>!</p>
         </div>
         
         <div class="nav">
@@ -127,32 +307,51 @@
         </div>
         
         <div class="content" id="content">
-            <h2>Welcome to QuitBet AI</h2>
-            <p>You're now logged in and ready to start your recovery journey.</p>
-            <p>Use the navigation above to explore different features.</p>
-            <p>Remember: You're not alone in this journey.</p>
+            <div class="card">
+                <h2>Dashboard</h2>
+                <p>Welcome to your recovery dashboard.</p>
+                <p>Track your progress and stay motivated.</p>
+                
+                <div class="progress-grid">
+                    <div class="progress-item">
+                        <h3>1</h3>
+                        <p>Days gambling-free</p>
+                    </div>
+                    <div class="progress-item">
+                        <h3>0</h3>
+                        <p>Journal entries</p>
+                    </div>
+                    <div class="progress-item">
+                        <h3>0</h3>
+                        <p>Chat sessions</p>
+                    </div>
+                    <div class="progress-item">
+                        <h3>$0</h3>
+                        <p>Money saved</p>
+                    </div>
+                </div>
+            </div>
         </div>
         
-        <button class="logout-button" onclick="logout()">Logout</button>
+        <div class="fab-container">
+            <div class="fab crisis" onclick="showTab('crisis')" title="Crisis Support">🆘</div>
+            <div class="fab sos" onclick="callEmergency()" title="Emergency SOS">🚨</div>
+        </div>
+        
+        <div style="padding: 24px;">
+            <button class="logout-button" onclick="logout()">Logout</button>
+        </div>
     </div>
 
     <script>
         // Check if user is logged in
-        window.onload = function() {
-            const isLoggedIn = localStorage.getItem('isLoggedIn');
-            if (!isLoggedIn) {
-                alert('Please log in first');
-                window.location.href = '/';
-                return;
-            }
-            
-            // Display user info
-            const userEmail = localStorage.getItem('userEmail');
-            const userName = localStorage.getItem('userName');
-            if (userName) {
-                document.querySelector('.subtitle').textContent = `Welcome back, ${userName}!`;
-            }
-        };
+        if (!localStorage.getItem('isLoggedIn')) {
+            window.location.href = '/';
+        }
+        
+        // Set user name
+        const userName = localStorage.getItem('userName') || 'Rok';
+        document.getElementById('userName').textContent = userName;
         
         function showTab(tab) {
             // Remove active class from all nav items
@@ -168,120 +367,157 @@
             switch(tab) {
                 case 'dashboard':
                     content.innerHTML = `
-                        <h2>Dashboard</h2>
-                        <p>Welcome to your recovery dashboard.</p>
-                        <p>Track your progress and stay motivated.</p>
-                        <div style="margin-top: 20px;">
-                            <h3>Today's Progress</h3>
-                            <p>✅ Days gambling-free: <strong>1</strong></p>
-                            <p>📝 Journal entries: <strong>0</strong></p>
-                            <p>💬 Chat sessions: <strong>0</strong></p>
-                            <p>💰 Money saved: <strong>$0.00</strong></p>
+                        <div class="card">
+                            <h2>Dashboard</h2>
+                            <p>Welcome to your recovery dashboard.</p>
+                            <p>Track your progress and stay motivated.</p>
+                            
+                            <div class="progress-grid">
+                                <div class="progress-item">
+                                    <h3>1</h3>
+                                    <p>Days gambling-free</p>
+                                </div>
+                                <div class="progress-item">
+                                    <h3>0</h3>
+                                    <p>Journal entries</p>
+                                </div>
+                                <div class="progress-item">
+                                    <h3>0</h3>
+                                    <p>Chat sessions</p>
+                                </div>
+                                <div class="progress-item">
+                                    <h3>$0</h3>
+                                    <p>Money saved</p>
+                                </div>
+                            </div>
                         </div>
                     `;
                     break;
                 case 'chat':
                     content.innerHTML = `
-                        <h2>AI Chat</h2>
-                        <p>Chat with our AI assistant for support and guidance.</p>
-                        <div style="margin-top: 20px;">
-                            <textarea placeholder="How are you feeling today? What's on your mind?" style="width: 100%; height: 100px; padding: 15px; border-radius: 12px; border: 1px solid #4b5563; background: linear-gradient(135deg, #374151 0%, #4b5563 100%); color: #f9fafb; resize: vertical; font-size: 14px; box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);"></textarea>
-                            <button onclick="sendMessage()" style="margin-top: 10px; padding: 12px 24px; background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%); color: #000; border: none; border-radius: 12px; cursor: pointer; font-weight: 600; box-shadow: 0 4px 15px rgba(96, 165, 250, 0.3); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">Send Message</button>
+                        <div class="card">
+                            <h2>AI Chat</h2>
+                            <p>Chat with our AI assistant for support and guidance.</p>
+                            <textarea class="textarea" placeholder="How are you feeling today? What's on your mind?" rows="4"></textarea>
+                            <button class="button" onclick="sendMessage()">Send Message</button>
                         </div>
                     `;
                     break;
                 case 'journal':
                     content.innerHTML = `
-                        <h2>Journal</h2>
-                        <p>Record your thoughts and feelings.</p>
-                        <div style="margin-top: 20px;">
-                            <textarea placeholder="Write about your day, your feelings, or your recovery journey..." style="width: 100%; height: 150px; padding: 15px; border-radius: 12px; border: 1px solid #4b5563; background: linear-gradient(135deg, #374151 0%, #4b5563 100%); color: #f9fafb; resize: vertical; font-size: 14px; box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);"></textarea>
-                            <button onclick="saveJournal()" style="margin-top: 10px; padding: 12px 24px; background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%); color: #000; border: none; border-radius: 12px; cursor: pointer; font-weight: 600; box-shadow: 0 4px 15px rgba(96, 165, 250, 0.3); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">Save Entry</button>
+                        <div class="card">
+                            <h2>Journal</h2>
+                            <p>Record your thoughts and feelings.</p>
+                            <textarea class="textarea" placeholder="Write about your day, your feelings, or your recovery journey..." rows="6"></textarea>
+                            <button class="button" onclick="saveJournal()">Save Entry</button>
                         </div>
                     `;
                     break;
                 case 'tasks':
                     content.innerHTML = `
-                        <h2>Tasks</h2>
-                        <p>Complete daily tasks to build healthy habits.</p>
-                        <div style="margin-top: 20px;">
-                            <div style="margin-bottom: 10px;">
-                                <input type="checkbox" id="task1"> <label for="task1">Take a 10-minute walk</label>
+                        <div class="card">
+                            <h2>Tasks</h2>
+                            <p>Complete daily tasks to build healthy habits.</p>
+                            <div class="task-item">
+                                <input type="checkbox" class="task-checkbox" id="task1">
+                                <label class="task-label" for="task1">Take a 10-minute walk</label>
                             </div>
-                            <div style="margin-bottom: 10px;">
-                                <input type="checkbox" id="task2"> <label for="task2">Practice deep breathing for 5 minutes</label>
+                            <div class="task-item">
+                                <input type="checkbox" class="task-checkbox" id="task2">
+                                <label class="task-label" for="task2">Practice deep breathing for 5 minutes</label>
                             </div>
-                            <div style="margin-bottom: 10px;">
-                                <input type="checkbox" id="task3"> <label for="task3">Call a friend or family member</label>
+                            <div class="task-item">
+                                <input type="checkbox" class="task-checkbox" id="task3">
+                                <label class="task-label" for="task3">Call a friend or family member</label>
                             </div>
-                            <div style="margin-bottom: 10px;">
-                                <input type="checkbox" id="task4"> <label for="task4">Write in your journal</label>
+                            <div class="task-item">
+                                <input type="checkbox" class="task-checkbox" id="task4">
+                                <label class="task-label" for="task4">Write in your journal</label>
                             </div>
                         </div>
                     `;
                     break;
                 case 'finance':
                     content.innerHTML = `
-                        <h2>Finance</h2>
-                        <p>Track your financial recovery.</p>
-                        <div style="margin-top: 20px;">
-                            <h3>Financial Summary</h3>
-                            <p>💰 Money saved today: <strong>$0.00</strong></p>
-                            <p>📊 Total saved this week: <strong>$0.00</strong></p>
-                            <p>🎯 Monthly goal: <strong>$500.00</strong></p>
-                            <p>📈 Progress: <strong>0%</strong></p>
-                            <button onclick="addExpense()" style="margin-top: 10px; padding: 12px 24px; background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%); color: #000; border: none; border-radius: 12px; cursor: pointer; font-weight: 600; box-shadow: 0 4px 15px rgba(96, 165, 250, 0.3); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">Add Expense</button>
+                        <div class="card">
+                            <h2>Finance</h2>
+                            <p>Track your financial recovery.</p>
+                            
+                            <div class="progress-grid">
+                                <div class="progress-item">
+                                    <h3>$0</h3>
+                                    <p>Saved today</p>
+                                </div>
+                                <div class="progress-item">
+                                    <h3>$0</h3>
+                                    <p>Saved this week</p>
+                                </div>
+                                <div class="progress-item">
+                                    <h3>$500</h3>
+                                    <p>Monthly goal</p>
+                                </div>
+                                <div class="progress-item">
+                                    <h3>0%</h3>
+                                    <p>Progress</p>
+                                </div>
+                            </div>
+                            
+                            <button class="button" onclick="addExpense()">Add Expense</button>
                         </div>
                     `;
                     break;
                 case 'crisis':
                     content.innerHTML = `
-                        <h2>Crisis Support</h2>
-                        <p>If you're in crisis, please reach out for immediate help.</p>
-                        <div style="margin-top: 20px;">
-                            <h3>Emergency Contacts</h3>
-                            <p>📞 National Problem Gambling Helpline: <strong>1-800-522-4700</strong></p>
-                            <p>💬 Crisis Text Line: <strong>Text HOME to 741741</strong></p>
-                            <p>🆘 National Suicide Prevention Lifeline: <strong>988</strong></p>
-                            <button onclick="callEmergency()" style="margin-top: 20px; padding: 15px 30px; background: #dc2626; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold;">Call Emergency Services</button>
+                        <div class="card">
+                            <h2>Crisis Support</h2>
+                            <p>If you're in crisis, please reach out for immediate help.</p>
+                            
+                            <div style="background: #374151; padding: 16px; border-radius: 12px; margin: 16px 0;">
+                                <h3 style="color: #f9fafb; margin-bottom: 12px;">Emergency Contacts</h3>
+                                <p style="color: #d1d5db; margin-bottom: 8px;">📞 National Problem Gambling Helpline: <strong>1-800-522-4700</strong></p>
+                                <p style="color: #d1d5db; margin-bottom: 8px;">💬 Crisis Text Line: <strong>Text HOME to 741741</strong></p>
+                                <p style="color: #d1d5db; margin-bottom: 16px;">🆘 National Suicide Prevention Lifeline: <strong>988</strong></p>
+                                <button class="button" onclick="callEmergency()" style="background: #dc2626; color: white;">Call Emergency Services</button>
+                            </div>
                         </div>
                     `;
                     break;
                 case 'contacts':
                     content.innerHTML = `
-                        <h2>Support Contacts</h2>
-                        <p>Your personal support network and professional contacts.</p>
-                        <div style="margin-top: 20px;">
-                            <h3>Professional Support</h3>
-                            <div style="background: #374151; padding: 15px; border-radius: 12px; margin-bottom: 15px;">
-                                <p><strong>🏥 Therapist:</strong> Dr. Sarah Johnson</p>
+                        <div class="card">
+                            <h2>Support Contacts</h2>
+                            <p>Your personal support network and professional contacts.</p>
+                            
+                            <h3 style="color: #60a5fa; margin: 20px 0 12px 0;">Professional Support</h3>
+                            <div class="contact-card">
+                                <h4>🏥 Dr. Sarah Johnson - Therapist</h4>
                                 <p>📞 Phone: (555) 123-4567</p>
                                 <p>📧 Email: sarah.johnson@therapy.com</p>
-                                <button onclick="callContact('therapist')" style="margin-top: 10px; padding: 8px 16px; background: #60a5fa; color: #000; border: none; border-radius: 8px; cursor: pointer;">Call</button>
+                                <button class="contact-button" onclick="callContact('therapist')">Call</button>
                             </div>
                             
-                            <div style="background: #374151; padding: 15px; border-radius: 12px; margin-bottom: 15px;">
-                                <p><strong>👨‍⚕️ Counselor:</strong> Mike Chen</p>
+                            <div class="contact-card">
+                                <h4>👨‍⚕️ Mike Chen - Counselor</h4>
                                 <p>📞 Phone: (555) 987-6543</p>
                                 <p>📧 Email: mike.chen@recovery.org</p>
-                                <button onclick="callContact('counselor')" style="margin-top: 10px; padding: 8px 16px; background: #60a5fa; color: #000; border: none; border-radius: 8px; cursor: pointer;">Call</button>
+                                <button class="contact-button" onclick="callContact('counselor')">Call</button>
                             </div>
                             
-                            <h3>Personal Support</h3>
-                            <div style="background: #374151; padding: 15px; border-radius: 12px; margin-bottom: 15px;">
-                                <p><strong>👨‍👩‍👧‍👦 Family:</strong> Mom & Dad</p>
+                            <h3 style="color: #60a5fa; margin: 20px 0 12px 0;">Personal Support</h3>
+                            <div class="contact-card">
+                                <h4>👨‍👩‍👧‍👦 Mom & Dad</h4>
                                 <p>📞 Phone: (555) 456-7890</p>
-                                <button onclick="callContact('family')" style="margin-top: 10px; padding: 8px 16px; background: #60a5fa; color: #000; border: none; border-radius: 8px; cursor: pointer;">Call</button>
+                                <button class="contact-button" onclick="callContact('family')">Call</button>
                             </div>
                             
-                            <div style="background: #374151; padding: 15px; border-radius: 12px; margin-bottom: 15px;">
-                                <p><strong>👥 Support Group:</strong> Gamblers Anonymous</p>
+                            <div class="contact-card">
+                                <h4>👥 Gamblers Anonymous</h4>
                                 <p>📞 Phone: (555) 321-0987</p>
                                 <p>📍 Meeting: Tuesdays 7 PM</p>
-                                <button onclick="callContact('support-group')" style="margin-top: 10px; padding: 8px 16px; background: #60a5fa; color: #000; border: none; border-radius: 8px; cursor: pointer;">Call</button>
+                                <button class="contact-button" onclick="callContact('support-group')">Call</button>
                             </div>
                             
-                            <button onclick="addContact()" style="margin-top: 20px; padding: 12px 24px; background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%); color: #000; border: none; border-radius: 12px; cursor: pointer; font-weight: 600; box-shadow: 0 4px 15px rgba(96, 165, 250, 0.3);">Add New Contact</button>
+                            <button class="button" onclick="addContact()">Add New Contact</button>
                         </div>
                     `;
                     break;
@@ -298,7 +534,7 @@
         }
         
         async function sendMessage() {
-            const textarea = document.querySelector('textarea');
+            const textarea = document.querySelector('.textarea');
             const message = textarea.value.trim();
             if (!message) {
                 alert('Please enter a message first.');
@@ -334,7 +570,7 @@
         }
         
         async function saveJournal() {
-            const textarea = document.querySelector('textarea');
+            const textarea = document.querySelector('.textarea');
             const entry = textarea.value.trim();
             if (!entry) {
                 alert('Please write something before saving.');
