@@ -7,16 +7,15 @@ import { useAuth } from '@/features/auth/AuthProvider';
 export default function WelcomeScreen() {
   const router = useRouter();
 
-  // Immediately redirect to auth page
-  useEffect(() => {
-    router.replace('/auth');
-  }, [router]);
+  const handleSignIn = () => {
+    console.log('Sign In clicked');
+    router.push('/auth');
+  };
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.loadingText}>Redirecting to login...</Text>
-    </View>
-  );
+  const handleCreateAccount = () => {
+    console.log('Create Account clicked');
+    router.push('/auth');
+  };
 
   return (
     <View style={styles.container}>
@@ -51,10 +50,7 @@ export default function WelcomeScreen() {
           <Button 
             mode="contained" 
             style={styles.primaryButton}
-            onPress={() => {
-              console.log('Sign In clicked');
-              router.push('/auth');
-            }}
+            onPress={handleSignIn}
           >
             Sign In with Email
           </Button>
@@ -62,10 +58,7 @@ export default function WelcomeScreen() {
           <Button 
             mode="outlined" 
             style={styles.secondaryButton}
-            onPress={() => {
-              console.log('Create Account clicked');
-              router.push('/auth');
-            }}
+            onPress={handleCreateAccount}
           >
             Create Account
           </Button>
