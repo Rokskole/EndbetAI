@@ -139,24 +139,25 @@
             <button class="secondary-button" onclick="handleCreateAccount()">Create Account</button>
         </div>
         
-        <button class="test-button" onclick="testButton()">TEST BUTTON</button>
         
         <p class="disclaimer">AI is not a substitute for professional therapy. If you're in crisis, please contact emergency services.</p>
     </div>
 
     <script>
         function handleSignIn() {
-            alert('Sign In button clicked!');
-            window.location.href = '/auth';
+            alert('Sign In button clicked! Redirecting to login...');
+            // Simulate login process
+            setTimeout(() => {
+                window.location.href = '/dashboard';
+            }, 1000);
         }
         
         function handleCreateAccount() {
-            alert('Create Account button clicked!');
-            window.location.href = '/auth';
-        }
-        
-        function testButton() {
-            alert('Test button works!');
+            alert('Create Account button clicked! Redirecting to login...');
+            // Simulate account creation process
+            setTimeout(() => {
+                window.location.href = '/dashboard';
+            }, 1000);
         }
         
         function showCrisisSupport() {
