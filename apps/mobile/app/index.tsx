@@ -51,6 +51,8 @@ export default function WelcomeScreen() {
             mode="contained" 
             style={styles.primaryButton}
             onPress={handleSignIn}
+            buttonColor="#60a5fa"
+            textColor="#000"
           >
             Sign In with Email
           </Button>
@@ -59,6 +61,8 @@ export default function WelcomeScreen() {
             mode="outlined" 
             style={styles.secondaryButton}
             onPress={handleCreateAccount}
+            textColor="#60a5fa"
+            borderColor="#60a5fa"
           >
             Create Account
           </Button>
