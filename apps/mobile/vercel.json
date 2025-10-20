@@ -4,9 +4,17 @@
     {
       "src": "public/index.html",
       "use": "@vercel/static"
+    },
+    {
+      "src": "public/dashboard.html",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
+    {
+      "src": "/dashboard",
+      "dest": "/public/dashboard.html"
+    },
     {
       "src": "/(.*)",
       "dest": "/public/index.html"
