@@ -8,11 +8,13 @@ export default function WelcomeScreen() {
   const router = useRouter();
 
   const handleSignIn = () => {
+    alert('Sign In button clicked!');
     console.log('Sign In clicked');
     router.push('/auth');
   };
 
   const handleCreateAccount = () => {
+    alert('Create Account button clicked!');
     console.log('Create Account clicked');
     router.push('/auth');
   };
@@ -67,6 +69,14 @@ export default function WelcomeScreen() {
             Create Account
           </Button>
         </View>
+
+        <Button 
+          mode="contained" 
+          style={styles.testButton}
+          onPress={() => alert('Test button works!')}
+        >
+          TEST BUTTON
+        </Button>
 
         <Text variant="bodySmall" style={styles.disclaimer}>
           AI is not a substitute for professional therapy. 
@@ -135,5 +145,9 @@ const styles = StyleSheet.create({
     color: '#60a5fa',
     fontSize: 18,
     textAlign: 'center',
+  },
+  testButton: {
+    backgroundColor: '#dc2626',
+    marginTop: 20,
   },
 });
