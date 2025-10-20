@@ -147,14 +147,26 @@
         function handleSignIn() {
             const email = prompt('Enter your email address:');
             if (email && email.includes('@')) {
-                alert('Sign In successful! Welcome back!');
-                // Store user session
-                localStorage.setItem('userEmail', email);
-                localStorage.setItem('isLoggedIn', 'true');
-                // Redirect to dashboard
-                setTimeout(() => {
-                    window.location.href = '/dashboard';
-                }, 1000);
+                const password = prompt('Enter your password:');
+                if (password) {
+                    // Check if account exists
+                    const storedEmail = localStorage.getItem('userEmail');
+                    const storedPassword = localStorage.getItem('userPassword');
+                    
+                    if (storedEmail === email && storedPassword === password) {
+                        alert('Sign In successful! Welcome back!');
+                        // Store user session
+                        localStorage.setItem('isLoggedIn', 'true');
+                        // Redirect to dashboard
+                        setTimeout(() => {
+                            window.location.href = '/dashboard';
+                        }, 1000);
+                    } else {
+                        alert('Invalid email or password. Please try again or create an account.');
+                    }
+                } else {
+                    alert('Please enter your password');
+                }
             } else if (email) {
                 alert('Please enter a valid email address');
             }
@@ -163,17 +175,35 @@
         function handleCreateAccount() {
             const email = prompt('Enter your email address to create an account:');
             if (email && email.includes('@')) {
+                // Check if account already exists
+                const existingEmail = localStorage.getItem('userEmail');
+                if (existingEmail === email) {
+                    alert('An account with this email already exists. Please sign in instead.');
+                    return;
+                }
+                
                 const name = prompt('Enter your name:');
                 if (name) {
-                    alert('Account created successfully! Welcome to QuitBet AI!');
-                    // Store user session
-                    localStorage.setItem('userEmail', email);
-                    localStorage.setItem('userName', name);
-                    localStorage.setItem('isLoggedIn', 'true');
-                    // Redirect to dashboard
-                    setTimeout(() => {
-                        window.location.href = '/dashboard';
-                    }, 1000);
+                    const password = prompt('Create a password (at least 6 characters):');
+                    if (password && password.length >= 6) {
+                        const confirmPassword = prompt('Confirm your password:');
+                        if (password === confirmPassword) {
+                            alert('Account created successfully! Welcome to QuitBet AI!');
+                            // Store user account
+                            localStorage.setItem('userEmail', email);
+                            localStorage.setItem('userName', name);
+                            localStorage.setItem('userPassword', password);
+                            localStorage.setItem('isLoggedIn', 'true');
+                            // Redirect to dashboard
+                            setTimeout(() => {
+                                window.location.href = '/dashboard';
+                            }, 1000);
+                        } else {
+                            alert('Passwords do not match. Please try again.');
+                        }
+                    } else {
+                        alert('Password must be at least 6 characters long');
+                    }
                 } else {
                     alert('Please enter your name');
                 }
