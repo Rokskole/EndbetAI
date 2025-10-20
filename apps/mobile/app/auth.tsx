@@ -1,42 +1,28 @@
 import { useState } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { Text, TextInput, Button, Card, HelperText } from 'react-native-paper';
-import { useForm, Controller } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { useRouter } from 'expo-router';
 import { useAuth } from '@/features/auth/AuthProvider';
-
-const emailSchema = z.object({
-  email: z.string().email('Please enter a valid email address'),
-});
-
-type EmailForm = z.infer<typeof emailSchema>;
 
 export default function AuthScreen() {
   const router = useRouter();
   const { signIn } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
-  const [emailSent, setEmailSent] = useState(false);
+  const [email, setEmail] = useState('');
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<EmailForm>({
-    resolver: zodResolver(emailSchema),
-  });
-
-  const onSubmit = async (data: EmailForm) => {
+  const handleSubmit = async () => {
+    if (!email) {
+      alert('Please enter your email address');
+      return;
+    }
+    
     setIsLoading(true);
     try {
-      // Simulate successful login
-      await signIn(data.email);
-      
-      // Navigate to main app
+      await signIn(email);
       router.replace('/(tabs)');
     } catch (error) {
       console.error('Sign in error:', error);
+      alert('Sign in failed. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -95,44 +81,29 @@ export default function AuthScreen() {
               Enter your email to continue your recovery journey
             </Text>
 
-            <Controller
-              control={control}
-              name="email"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <View>
-                  <TextInput
-                    label="Email Address"
-                    value={value}
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                    autoComplete="email"
-                    style={styles.input}
-                    error={!!errors.email}
-                    mode="outlined"
-                    theme={{
-                      colors: {
-                        primary: '#60a5fa',
-                        onSurface: '#f9fafb',
-                        surface: '#374151',
-                        outline: '#4b5563'
-                      }
-                    }}
-                  />
-                  {errors.email && (
-                    <HelperText type="error" visible={!!errors.email}>
-                      {errors.email.message}
-                    </HelperText>
-                  )}
-                </View>
-              )}
+            <TextInput
+              label="Email Address"
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              autoComplete="email"
+              style={styles.input}
+              mode="outlined"
+              theme={{
+                colors: {
+                  primary: '#60a5fa',
+                  onSurface: '#f9fafb',
+                  surface: '#374151',
+                  outline: '#4b5563'
+                }
+              }}
             />
 
             <Button 
               mode="contained" 
               style={styles.button}
-              onPress={handleSubmit(onSubmit)}
+              onPress={handleSubmit}
               loading={isLoading}
               disabled={isLoading}
               labelStyle={styles.buttonLabel}
