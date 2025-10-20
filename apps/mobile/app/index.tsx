@@ -51,7 +51,10 @@ export default function WelcomeScreen() {
           <Button 
             mode="contained" 
             style={styles.primaryButton}
-            onPress={() => router.push('/auth')}
+            onPress={() => {
+              console.log('Sign In clicked');
+              router.push('/auth');
+            }}
           >
             Sign In with Email
           </Button>
@@ -59,7 +62,10 @@ export default function WelcomeScreen() {
           <Button 
             mode="outlined" 
             style={styles.secondaryButton}
-            onPress={() => router.push('/auth')}
+            onPress={() => {
+              console.log('Create Account clicked');
+              router.push('/auth');
+            }}
           >
             Create Account
           </Button>
