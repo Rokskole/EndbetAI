@@ -398,8 +398,15 @@
                         <div class="card">
                             <h2>AI Chat</h2>
                             <p>Chat with our AI assistant for support and guidance.</p>
-                            <textarea class="textarea" placeholder="How are you feeling today? What's on your mind?" rows="4"></textarea>
-                            <button class="button" onclick="sendMessage()">Send Message</button>
+                            
+                            <div id="chatMessages" style="height: 300px; overflow-y: auto; background: #374151; border-radius: 12px; padding: 16px; margin-bottom: 16px; border: 1px solid #4b5563;">
+                                <div style="color: #60a5fa; margin-bottom: 8px;">🤖 AI: Hello! I'm here to support you on your recovery journey. How are you feeling today?</div>
+                            </div>
+                            
+                            <div style="display: flex; gap: 8px;">
+                                <input type="text" id="chatInput" placeholder="Type your message..." style="flex: 1; padding: 12px; border-radius: 12px; border: 1px solid #4b5563; background: #374151; color: #f9fafb; font-size: 14px;" onkeypress="handleChatKeyPress(event)">
+                                <button class="button" onclick="sendMessage()" style="margin: 0;">Send</button>
+                            </div>
                         </div>
                     `;
                     break;
@@ -534,25 +541,64 @@
         }
         
         function sendMessage() {
-            const textarea = document.querySelector('.textarea');
-            const message = textarea.value.trim();
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
             if (!message) {
-                alert('Please enter a message first.');
                 return;
             }
             
-            // Simulate AI response for demo
-            const responses = [
-                "I understand you're going through a tough time. Remember, recovery is a journey, not a destination. You're stronger than you think!",
-                "It's great that you're reaching out for support. Every small step counts in your recovery journey.",
-                "I'm here to listen and support you. What's been the most challenging part of your day?",
-                "You're not alone in this. Many people have overcome similar challenges, and you can too.",
-                "Take a deep breath. You've already taken the first step by seeking help. That takes courage."
-            ];
+            // Add user message to chat
+            addMessageToChat('You', message, '#60a5fa');
+            input.value = '';
             
-            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-            alert(`AI Response: ${randomResponse}`);
-            textarea.value = '';
+            // Simulate AI response
+            setTimeout(() => {
+                const responses = [
+                    "I understand you're going through a tough time. Remember, recovery is a journey, not a destination. You're stronger than you think!",
+                    "It's great that you're reaching out for support. Every small step counts in your recovery journey.",
+                    "I'm here to listen and support you. What's been the most challenging part of your day?",
+                    "You're not alone in this. Many people have overcome similar challenges, and you can too.",
+                    "Take a deep breath. You've already taken the first step by seeking help. That takes courage.",
+                    "How are you feeling right now? Sometimes talking about our emotions can help us process them better.",
+                    "Remember, it's okay to have difficult days. What matters is that you keep moving forward, even if it's just one small step at a time.",
+                    "I'm proud of you for reaching out. What would help you feel more supported right now?"
+                ];
+                
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                addMessageToChat('AI', randomResponse, '#34d399');
+            }, 1000);
+        }
+        
+        function addMessageToChat(sender, message, color) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.style.marginBottom = '12px';
+            messageDiv.style.padding = '8px 12px';
+            messageDiv.style.borderRadius = '8px';
+            messageDiv.style.backgroundColor = sender === 'You' ? '#1f2937' : '#374151';
+            messageDiv.style.border = `1px solid ${color}`;
+            
+            const senderSpan = document.createElement('span');
+            senderSpan.style.color = color;
+            senderSpan.style.fontWeight = '600';
+            senderSpan.textContent = sender + ': ';
+            
+            const messageSpan = document.createElement('span');
+            messageSpan.style.color = '#f9fafb';
+            messageSpan.textContent = message;
+            
+            messageDiv.appendChild(senderSpan);
+            messageDiv.appendChild(messageSpan);
+            chatMessages.appendChild(messageDiv);
+            
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
         }
         
         function saveJournal() {
