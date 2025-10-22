@@ -388,9 +388,9 @@
         }
         
         .emergency-button {
-            background: #dc2626;
+            background: #1f2937;
             color: white;
-            border: none;
+            border: 2px solid #dc2626;
             padding: 16px 12px;
             border-radius: 16px;
             font-size: 14px;
@@ -398,7 +398,26 @@
             cursor: pointer;
             text-align: center;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .emergency-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(220, 38, 38, 0.05));
+            border-radius: 14px;
+        }
+        
+        .emergency-button .button-icon,
+        .emergency-button .button-text {
+            position: relative;
+            z-index: 1;
         }
         
         .emergency-button:hover {
@@ -456,13 +475,25 @@
         }
         
         .breathing-circle.breathing-in {
-            transform: scale(1.2);
+            animation: breatheIn 4s ease-in-out infinite;
             background: linear-gradient(135deg, #34d399, #10b981);
         }
         
         .breathing-circle.breathing-out {
-            transform: scale(0.8);
+            animation: breatheOut 4s ease-in-out infinite;
             background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        }
+        
+        @keyframes breatheIn {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes breatheOut {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.7); }
+            100% { transform: scale(1); }
         }
         
         .breathing-text {
@@ -1244,44 +1275,65 @@
                 button.textContent = 'Stop Exercise';
                 instructions.innerHTML = '<p>Breathe in as the circle expands</p><p>Breathe out as the circle contracts</p>';
                 
-                let isBreathingIn = true;
                 let cycleCount = 0;
                 const maxCycles = 5;
+                let isRunning = true;
                 
-                const breathingInterval = setInterval(() => {
-                    if (cycleCount >= maxCycles) {
-                        clearInterval(breathingInterval);
-                        circle.className = 'breathing-circle';
-                        text.textContent = 'Exercise Complete!';
-                        button.textContent = 'Start Breathing Exercise';
-                        instructions.innerHTML = '<p>Great job! You\'ve completed the breathing exercise.</p><p>Take a moment to notice how you feel.</p>';
+                // Start the breathing cycle
+                function breathingCycle() {
+                    if (!isRunning || cycleCount >= maxCycles) {
+                        if (cycleCount >= maxCycles) {
+                            circle.className = 'breathing-circle';
+                            text.textContent = 'Exercise Complete!';
+                            button.textContent = 'Start Breathing Exercise';
+                            instructions.innerHTML = '<p>Great job! You\'ve completed the breathing exercise.</p><p>Take a moment to notice how you feel.</p>';
+                        }
                         return;
                     }
                     
-                    if (isBreathingIn) {
-                        circle.className = 'breathing-circle breathing-in';
-                        text.textContent = 'Breathe In';
-                        setTimeout(() => {
-                            isBreathingIn = false;
-                        }, 3000);
-                    } else {
+                    // Breathe in phase
+                    circle.className = 'breathing-circle breathing-in';
+                    text.textContent = 'Breathe In';
+                    
+                    setTimeout(() => {
+                        if (!isRunning) return;
+                        
+                        // Breathe out phase
                         circle.className = 'breathing-circle breathing-out';
                         text.textContent = 'Breathe Out';
+                        
                         setTimeout(() => {
-                            isBreathingIn = true;
+                            if (!isRunning) return;
+                            
                             cycleCount++;
-                        }, 3000);
-                    }
-                }, 3000);
+                            if (cycleCount < maxCycles) {
+                                // Brief pause between cycles
+                                circle.className = 'breathing-circle';
+                                text.textContent = 'Pause';
+                                
+                                setTimeout(() => {
+                                    if (isRunning) {
+                                        breathingCycle();
+                                    }
+                                }, 1000);
+                            } else {
+                                // Exercise complete
+                                circle.className = 'breathing-circle';
+                                text.textContent = 'Exercise Complete!';
+                                button.textContent = 'Start Breathing Exercise';
+                                instructions.innerHTML = '<p>Great job! You\'ve completed the breathing exercise.</p><p>Take a moment to notice how you feel.</p>';
+                            }
+                        }, 4000); // 4 seconds for breathing out
+                    }, 4000); // 4 seconds for breathing in
+                }
                 
-                // Store interval ID for stopping
-                circle.dataset.intervalId = breathingInterval;
+                // Store running state for stopping
+                circle.dataset.isRunning = 'true';
+                breathingCycle();
+                
             } else {
                 // Stop the exercise
-                const intervalId = circle.dataset.intervalId;
-                if (intervalId) {
-                    clearInterval(intervalId);
-                }
+                circle.dataset.isRunning = 'false';
                 circle.className = 'breathing-circle';
                 text.textContent = 'Tap to Start';
                 button.textContent = 'Start Breathing Exercise';
