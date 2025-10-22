@@ -415,8 +415,24 @@
                         <div class="card">
                             <h2>Journal</h2>
                             <p>Record your thoughts and feelings.</p>
+                            
+                            <div style="margin-bottom: 16px;">
+                                <label style="color: #9ca3af; font-size: 14px; margin-bottom: 8px; display: block;">How are you feeling today?</label>
+                                <select id="moodSelect" style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #4b5563; background: #374151; color: #f9fafb; font-size: 14px; margin-bottom: 16px;">
+                                    <option value="great">😊 Great</option>
+                                    <option value="good">🙂 Good</option>
+                                    <option value="okay">😐 Okay</option>
+                                    <option value="struggling">😔 Struggling</option>
+                                    <option value="difficult">😰 Difficult</option>
+                                </select>
+                            </div>
+                            
                             <textarea class="textarea" placeholder="Write about your day, your feelings, or your recovery journey..." rows="6"></textarea>
-                            <button class="button" onclick="saveJournal()">Save Entry</button>
+                            
+                            <div style="display: flex; gap: 12px; margin-top: 16px;">
+                                <button class="button" onclick="saveJournal()" style="flex: 1;">Save Entry</button>
+                                <button class="button" onclick="viewJournalEntries()" style="flex: 1; background: #6b7280;">View Entries</button>
+                            </div>
                         </div>
                     `;
                     break;
@@ -551,21 +567,36 @@
             addMessageToChat('You', message, '#60a5fa');
             input.value = '';
             
-            // Simulate AI response
+            // Simulate AI response based on user input
             setTimeout(() => {
-                const responses = [
-                    "I understand you're going through a tough time. Remember, recovery is a journey, not a destination. You're stronger than you think!",
-                    "It's great that you're reaching out for support. Every small step counts in your recovery journey.",
-                    "I'm here to listen and support you. What's been the most challenging part of your day?",
-                    "You're not alone in this. Many people have overcome similar challenges, and you can too.",
-                    "Take a deep breath. You've already taken the first step by seeking help. That takes courage.",
-                    "How are you feeling right now? Sometimes talking about our emotions can help us process them better.",
-                    "Remember, it's okay to have difficult days. What matters is that you keep moving forward, even if it's just one small step at a time.",
-                    "I'm proud of you for reaching out. What would help you feel more supported right now?"
-                ];
+                let response = "";
+                const lowerMessage = message.toLowerCase();
                 
-                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-                addMessageToChat('AI', randomResponse, '#34d399');
+                if (lowerMessage.includes('step') || lowerMessage.includes('plan') || lowerMessage.includes('help')) {
+                    response = "Here's a step-by-step plan to help you stop gambling:\n\n1. **Acknowledge the problem** - You've already done this by reaching out!\n2. **Set a quit date** - Choose a specific date to stop completely\n3. **Remove triggers** - Delete gambling apps, block gambling sites\n4. **Find alternatives** - Replace gambling with healthy activities\n5. **Build support** - Connect with friends, family, or support groups\n6. **Track progress** - Use this app to monitor your recovery\n7. **Celebrate milestones** - Reward yourself for each day gambling-free\n\nWould you like me to help you with any specific step?";
+                } else if (lowerMessage.includes('urge') || lowerMessage.includes('craving') || lowerMessage.includes('want to gamble')) {
+                    response = "When you feel the urge to gamble, try these techniques:\n\n🚨 **Immediate actions:**\n• Take 10 deep breaths\n• Call a support person\n• Go for a walk\n• Do something with your hands\n\n💪 **Long-term strategies:**\n• Identify your triggers\n• Practice mindfulness\n• Keep busy with hobbies\n• Remember why you're quitting\n\nYou've got this! The urge will pass.";
+                } else if (lowerMessage.includes('relapse') || lowerMessage.includes('slipped') || lowerMessage.includes('gambled')) {
+                    response = "It's okay - relapses are part of recovery. Don't be too hard on yourself.\n\n**What to do now:**\n1. Stop immediately - don't chase losses\n2. Remove yourself from the situation\n3. Call someone for support\n4. Learn from this experience\n5. Get back on track\n\n**Remember:** Every day is a new chance to start fresh. You're still making progress!";
+                } else if (lowerMessage.includes('money') || lowerMessage.includes('debt') || lowerMessage.includes('financial')) {
+                    response = "Financial recovery is important. Here are some steps:\n\n💰 **Immediate actions:**\n• Stop all gambling immediately\n• Create a budget\n• Cut unnecessary expenses\n• Consider debt consolidation\n\n📊 **Track your progress:**\n• Use the Finance tab in this app\n• Monitor money saved daily\n• Set realistic financial goals\n\n💡 **Remember:** Every dollar not gambled is money saved!";
+                } else if (lowerMessage.includes('family') || lowerMessage.includes('relationship') || lowerMessage.includes('support')) {
+                    response = "Building a support system is crucial for recovery:\n\n👨‍👩‍👧‍👦 **Family & Friends:**\n• Be honest about your struggles\n• Ask for their support\n• Let them know how they can help\n• Consider family therapy\n\n🤝 **Professional Support:**\n• Therapists specializing in gambling addiction\n• Support groups (Gamblers Anonymous)\n• Financial counselors\n• This AI assistant (me!)\n\nYou don't have to do this alone!";
+                } else {
+                    const responses = [
+                        "I'm here to support you on your recovery journey. What specific challenge are you facing today?",
+                        "It's great that you're reaching out for help. How can I best support you right now?",
+                        "I understand this is difficult. What would be most helpful for you to hear right now?",
+                        "You're taking important steps by seeking support. What's on your mind?",
+                        "I'm proud of you for reaching out. What's been the most challenging part of your day?",
+                        "Remember, recovery is a journey with ups and downs. How are you feeling right now?",
+                        "You're stronger than you think. What support do you need today?",
+                        "Every small step counts in recovery. What would help you feel more supported?"
+                    ];
+                    response = responses[Math.floor(Math.random() * responses.length)];
+                }
+                
+                addMessageToChat('AI', response, '#34d399');
             }, 1000);
         }
         
@@ -573,18 +604,22 @@
             const chatMessages = document.getElementById('chatMessages');
             const messageDiv = document.createElement('div');
             messageDiv.style.marginBottom = '12px';
-            messageDiv.style.padding = '8px 12px';
-            messageDiv.style.borderRadius = '8px';
+            messageDiv.style.padding = '12px 16px';
+            messageDiv.style.borderRadius = '12px';
             messageDiv.style.backgroundColor = sender === 'You' ? '#1f2937' : '#374151';
             messageDiv.style.border = `1px solid ${color}`;
+            messageDiv.style.whiteSpace = 'pre-line';
+            messageDiv.style.lineHeight = '1.5';
             
             const senderSpan = document.createElement('span');
             senderSpan.style.color = color;
             senderSpan.style.fontWeight = '600';
+            senderSpan.style.fontSize = '14px';
             senderSpan.textContent = sender + ': ';
             
             const messageSpan = document.createElement('span');
             messageSpan.style.color = '#f9fafb';
+            messageSpan.style.fontSize = '14px';
             messageSpan.textContent = message;
             
             messageDiv.appendChild(senderSpan);
@@ -603,15 +638,62 @@
         
         function saveJournal() {
             const textarea = document.querySelector('.textarea');
+            const moodSelect = document.getElementById('moodSelect');
             const entry = textarea.value.trim();
+            const mood = moodSelect ? moodSelect.value : 'okay';
+            
             if (!entry) {
                 alert('Please write something before saving.');
                 return;
             }
             
-            // Simulate saving for demo
+            // Save to localStorage for demo
+            const journalEntry = {
+                date: new Date().toLocaleDateString(),
+                time: new Date().toLocaleTimeString(),
+                mood: mood,
+                content: entry
+            };
+            
+            let entries = JSON.parse(localStorage.getItem('journalEntries') || '[]');
+            entries.unshift(journalEntry);
+            localStorage.setItem('journalEntries', JSON.stringify(entries));
+            
             alert('Journal entry saved successfully! Keep reflecting on your journey.');
             textarea.value = '';
+        }
+        
+        function viewJournalEntries() {
+            const entries = JSON.parse(localStorage.getItem('journalEntries') || '[]');
+            
+            if (entries.length === 0) {
+                alert('No journal entries yet. Start writing to track your journey!');
+                return;
+            }
+            
+            let entriesHtml = '<div class="card"><h2>Your Journal Entries</h2>';
+            entries.forEach((entry, index) => {
+                const moodEmoji = {
+                    'great': '😊',
+                    'good': '🙂',
+                    'okay': '😐',
+                    'struggling': '😔',
+                    'difficult': '😰'
+                }[entry.mood] || '😐';
+                
+                entriesHtml += `
+                    <div style="background: #374151; padding: 16px; border-radius: 12px; margin-bottom: 12px; border: 1px solid #4b5563;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <span style="color: #60a5fa; font-weight: 600;">${moodEmoji} ${entry.mood.charAt(0).toUpperCase() + entry.mood.slice(1)}</span>
+                            <span style="color: #9ca3af; font-size: 12px;">${entry.date} ${entry.time}</span>
+                        </div>
+                        <p style="color: #f9fafb; margin: 0; line-height: 1.5;">${entry.content}</p>
+                    </div>
+                `;
+            });
+            entriesHtml += '</div>';
+            
+            document.getElementById('content').innerHTML = entriesHtml;
         }
         
         function addExpense() {
