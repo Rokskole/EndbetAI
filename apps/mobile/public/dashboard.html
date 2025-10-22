@@ -27,49 +27,53 @@
         }
         
         .header {
-            text-align: center;
-            padding: 40px 24px 20px;
-            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+            background: #1f2937;
+            padding: 20px 24px;
             border-bottom: 1px solid #374151;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .title {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
             color: #60a5fa;
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
         }
         
-        .subtitle {
+        .welcome-text {
             font-size: 16px;
-            color: #9ca3af;
-            font-weight: 400;
+            color: #f9fafb;
         }
         
         .nav {
             display: flex;
             justify-content: space-around;
             background: #1f2937;
-            padding: 8px;
+            padding: 12px 8px;
             margin: 0;
             border-bottom: 1px solid #374151;
             position: sticky;
             top: 0;
             z-index: 100;
+            overflow-x: auto;
         }
         
         .nav-item {
-            padding: 12px 8px;
+            padding: 8px 4px;
             color: #9ca3af;
             cursor: pointer;
-            border-radius: 12px;
+            border-radius: 8px;
             transition: all 0.2s ease;
             font-weight: 500;
-            font-size: 14px;
+            font-size: 12px;
             text-align: center;
-            flex: 1;
+            min-width: 60px;
             margin: 0 2px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
         }
         
         .nav-item:hover {
@@ -81,6 +85,10 @@
             background: #60a5fa;
             color: #000;
             box-shadow: 0 2px 8px rgba(96, 165, 250, 0.3);
+        }
+        
+        .nav-icon {
+            font-size: 16px;
         }
         
         .content {
@@ -104,12 +112,62 @@
             margin-bottom: 16px;
             font-size: 20px;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .card p {
             color: #d1d5db;
             margin-bottom: 12px;
             line-height: 1.5;
+        }
+        
+        .days-card {
+            background: #1f2937;
+            border: 2px solid #34d399;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 16px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(52, 211, 153, 0.2);
+        }
+        
+        .days-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: #34d399;
+            margin: 16px 0;
+        }
+        
+        .days-text {
+            color: #f9fafb;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .days-subtext {
+            color: #9ca3af;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .reset-button {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .reset-button:hover {
+            background: #b91c1c;
+            transform: translateY(-1px);
         }
         
         .progress-grid {
@@ -138,6 +196,79 @@
             color: #9ca3af;
             font-size: 14px;
             margin: 0;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #374151;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 12px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #60a5fa, #34d399);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            width: 20%;
+        }
+        
+        .finance-card {
+            background: #1f2937;
+            border: 2px solid #34d399;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(52, 211, 153, 0.2);
+        }
+        
+        .finance-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 16px 0;
+        }
+        
+        .finance-item {
+            background: #374151;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #4b5563;
+        }
+        
+        .finance-item h3 {
+            color: #34d399;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .finance-item p {
+            color: #9ca3af;
+            font-size: 12px;
+            margin: 0;
+        }
+        
+        .button {
+            background: #60a5fa;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 12px;
+            box-shadow: 0 2px 8px rgba(96, 165, 250, 0.3);
+            transition: all 0.2s ease;
+        }
+        
+        .button:hover {
+            background: #3b82f6;
+            transform: translateY(-1px);
         }
         
         .fab-container {
@@ -197,25 +328,6 @@
             transform: translateY(-2px);
         }
         
-        .button {
-            background: #60a5fa;
-            color: #000;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 12px;
-            box-shadow: 0 2px 8px rgba(96, 165, 250, 0.3);
-            transition: all 0.2s ease;
-        }
-        
-        .button:hover {
-            background: #3b82f6;
-            transform: translateY(-1px);
-        }
-        
         .textarea {
             width: 100%;
             padding: 16px;
@@ -233,114 +345,6 @@
             outline: none;
             border-color: #60a5fa;
             box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
-        }
-        
-        .contact-card {
-            background: #374151;
-            padding: 16px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            border: 1px solid #4b5563;
-        }
-        
-        .contact-card h4 {
-            color: #f9fafb;
-            margin-bottom: 8px;
-            font-size: 16px;
-        }
-        
-        .contact-card p {
-            color: #d1d5db;
-            margin-bottom: 4px;
-            font-size: 14px;
-        }
-        
-        .contact-button {
-            background: #60a5fa;
-            color: #000;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 8px;
-        }
-        
-        .task-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #374151;
-        }
-        
-        .task-item:last-child {
-            border-bottom: none;
-        }
-        
-        .task-checkbox {
-            margin-right: 12px;
-            transform: scale(1.2);
-        }
-        
-        .task-label {
-            color: #f9fafb;
-            font-size: 14px;
-        }
-        
-        .crisis-card {
-            background: #dc2626;
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 16px;
-            text-align: center;
-        }
-        
-        .crisis-card h2 {
-            color: white;
-            margin-bottom: 8px;
-        }
-        
-        .crisis-card p {
-            color: #fef2f2;
-            margin-bottom: 16px;
-        }
-        
-        .emergency-button {
-            background: #dc2626;
-            color: white;
-            border: none;
-            padding: 16px 24px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            margin-bottom: 12px;
-        }
-        
-        .grounding-step {
-            background: #374151;
-            padding: 16px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: flex-start;
-        }
-        
-        .step-number {
-            color: #60a5fa;
-            font-weight: 700;
-            font-size: 24px;
-            margin-right: 16px;
-            min-width: 30px;
-        }
-        
-        .step-text {
-            color: #f9fafb;
-            font-size: 14px;
-            line-height: 1.5;
-            flex: 1;
         }
         
         .chat-message {
@@ -379,69 +383,120 @@
             font-size: 14px;
         }
         
-        /* Enhanced Crisis Support Styles */
-        .emergency-buttons {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-top: 20px;
+        .task-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #374151;
+        }
+        
+        .task-item:last-child {
+            border-bottom: none;
+        }
+        
+        .task-checkbox {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+        
+        .task-label {
+            color: #f9fafb;
+            font-size: 14px;
+        }
+        
+        .contact-card {
+            background: #374151;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #4b5563;
+        }
+        
+        .contact-card h4 {
+            color: #f9fafb;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        
+        .contact-card p {
+            color: #d1d5db;
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+        
+        .contact-button {
+            background: #60a5fa;
+            color: #000;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+        
+        .crisis-card {
+            background: #dc2626;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        
+        .crisis-card h2 {
+            color: white;
+            margin-bottom: 8px;
+        }
+        
+        .crisis-card p {
+            color: #fef2f2;
+            margin-bottom: 16px;
         }
         
         .emergency-button {
             background: #1f2937;
             color: white;
             border: 2px solid #dc2626;
-            padding: 16px 12px;
-            border-radius: 16px;
-            font-size: 14px;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            text-align: center;
+            width: 100%;
+            margin-bottom: 12px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .emergency-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(220, 38, 38, 0.05));
-            border-radius: 14px;
-        }
-        
-        .emergency-button .button-icon,
-        .emergency-button .button-text {
-            position: relative;
-            z-index: 1;
         }
         
         .emergency-button:hover {
+            background: #374151;
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
         }
         
-        .button-icon {
+        .grounding-step {
+            background: #374151;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .step-number {
+            color: #60a5fa;
+            font-weight: 700;
             font-size: 24px;
-            display: block;
-            margin-bottom: 8px;
+            margin-right: 16px;
+            min-width: 30px;
         }
         
-        .button-text {
-            font-size: 12px;
-            line-height: 1.2;
+        .step-text {
+            color: #f9fafb;
+            font-size: 14px;
+            line-height: 1.5;
+            flex: 1;
         }
         
-        .button-text small {
-            font-size: 10px;
-            opacity: 0.8;
-        }
-        
-        /* Breathing Exercise Styles */
         .breathing-container {
             text-align: center;
             padding: 20px 0;
@@ -459,19 +514,6 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 8px 32px rgba(96, 165, 250, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .breathing-circle::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-            border-radius: 50%;
         }
         
         .breathing-circle.breathing-in {
@@ -500,8 +542,6 @@
             color: white;
             font-size: 18px;
             font-weight: 600;
-            z-index: 1;
-            position: relative;
         }
         
         .breathing-instructions {
@@ -513,169 +553,101 @@
             margin-bottom: 4px;
             font-size: 14px;
         }
-        
-        /* Enhanced Grounding Exercise Styles */
-        .grounding-steps {
-            margin-bottom: 20px;
-        }
-        
-        .grounding-step {
-            background: #374151;
-            padding: 16px;
-            border-radius: 16px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .grounding-step:hover {
-            background: #4b5563;
-            transform: translateX(4px);
-        }
-        
-        .grounding-step.completed {
-            background: #1f2937;
-            border-color: #34d399;
-            box-shadow: 0 4px 12px rgba(52, 211, 153, 0.2);
-        }
-        
-        .grounding-step.completed .step-check {
-            opacity: 1;
-            color: #34d399;
-        }
-        
-        .step-number {
-            color: #60a5fa;
-            font-weight: 700;
-            font-size: 28px;
-            margin-right: 16px;
-            min-width: 40px;
-            text-align: center;
-        }
-        
-        .step-content {
-            flex: 1;
-        }
-        
-        .step-text {
-            color: #f9fafb;
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-        
-        .step-description {
-            color: #d1d5db;
-            font-size: 14px;
-            line-height: 1.4;
-        }
-        
-        .step-check {
-            color: #34d399;
-            font-size: 24px;
-            font-weight: bold;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .grounding-progress {
-            margin-top: 20px;
-        }
-        
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: #374151;
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 8px;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #60a5fa, #34d399);
-            border-radius: 4px;
-            transition: width 0.3s ease;
-            width: 0%;
-        }
-        
-        .progress-text {
-            color: #9ca3af;
-            font-size: 12px;
-            text-align: center;
-            margin: 0;
-        }
-        
-        /* Support Messages Styles */
-        .support-messages {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        
-        .support-message {
-            background: #374151;
-            padding: 16px;
-            border-radius: 12px;
-            color: #f9fafb;
-            font-size: 16px;
-            line-height: 1.5;
-            border-left: 4px solid #60a5fa;
-            transition: all 0.3s ease;
-        }
-        
-        .support-message:hover {
-            background: #4b5563;
-            transform: translateX(4px);
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1 class="title">QuitBet AI</h1>
-            <p class="subtitle">Welcome back, <span id="userName">Rok</span>!</p>
+            <p class="welcome-text">Welcome, <span id="userName">Friend</span>!</p>
         </div>
         
         <div class="nav">
-            <div class="nav-item active" onclick="showTab('dashboard')">Dashboard</div>
-            <div class="nav-item" onclick="showTab('chat')">Chat</div>
-            <div class="nav-item" onclick="showTab('journal')">Journal</div>
-            <div class="nav-item" onclick="showTab('tasks')">Tasks</div>
-            <div class="nav-item" onclick="showTab('finance')">Finance</div>
-            <div class="nav-item" onclick="showTab('crisis')">Crisis</div>
-            <div class="nav-item" onclick="showTab('contacts')">Contacts</div>
+            <div class="nav-item active" onclick="showTab('dashboard')">
+                <div class="nav-icon">📊</div>
+                <div>Dashboard</div>
+            </div>
+            <div class="nav-item" onclick="showTab('chat')">
+                <div class="nav-icon">💬</div>
+                <div>Chat</div>
+            </div>
+            <div class="nav-item" onclick="showTab('journal')">
+                <div class="nav-icon">📖</div>
+                <div>Journal</div>
+            </div>
+            <div class="nav-item" onclick="showTab('tasks')">
+                <div class="nav-icon">✅</div>
+                <div>Tasks</div>
+            </div>
+            <div class="nav-item" onclick="showTab('contacts')">
+                <div class="nav-icon">👥</div>
+                <div>Contacts</div>
+            </div>
+            <div class="nav-item" onclick="showTab('finance')">
+                <div class="nav-icon">💰</div>
+                <div>Finance</div>
+            </div>
+            <div class="nav-item" onclick="showTab('grounding')">
+                <div class="nav-icon">🏔️</div>
+                <div>Grounding</div>
+            </div>
+            <div class="nav-item" onclick="showTab('crisis')">
+                <div class="nav-icon">⚠️</div>
+                <div>Crisis</div>
+            </div>
+            <div class="nav-item" onclick="showTab('sos')">
+                <div class="nav-icon">🆘</div>
+                <div>SOS</div>
+            </div>
         </div>
         
         <div class="content" id="content">
+            <!-- Days Gambling-Free Card -->
+            <div class="days-card">
+                <h2>Days Gambling-Free</h2>
+                <div class="days-number" id="daysCount">0</div>
+                <div class="days-text">Start your journey today!</div>
+                <div class="days-subtext">Every day is a victory</div>
+                <button class="reset-button" onclick="resetCounter()">Reset Counter</button>
+            </div>
+            
+            <!-- Today's Goal Card -->
             <div class="card">
-                <h2>Dashboard</h2>
-                <p>Welcome to your recovery dashboard.</p>
-                <p>Track your progress and stay motivated.</p>
-                
-                <div class="progress-grid">
-                    <div class="progress-item">
-                        <h3>1</h3>
-                        <p>Days gambling-free</p>
+                <h2>Today's Goal</h2>
+                <p>Stay focused on your recovery journey. Take it one day at a time.</p>
+                <button class="button" onclick="setTodaysGoal()">Set Goal</button>
+            </div>
+            
+            <!-- Progress This Week Card -->
+            <div class="card">
+                <h2>Progress This Week</h2>
+                <p>Tasks completed: <span id="tasksCompleted">0</span></p>
+                <p>Journal entries: <span id="journalEntries">0</span></p>
+                <p>Grounding exercises: <span id="groundingExercises">0</span></p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="weeklyProgress"></div>
+                </div>
+                <p>Great start! Keep building momentum.</p>
+            </div>
+            
+            <!-- Financial Recovery Card -->
+            <div class="finance-card">
+                <h2>💰 Financial Recovery</h2>
+                <div class="finance-grid">
+                    <div class="finance-item">
+                        <h3 id="moneySaved">$0.00</h3>
+                        <p>Money Saved</p>
                     </div>
-                    <div class="progress-item">
-                        <h3>0</h3>
-                        <p>Journal entries</p>
+                    <div class="finance-item">
+                        <h3 id="netSavings">$0.00</h3>
+                        <p>Net Savings</p>
                     </div>
-                    <div class="progress-item">
-                        <h3>0</h3>
-                        <p>Chat sessions</p>
-                    </div>
-                    <div class="progress-item">
-                        <h3>$0</h3>
-                        <p>Money saved</p>
+                    <div class="finance-item">
+                        <h3 id="dailyAvg">$0.00</h3>
+                        <p>Daily Avg</p>
                     </div>
                 </div>
+                <button class="button" onclick="showTab('finance')">View Full Finance Report</button>
             </div>
         </div>
         
@@ -696,8 +668,46 @@
         }
         
         // Set user name
-        const userName = localStorage.getItem('userName') || 'Rok';
+        const userName = localStorage.getItem('userName') || 'Friend';
         document.getElementById('userName').textContent = userName;
+        
+        // Load saved data
+        loadDashboardData();
+        
+        function loadDashboardData() {
+            // Load days gambling-free
+            const daysCount = localStorage.getItem('daysGamblingFree') || '0';
+            document.getElementById('daysCount').textContent = daysCount;
+            
+            // Load tasks completed
+            const tasksCompleted = localStorage.getItem('tasksCompleted') || '0';
+            document.getElementById('tasksCompleted').textContent = tasksCompleted;
+            
+            // Load journal entries
+            const journalEntries = JSON.parse(localStorage.getItem('journalEntries') || '[]').length;
+            document.getElementById('journalEntries').textContent = journalEntries;
+            
+            // Load grounding exercises
+            const groundingExercises = localStorage.getItem('groundingExercises') || '0';
+            document.getElementById('groundingExercises').textContent = groundingExercises;
+            
+            // Load financial data
+            const expenses = JSON.parse(localStorage.getItem('expenses') || '[]');
+            const expenseItems = expenses.filter(item => item.type === 'expense');
+            const savingsItems = expenses.filter(item => item.type === 'savings');
+            
+            const totalExpenses = expenseItems.reduce((sum, expense) => sum + expense.amount, 0);
+            const totalSavings = savingsItems.reduce((sum, saving) => sum + saving.amount, 0);
+            const netAmount = totalSavings - totalExpenses;
+            
+            document.getElementById('moneySaved').textContent = '$' + totalSavings.toFixed(2);
+            document.getElementById('netSavings').textContent = '$' + netAmount.toFixed(2);
+            document.getElementById('dailyAvg').textContent = '$' + (totalSavings / 7).toFixed(2);
+            
+            // Update weekly progress
+            const weeklyProgress = Math.min((parseInt(tasksCompleted) + journalEntries + parseInt(groundingExercises)) / 21 * 100, 100);
+            document.getElementById('weeklyProgress').style.width = weeklyProgress + '%';
+        }
         
         function showTab(tab) {
             // Remove active class from all nav items
@@ -706,38 +716,58 @@
             });
             
             // Add active class to clicked item
-            event.target.classList.add('active');
+            event.target.closest('.nav-item').classList.add('active');
             
             // Update content based on tab
             const content = document.getElementById('content');
             switch(tab) {
                 case 'dashboard':
                     content.innerHTML = `
+                        <div class="days-card">
+                            <h2>Days Gambling-Free</h2>
+                            <div class="days-number" id="daysCount">0</div>
+                            <div class="days-text">Start your journey today!</div>
+                            <div class="days-subtext">Every day is a victory</div>
+                            <button class="reset-button" onclick="resetCounter()">Reset Counter</button>
+                        </div>
+                        
                         <div class="card">
-                            <h2>Dashboard</h2>
-                            <p>Welcome to your recovery dashboard.</p>
-                            <p>Track your progress and stay motivated.</p>
-                            
-                            <div class="progress-grid">
-                                <div class="progress-item">
-                                    <h3>1</h3>
-                                    <p>Days gambling-free</p>
+                            <h2>Today's Goal</h2>
+                            <p>Stay focused on your recovery journey. Take it one day at a time.</p>
+                            <button class="button" onclick="setTodaysGoal()">Set Goal</button>
+                        </div>
+                        
+                        <div class="card">
+                            <h2>Progress This Week</h2>
+                            <p>Tasks completed: <span id="tasksCompleted">0</span></p>
+                            <p>Journal entries: <span id="journalEntries">0</span></p>
+                            <p>Grounding exercises: <span id="groundingExercises">0</span></p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="weeklyProgress"></div>
+                            </div>
+                            <p>Great start! Keep building momentum.</p>
+                        </div>
+                        
+                        <div class="finance-card">
+                            <h2>💰 Financial Recovery</h2>
+                            <div class="finance-grid">
+                                <div class="finance-item">
+                                    <h3 id="moneySaved">$0.00</h3>
+                                    <p>Money Saved</p>
                                 </div>
-                                <div class="progress-item">
-                                    <h3>0</h3>
-                                    <p>Journal entries</p>
+                                <div class="finance-item">
+                                    <h3 id="netSavings">$0.00</h3>
+                                    <p>Net Savings</p>
                                 </div>
-                                <div class="progress-item">
-                                    <h3>0</h3>
-                                    <p>Chat sessions</p>
-                                </div>
-                                <div class="progress-item">
-                                    <h3>$0</h3>
-                                    <p>Money saved</p>
+                                <div class="finance-item">
+                                    <h3 id="dailyAvg">$0.00</h3>
+                                    <p>Daily Avg</p>
                                 </div>
                             </div>
+                            <button class="button" onclick="showTab('finance')">View Full Finance Report</button>
                         </div>
                     `;
+                    loadDashboardData();
                     break;
                 case 'chat':
                     content.innerHTML = `
@@ -791,23 +821,24 @@
                             <h2>Tasks</h2>
                             <p>Complete daily tasks to build healthy habits.</p>
                             <div class="task-item">
-                                <input type="checkbox" class="task-checkbox" id="task1">
+                                <input type="checkbox" class="task-checkbox" id="task1" onchange="updateTask(1)">
                                 <label class="task-label" for="task1">Take a 10-minute walk</label>
                             </div>
                             <div class="task-item">
-                                <input type="checkbox" class="task-checkbox" id="task2">
+                                <input type="checkbox" class="task-checkbox" id="task2" onchange="updateTask(2)">
                                 <label class="task-label" for="task2">Practice deep breathing for 5 minutes</label>
                             </div>
                             <div class="task-item">
-                                <input type="checkbox" class="task-checkbox" id="task3">
+                                <input type="checkbox" class="task-checkbox" id="task3" onchange="updateTask(3)">
                                 <label class="task-label" for="task3">Call a friend or family member</label>
                             </div>
                             <div class="task-item">
-                                <input type="checkbox" class="task-checkbox" id="task4">
+                                <input type="checkbox" class="task-checkbox" id="task4" onchange="updateTask(4)">
                                 <label class="task-label" for="task4">Write in your journal</label>
                             </div>
                         </div>
                     `;
+                    loadTasks();
                     break;
                 case 'finance':
                     // Calculate financial data
@@ -880,25 +911,49 @@
                         </div>
                     `;
                     break;
+                case 'grounding':
+                    content.innerHTML = `
+                        <div class="card">
+                            <h2>🧘 Grounding Exercise</h2>
+                            <p>If you're feeling overwhelmed, try this 5-4-3-2-1 technique:</p>
+                            
+                            <div class="grounding-step">
+                                <div class="step-number">5</div>
+                                <div class="step-text">things you can see: Look around and name 5 things you can see</div>
+                            </div>
+                            
+                            <div class="grounding-step">
+                                <div class="step-number">4</div>
+                                <div class="step-text">things you can touch: Name 4 things you can feel with your hands</div>
+                            </div>
+                            
+                            <div class="grounding-step">
+                                <div class="step-number">3</div>
+                                <div class="step-text">things you can hear: Listen and identify 3 sounds around you</div>
+                            </div>
+                            
+                            <div class="grounding-step">
+                                <div class="step-number">2</div>
+                                <div class="step-text">things you can smell: Take a deep breath and notice 2 scents</div>
+                            </div>
+                            
+                            <div class="grounding-step">
+                                <div class="step-number">1</div>
+                                <div class="step-text">thing you can taste: Focus on 1 taste in your mouth</div>
+                            </div>
+                            
+                            <button class="button" onclick="completeGroundingExercise()">Complete Exercise</button>
+                        </div>
+                    `;
+                    break;
                 case 'crisis':
                     content.innerHTML = `
                         <div class="crisis-card">
                             <h2>🚨 Crisis Support</h2>
                             <p>You are not alone. Help is available right now.</p>
-                            <div class="emergency-buttons">
-                                <button class="emergency-button" onclick="callEmergency()">
-                                    <span class="button-icon">🚨</span>
-                                    <span class="button-text">Emergency Services<br><small>911</small></span>
-                                </button>
-                                <button class="emergency-button" onclick="callSuicidePrevention()" style="background: #60a5fa;">
-                                    <span class="button-icon">💙</span>
-                                    <span class="button-text">Suicide Prevention<br><small>988</small></span>
-                                </button>
-                                <button class="emergency-button" onclick="textCrisis()" style="background: #34d399;">
-                                    <span class="button-icon">💬</span>
-                                    <span class="button-text">Crisis Text Line<br><small>741741</small></span>
-                                </button>
-                            </div>
+                            <button class="emergency-button" onclick="callEmergency()">Call Emergency Services (911)</button>
+                            <button class="emergency-button" onclick="callSuicidePrevention()" style="background: #60a5fa; border-color: #60a5fa;">Call Suicide Prevention (988)</button>
+                            <button class="emergency-button" onclick="textCrisis()" style="background: #34d399; border-color: #34d399;">Text HOME to 741741</button>
                         </div>
                         
                         <div class="card">
@@ -918,72 +973,46 @@
                         </div>
                         
                         <div class="card">
-                            <h2>🧘 Grounding Exercise</h2>
-                            <p>If you're feeling overwhelmed, try this 5-4-3-2-1 technique:</p>
-                            
-                            <div class="grounding-steps">
-                                <div class="grounding-step" onclick="toggleGroundingStep(0)">
-                                    <div class="step-number">5</div>
-                                    <div class="step-content">
-                                        <div class="step-text">things you can see</div>
-                                        <div class="step-description">Look around and name 5 things you can see</div>
-                                    </div>
-                                    <div class="step-check">✓</div>
-                                </div>
-                                
-                                <div class="grounding-step" onclick="toggleGroundingStep(1)">
-                                    <div class="step-number">4</div>
-                                    <div class="step-content">
-                                        <div class="step-text">things you can touch</div>
-                                        <div class="step-description">Name 4 things you can feel with your hands</div>
-                                    </div>
-                                    <div class="step-check">✓</div>
-                                </div>
-                                
-                                <div class="grounding-step" onclick="toggleGroundingStep(2)">
-                                    <div class="step-number">3</div>
-                                    <div class="step-content">
-                                        <div class="step-text">things you can hear</div>
-                                        <div class="step-description">Listen and identify 3 sounds around you</div>
-                                    </div>
-                                    <div class="step-check">✓</div>
-                                </div>
-                                
-                                <div class="grounding-step" onclick="toggleGroundingStep(3)">
-                                    <div class="step-number">2</div>
-                                    <div class="step-content">
-                                        <div class="step-text">things you can smell</div>
-                                        <div class="step-description">Take a deep breath and notice 2 scents</div>
-                                    </div>
-                                    <div class="step-check">✓</div>
-                                </div>
-                                
-                                <div class="grounding-step" onclick="toggleGroundingStep(4)">
-                                    <div class="step-number">1</div>
-                                    <div class="step-content">
-                                        <div class="step-text">thing you can taste</div>
-                                        <div class="step-description">Focus on 1 taste in your mouth</div>
-                                    </div>
-                                    <div class="step-check">✓</div>
-                                </div>
-                            </div>
-                            
-                            <div class="grounding-progress">
-                                <div class="progress-bar">
-                                    <div class="progress-fill" id="groundingProgress"></div>
-                                </div>
-                                <p class="progress-text">Complete each step by tapping on it</p>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
                             <h2>💙 Remember</h2>
-                            <div class="support-messages">
-                                <div class="support-message">✨ You are not alone in this moment</div>
-                                <div class="support-message">⏰ These feelings are temporary</div>
-                                <div class="support-message">💎 You are worthy of help and support</div>
-                                <div class="support-message">🤗 There are people who care about you</div>
-                                <div class="support-message">🌈 This crisis will pass</div>
+                            <p>• You are not alone in this moment</p>
+                            <p>• These feelings are temporary</p>
+                            <p>• You are worthy of help and support</p>
+                            <p>• There are people who care about you</p>
+                            <p>• This crisis will pass</p>
+                        </div>
+                    `;
+                    break;
+                case 'sos':
+                    content.innerHTML = `
+                        <div class="card">
+                            <h2>🆘 SOS Support</h2>
+                            <p>Emergency contacts and immediate help resources.</p>
+                            
+                            <div class="contact-card">
+                                <h4>🏥 Dr. Sarah Johnson - Therapist</h4>
+                                <p>📞 Phone: (555) 123-4567</p>
+                                <p>📧 Email: sarah.johnson@therapy.com</p>
+                                <button class="contact-button" onclick="callContact('therapist')">Call</button>
+                            </div>
+                            
+                            <div class="contact-card">
+                                <h4>👨‍⚕️ Mike Chen - Counselor</h4>
+                                <p>📞 Phone: (555) 987-6543</p>
+                                <p>📧 Email: mike.chen@recovery.org</p>
+                                <button class="contact-button" onclick="callContact('counselor')">Call</button>
+                            </div>
+                            
+                            <div class="contact-card">
+                                <h4>👨‍👩‍👧‍👦 Mom & Dad</h4>
+                                <p>📞 Phone: (555) 456-7890</p>
+                                <button class="contact-button" onclick="callContact('family')">Call</button>
+                            </div>
+                            
+                            <div class="contact-card">
+                                <h4>👥 Gamblers Anonymous</h4>
+                                <p>📞 Phone: (555) 321-0987</p>
+                                <p>📍 Meeting: Tuesdays 7 PM</p>
+                                <button class="contact-button" onclick="callContact('support-group')">Call</button>
                             </div>
                         </div>
                     `;
@@ -1047,6 +1076,46 @@
                     content.innerHTML = contactsHtml;
                     break;
             }
+        }
+        
+        function resetCounter() {
+            if (confirm('Are you sure you want to reset your gambling-free counter?')) {
+                localStorage.setItem('daysGamblingFree', '0');
+                document.getElementById('daysCount').textContent = '0';
+                alert('Counter reset. You can start fresh!');
+            }
+        }
+        
+        function setTodaysGoal() {
+            const goal = prompt('What is your goal for today?');
+            if (goal) {
+                localStorage.setItem('todaysGoal', goal);
+                alert('Goal set! You can do this!');
+            }
+        }
+        
+        function updateTask(taskNumber) {
+            const tasksCompleted = parseInt(localStorage.getItem('tasksCompleted') || '0');
+            localStorage.setItem('tasksCompleted', (tasksCompleted + 1).toString());
+            loadDashboardData();
+        }
+        
+        function loadTasks() {
+            // Load saved task states
+            const savedTasks = JSON.parse(localStorage.getItem('savedTasks') || '[]');
+            savedTasks.forEach(task => {
+                const checkbox = document.getElementById(`task${task.id}`);
+                if (checkbox) {
+                    checkbox.checked = task.completed;
+                }
+            });
+        }
+        
+        function completeGroundingExercise() {
+            const groundingExercises = parseInt(localStorage.getItem('groundingExercises') || '0');
+            localStorage.setItem('groundingExercises', (groundingExercises + 1).toString());
+            alert('Great job! You completed the grounding exercise. Take a moment to notice how you feel.');
+            loadDashboardData();
         }
         
         function logout() {
@@ -1154,6 +1223,7 @@
             
             alert('Journal entry saved successfully! Keep reflecting on your journey.');
             textarea.value = '';
+            loadDashboardData();
         }
         
         function viewJournalEntries() {
@@ -1206,8 +1276,7 @@
                 localStorage.setItem('expenses', JSON.stringify(expenses));
                 
                 alert(`Expense of $${amount} added successfully!`);
-                // Refresh finance view
-                showTab('finance');
+                loadDashboardData();
             } else {
                 alert('Please enter a valid amount.');
             }
@@ -1230,8 +1299,7 @@
                 localStorage.setItem('expenses', JSON.stringify(expenses));
                 
                 alert(`Savings of $${amount} added successfully!`);
-                // Refresh finance view
-                showTab('finance');
+                loadDashboardData();
             } else {
                 alert('Please enter a valid amount.');
             }
@@ -1338,30 +1406,6 @@
                 text.textContent = 'Tap to Start';
                 button.textContent = 'Start Breathing Exercise';
                 instructions.innerHTML = '<p>Follow the circle as it expands and contracts</p><p>Breathe in as it grows, breathe out as it shrinks</p>';
-            }
-        }
-        
-        function toggleGroundingStep(stepIndex) {
-            const step = document.querySelectorAll('.grounding-step')[stepIndex];
-            const progressFill = document.getElementById('groundingProgress');
-            
-            if (step.classList.contains('completed')) {
-                step.classList.remove('completed');
-            } else {
-                step.classList.add('completed');
-            }
-            
-            // Update progress
-            const completedSteps = document.querySelectorAll('.grounding-step.completed').length;
-            const totalSteps = 5;
-            const progressPercentage = (completedSteps / totalSteps) * 100;
-            progressFill.style.width = progressPercentage + '%';
-            
-            // Show completion message
-            if (completedSteps === totalSteps) {
-                setTimeout(() => {
-                    alert('🎉 Congratulations! You\'ve completed the grounding exercise. Take a moment to notice how you feel now.');
-                }, 500);
             }
         }
         
