@@ -764,7 +764,7 @@
                                     <p>Daily Avg</p>
                                 </div>
                             </div>
-                            <button class="button" onclick="showTab('finance')">View Full Finance Report</button>
+                            <button class="button" onclick="showFinanceReport()">View Full Finance Report</button>
                         </div>
                     `;
                     loadDashboardData();
@@ -816,10 +816,15 @@
                     `;
                     break;
                 case 'tasks':
-                    content.innerHTML = `
+                    // Load saved tasks
+                    const savedTasks = JSON.parse(localStorage.getItem('savedTasks') || '[]');
+                    
+                    let tasksHtml = `
                         <div class="card">
                             <h2>Tasks</h2>
                             <p>Complete daily tasks to build healthy habits.</p>
+                            
+                            <h3 style="color: #60a5fa; margin: 16px 0 12px 0;">Daily Habits</h3>
                             <div class="task-item">
                                 <input type="checkbox" class="task-checkbox" id="task1" onchange="updateTask(1)">
                                 <label class="task-label" for="task1">Take a 10-minute walk</label>
@@ -836,8 +841,27 @@
                                 <input type="checkbox" class="task-checkbox" id="task4" onchange="updateTask(4)">
                                 <label class="task-label" for="task4">Write in your journal</label>
                             </div>
-                        </div>
                     `;
+                    
+                    // Add saved tasks (including goals)
+                    if (savedTasks.length > 0) {
+                        tasksHtml += `<h3 style="color: #34d399; margin: 20px 0 12px 0;">Your Goals & Tasks</h3>`;
+                        savedTasks.forEach(task => {
+                            const isGoal = task.type === 'goal';
+                            const icon = isGoal ? '🎯' : '✅';
+                            tasksHtml += `
+                                <div class="task-item">
+                                    <input type="checkbox" class="task-checkbox" id="savedTask${task.id}" onchange="updateSavedTask(${task.id})">
+                                    <label class="task-label" for="savedTask${task.id}">${icon} ${task.text}</label>
+                                    <button onclick="deleteTask(${task.id})" style="background: #dc2626; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 12px; margin-left: 8px;">Delete</button>
+                                </div>
+                            `;
+                        });
+                    }
+                    
+                    tasksHtml += `<button class="button" onclick="addCustomTask()" style="margin-top: 16px;">Add Custom Task</button></div>`;
+                    
+                    content.innerHTML = tasksHtml;
                     loadTasks();
                     break;
                 case 'finance':
@@ -1090,7 +1114,21 @@
             const goal = prompt('What is your goal for today?');
             if (goal) {
                 localStorage.setItem('todaysGoal', goal);
-                alert('Goal set! You can do this!');
+                
+                // Add the goal as a task
+                const newTask = {
+                    id: Date.now(),
+                    text: goal,
+                    completed: false,
+                    type: 'goal',
+                    date: new Date().toLocaleDateString()
+                };
+                
+                let tasks = JSON.parse(localStorage.getItem('savedTasks') || '[]');
+                tasks.unshift(newTask);
+                localStorage.setItem('savedTasks', JSON.stringify(tasks));
+                
+                alert('Goal set and added to your tasks! You can do this!');
             }
         }
         
@@ -1109,6 +1147,57 @@
                     checkbox.checked = task.completed;
                 }
             });
+        }
+        
+        function showFinanceReport() {
+            // Switch to finance tab
+            showTab('finance');
+        }
+        
+        function updateSavedTask(taskId) {
+            const checkbox = document.getElementById(`savedTask${taskId}`);
+            const tasks = JSON.parse(localStorage.getItem('savedTasks') || '[]');
+            const task = tasks.find(t => t.id === taskId);
+            
+            if (task) {
+                task.completed = checkbox.checked;
+                localStorage.setItem('savedTasks', JSON.stringify(tasks));
+                
+                if (checkbox.checked) {
+                    const tasksCompleted = parseInt(localStorage.getItem('tasksCompleted') || '0');
+                    localStorage.setItem('tasksCompleted', (tasksCompleted + 1).toString());
+                    loadDashboardData();
+                }
+            }
+        }
+        
+        function deleteTask(taskId) {
+            if (confirm('Are you sure you want to delete this task?')) {
+                let tasks = JSON.parse(localStorage.getItem('savedTasks') || '[]');
+                tasks = tasks.filter(task => task.id !== taskId);
+                localStorage.setItem('savedTasks', JSON.stringify(tasks));
+                showTab('tasks'); // Refresh the tasks view
+            }
+        }
+        
+        function addCustomTask() {
+            const taskText = prompt('Enter your custom task:');
+            if (taskText) {
+                const newTask = {
+                    id: Date.now(),
+                    text: taskText,
+                    completed: false,
+                    type: 'custom',
+                    date: new Date().toLocaleDateString()
+                };
+                
+                let tasks = JSON.parse(localStorage.getItem('savedTasks') || '[]');
+                tasks.unshift(newTask);
+                localStorage.setItem('savedTasks', JSON.stringify(tasks));
+                
+                alert('Custom task added!');
+                showTab('tasks'); // Refresh the tasks view
+            }
         }
         
         function completeGroundingExercise() {

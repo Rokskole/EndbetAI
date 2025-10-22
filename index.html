@@ -194,7 +194,7 @@
             color: #000;
         }
         
-        .content {
+            .content {
             background: #1f2937;
             border-radius: 12px;
             padding: 20px;
@@ -219,35 +219,35 @@
             <div class="logo">🎯</div>
             <h1 class="title">QuitBet AI</h1>
             <p class="subtitle">Your compassionate companion for gambling recovery</p>
-            
-            <div class="card">
+                
+                <div class="card">
                 <h2 class="card-title">Welcome Back</h2>
                 <p class="card-subtitle">Enter your email to continue your recovery journey</p>
                 
                 <input type="email" class="input" placeholder="Email Address" id="emailInput">
                 <button class="button" onclick="handleLogin()">Continue Journey</button>
-            </div>
-            
+                </div>
+                
             <div class="features">
                 <h3 class="features-title">Your Recovery Toolkit</h3>
                 <div class="feature-item">
                     <span class="feature-icon">💬</span>
                     <span class="feature-text">AI-powered chat support</span>
-                </div>
+                        </div>
                 <div class="feature-item">
                     <span class="feature-icon">📊</span>
                     <span class="feature-text">Progress tracking & insights</span>
-                </div>
+                        </div>
                 <div class="feature-item">
                     <span class="feature-icon">🆘</span>
                     <span class="feature-text">24/7 crisis support</span>
-                </div>
+                        </div>
                 <div class="feature-item">
                     <span class="feature-icon">📝</span>
                     <span class="feature-text">Journal & reflection tools</span>
+                    </div>
                 </div>
-            </div>
-            
+                
             <div class="crisis-card">
                 <h3 class="crisis-title">Need Immediate Help?</h3>
                 <p class="crisis-text">If you're in crisis, please reach out for immediate support</p>
@@ -255,8 +255,8 @@
             </div>
             
             <p class="disclaimer">By continuing, you agree to our Terms of Service and Privacy Policy.</p>
-        </div>
-        
+                    </div>
+                    
         <!-- Dashboard Screen -->
         <div id="dashboard" class="dashboard">
             <div class="nav">
@@ -273,8 +273,8 @@
                 <p>You're now logged in and ready to start your recovery journey.</p>
                 <p>Use the navigation above to explore different features.</p>
                 <p>Remember: You're not alone in this journey.</p>
-            </div>
-            
+                </div>
+                
             <button class="button" onclick="logout()">Logout</button>
         </div>
     </div>
@@ -291,10 +291,10 @@
             document.querySelector('.button').textContent = 'Signing In...';
             
             // Simulate login
-            setTimeout(() => {
+                setTimeout(() => {
                 document.getElementById('loginScreen').style.display = 'none';
                 document.getElementById('dashboard').classList.add('show');
-            }, 1000);
+                    }, 1000);
         }
         
         function showTab(tab) {
@@ -311,13 +311,13 @@
             switch(tab) {
                 case 'dashboard':
                     content.innerHTML = '<h2>Dashboard</h2><p>Welcome to your recovery dashboard.</p><p>Track your progress and stay motivated.</p>';
-                    break;
+                        break;
                 case 'chat':
                     content.innerHTML = '<h2>AI Chat</h2><p>Chat with our AI assistant for support and guidance.</p><p>Available 24/7 to help you through difficult moments.</p>';
-                    break;
+                        break;
                 case 'journal':
                     content.innerHTML = '<h2>Journal</h2><p>Record your thoughts and feelings.</p><p>Track your recovery journey and reflect on your progress.</p>';
-                    break;
+                        break;
                 case 'tasks':
                     content.innerHTML = '<h2>Tasks</h2><p>Complete daily tasks to build healthy habits.</p><p>Small steps lead to big changes.</p>';
                     break;
@@ -326,8 +326,8 @@
                     break;
                 case 'crisis':
                     content.innerHTML = '<h2>Crisis Support</h2><p>If you\'re in crisis, please reach out for immediate help.</p><p>National Problem Gambling Helpline: 1-800-522-4700</p>';
-                    break;
-            }
+                        break;
+                }
         }
         
         function showCrisisSupport() {
