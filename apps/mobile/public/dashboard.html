@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuitBet AI - Dashboard v2</title>
+    <title>QuitBet AI - Dashboard</title>
     <style>
         * {
             margin: 0;
@@ -287,6 +287,97 @@
             color: #f9fafb;
             font-size: 14px;
         }
+        
+        .crisis-card {
+            background: #dc2626;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        
+        .crisis-card h2 {
+            color: white;
+            margin-bottom: 8px;
+        }
+        
+        .crisis-card p {
+            color: #fef2f2;
+            margin-bottom: 16px;
+        }
+        
+        .emergency-button {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 12px;
+        }
+        
+        .grounding-step {
+            background: #374151;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .step-number {
+            color: #60a5fa;
+            font-weight: 700;
+            font-size: 24px;
+            margin-right: 16px;
+            min-width: 30px;
+        }
+        
+        .step-text {
+            color: #f9fafb;
+            font-size: 14px;
+            line-height: 1.5;
+            flex: 1;
+        }
+        
+        .chat-message {
+            margin-bottom: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            white-space: pre-line;
+            line-height: 1.5;
+        }
+        
+        .chat-message.user {
+            background: #1f2937;
+            border: 1px solid #60a5fa;
+            margin-left: 20px;
+        }
+        
+        .chat-message.ai {
+            background: #374151;
+            border: 1px solid #34d399;
+            margin-right: 20px;
+        }
+        
+        .chat-sender {
+            color: #60a5fa;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        
+        .chat-sender.ai {
+            color: #34d399;
+        }
+        
+        .chat-content {
+            color: #f9fafb;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -400,7 +491,10 @@
                             <p>Chat with our AI assistant for support and guidance.</p>
                             
                             <div id="chatMessages" style="height: 300px; overflow-y: auto; background: #374151; border-radius: 12px; padding: 16px; margin-bottom: 16px; border: 1px solid #4b5563;">
-                                <div style="color: #60a5fa; margin-bottom: 8px;">🤖 AI: Hello! I'm here to support you on your recovery journey. How are you feeling today?</div>
+                                <div class="chat-message ai">
+                                    <div class="chat-sender ai">AI:</div>
+                                    <div class="chat-content">Hello! I'm here to support you on your recovery journey. How are you feeling today?</div>
+                                </div>
                             </div>
                             
                             <div style="display: flex; gap: 8px;">
@@ -533,17 +627,53 @@
                     break;
                 case 'crisis':
                     content.innerHTML = `
+                        <div class="crisis-card">
+                            <h2>🚨 Crisis Support</h2>
+                            <p>You are not alone. Help is available right now.</p>
+                            <button class="emergency-button" onclick="callEmergency()">Call Emergency Services (911)</button>
+                            <button class="emergency-button" onclick="callSuicidePrevention()" style="background: #60a5fa;">Call Suicide Prevention (988)</button>
+                            <button class="emergency-button" onclick="textCrisis()" style="background: #34d399;">Text HOME to 741741</button>
+                        </div>
+                        
                         <div class="card">
-                            <h2>Crisis Support</h2>
-                            <p>If you're in crisis, please reach out for immediate help.</p>
+                            <h2>🧘 Grounding Exercise</h2>
+                            <p>If you're feeling overwhelmed, try this 5-4-3-2-1 technique:</p>
                             
-                            <div style="background: #374151; padding: 16px; border-radius: 12px; margin: 16px 0;">
-                                <h3 style="color: #f9fafb; margin-bottom: 12px;">Emergency Contacts</h3>
-                                <p style="color: #d1d5db; margin-bottom: 8px;">📞 National Problem Gambling Helpline: <strong>1-800-522-4700</strong></p>
-                                <p style="color: #d1d5db; margin-bottom: 8px;">💬 Crisis Text Line: <strong>Text HOME to 741741</strong></p>
-                                <p style="color: #d1d5db; margin-bottom: 16px;">🆘 National Suicide Prevention Lifeline: <strong>988</strong></p>
-                                <button class="button" onclick="callEmergency()" style="background: #dc2626; color: white;">Call Emergency Services</button>
+                            <div class="grounding-step">
+                                <div class="step-number">5</div>
+                                <div class="step-text">things you can see: Look around and name 5 things you can see</div>
                             </div>
+                            
+                            <div class="grounding-step">
+                                <div class="step-number">4</div>
+                                <div class="step-text">things you can touch: Name 4 things you can feel with your hands</div>
+                            </div>
+                            
+                            <div class="grounding-step">
+                                <div class="step-number">3</div>
+                                <div class="step-text">things you can hear: Listen and identify 3 sounds around you</div>
+                            </div>
+                            
+                            <div class="grounding-step">
+                                <div class="step-number">2</div>
+                                <div class="step-text">things you can smell: Take a deep breath and notice 2 scents</div>
+                            </div>
+                            
+                            <div class="grounding-step">
+                                <div class="step-number">1</div>
+                                <div class="step-text">thing you can taste: Focus on 1 taste in your mouth</div>
+                            </div>
+                            
+                            <button class="button" onclick="startGroundingExercise()">Start Grounding Exercise</button>
+                        </div>
+                        
+                        <div class="card">
+                            <h2>💙 Remember</h2>
+                            <p>• You are not alone in this moment</p>
+                            <p>• These feelings are temporary</p>
+                            <p>• You are worthy of help and support</p>
+                            <p>• There are people who care about you</p>
+                            <p>• This crisis will pass</p>
                         </div>
                     `;
                     break;
@@ -664,27 +794,18 @@
         function addMessageToChat(sender, message, color) {
             const chatMessages = document.getElementById('chatMessages');
             const messageDiv = document.createElement('div');
-            messageDiv.style.marginBottom = '12px';
-            messageDiv.style.padding = '12px 16px';
-            messageDiv.style.borderRadius = '12px';
-            messageDiv.style.backgroundColor = sender === 'You' ? '#1f2937' : '#374151';
-            messageDiv.style.border = `1px solid ${color}`;
-            messageDiv.style.whiteSpace = 'pre-line';
-            messageDiv.style.lineHeight = '1.5';
+            messageDiv.className = `chat-message ${sender.toLowerCase()}`;
             
-            const senderSpan = document.createElement('span');
-            senderSpan.style.color = color;
-            senderSpan.style.fontWeight = '600';
-            senderSpan.style.fontSize = '14px';
-            senderSpan.textContent = sender + ': ';
+            const senderDiv = document.createElement('div');
+            senderDiv.className = `chat-sender ${sender.toLowerCase()}`;
+            senderDiv.textContent = sender + ':';
             
-            const messageSpan = document.createElement('span');
-            messageSpan.style.color = '#f9fafb';
-            messageSpan.style.fontSize = '14px';
-            messageSpan.textContent = message;
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'chat-content';
+            contentDiv.textContent = message;
             
-            messageDiv.appendChild(senderSpan);
-            messageDiv.appendChild(messageSpan);
+            messageDiv.appendChild(senderDiv);
+            messageDiv.appendChild(contentDiv);
             chatMessages.appendChild(messageDiv);
             
             // Scroll to bottom
@@ -819,6 +940,22 @@
             if (confirm('Are you sure you want to call emergency services? This will dial 911.')) {
                 alert('Emergency services will be contacted. Please stay safe.');
             }
+        }
+        
+        function callSuicidePrevention() {
+            if (confirm('Call Suicide Prevention Lifeline (988)?')) {
+                alert('Connecting to Suicide Prevention Lifeline...');
+            }
+        }
+        
+        function textCrisis() {
+            if (confirm('Text HOME to 741741 for crisis support?')) {
+                alert('Opening text message to crisis support...');
+            }
+        }
+        
+        function startGroundingExercise() {
+            alert('Starting grounding exercise... Take your time with each step. You\'ve got this!');
         }
         
         function callContact(contactType) {
