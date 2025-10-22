@@ -378,6 +378,230 @@
             color: #f9fafb;
             font-size: 14px;
         }
+        
+        /* Enhanced Crisis Support Styles */
+        .emergency-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .emergency-button {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 16px 12px;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+        }
+        
+        .emergency-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+        }
+        
+        .button-icon {
+            font-size: 24px;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .button-text {
+            font-size: 12px;
+            line-height: 1.2;
+        }
+        
+        .button-text small {
+            font-size: 10px;
+            opacity: 0.8;
+        }
+        
+        /* Breathing Exercise Styles */
+        .breathing-container {
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        .breathing-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(96, 165, 250, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .breathing-circle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border-radius: 50%;
+        }
+        
+        .breathing-circle.breathing-in {
+            transform: scale(1.2);
+            background: linear-gradient(135deg, #34d399, #10b981);
+        }
+        
+        .breathing-circle.breathing-out {
+            transform: scale(0.8);
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        }
+        
+        .breathing-text {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            z-index: 1;
+            position: relative;
+        }
+        
+        .breathing-instructions {
+            margin-bottom: 20px;
+        }
+        
+        .breathing-instructions p {
+            color: #9ca3af;
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+        
+        /* Enhanced Grounding Exercise Styles */
+        .grounding-steps {
+            margin-bottom: 20px;
+        }
+        
+        .grounding-step {
+            background: #374151;
+            padding: 16px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .grounding-step:hover {
+            background: #4b5563;
+            transform: translateX(4px);
+        }
+        
+        .grounding-step.completed {
+            background: #1f2937;
+            border-color: #34d399;
+            box-shadow: 0 4px 12px rgba(52, 211, 153, 0.2);
+        }
+        
+        .grounding-step.completed .step-check {
+            opacity: 1;
+            color: #34d399;
+        }
+        
+        .step-number {
+            color: #60a5fa;
+            font-weight: 700;
+            font-size: 28px;
+            margin-right: 16px;
+            min-width: 40px;
+            text-align: center;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-text {
+            color: #f9fafb;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .step-description {
+            color: #d1d5db;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .step-check {
+            color: #34d399;
+            font-size: 24px;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .grounding-progress {
+            margin-top: 20px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #374151;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #60a5fa, #34d399);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+        
+        .progress-text {
+            color: #9ca3af;
+            font-size: 12px;
+            text-align: center;
+            margin: 0;
+        }
+        
+        /* Support Messages Styles */
+        .support-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .support-message {
+            background: #374151;
+            padding: 16px;
+            border-radius: 12px;
+            color: #f9fafb;
+            font-size: 16px;
+            line-height: 1.5;
+            border-left: 4px solid #60a5fa;
+            transition: all 0.3s ease;
+        }
+        
+        .support-message:hover {
+            background: #4b5563;
+            transform: translateX(4px);
+        }
     </style>
 </head>
 <body>
@@ -630,50 +854,106 @@
                         <div class="crisis-card">
                             <h2>🚨 Crisis Support</h2>
                             <p>You are not alone. Help is available right now.</p>
-                            <button class="emergency-button" onclick="callEmergency()">Call Emergency Services (911)</button>
-                            <button class="emergency-button" onclick="callSuicidePrevention()" style="background: #60a5fa;">Call Suicide Prevention (988)</button>
-                            <button class="emergency-button" onclick="textCrisis()" style="background: #34d399;">Text HOME to 741741</button>
+                            <div class="emergency-buttons">
+                                <button class="emergency-button" onclick="callEmergency()">
+                                    <span class="button-icon">🚨</span>
+                                    <span class="button-text">Emergency Services<br><small>911</small></span>
+                                </button>
+                                <button class="emergency-button" onclick="callSuicidePrevention()" style="background: #60a5fa;">
+                                    <span class="button-icon">💙</span>
+                                    <span class="button-text">Suicide Prevention<br><small>988</small></span>
+                                </button>
+                                <button class="emergency-button" onclick="textCrisis()" style="background: #34d399;">
+                                    <span class="button-icon">💬</span>
+                                    <span class="button-text">Crisis Text Line<br><small>741741</small></span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <h2>🫁 Breathing Exercise</h2>
+                            <p>Take a moment to center yourself with guided breathing.</p>
+                            
+                            <div class="breathing-container">
+                                <div class="breathing-circle" id="breathingCircle">
+                                    <div class="breathing-text" id="breathingText">Tap to Start</div>
+                                </div>
+                                <div class="breathing-instructions" id="breathingInstructions">
+                                    <p>Follow the circle as it expands and contracts</p>
+                                    <p>Breathe in as it grows, breathe out as it shrinks</p>
+                                </div>
+                                <button class="button" onclick="startBreathingExercise()" id="breathingButton">Start Breathing Exercise</button>
+                            </div>
                         </div>
                         
                         <div class="card">
                             <h2>🧘 Grounding Exercise</h2>
                             <p>If you're feeling overwhelmed, try this 5-4-3-2-1 technique:</p>
                             
-                            <div class="grounding-step">
-                                <div class="step-number">5</div>
-                                <div class="step-text">things you can see: Look around and name 5 things you can see</div>
+                            <div class="grounding-steps">
+                                <div class="grounding-step" onclick="toggleGroundingStep(0)">
+                                    <div class="step-number">5</div>
+                                    <div class="step-content">
+                                        <div class="step-text">things you can see</div>
+                                        <div class="step-description">Look around and name 5 things you can see</div>
+                                    </div>
+                                    <div class="step-check">✓</div>
+                                </div>
+                                
+                                <div class="grounding-step" onclick="toggleGroundingStep(1)">
+                                    <div class="step-number">4</div>
+                                    <div class="step-content">
+                                        <div class="step-text">things you can touch</div>
+                                        <div class="step-description">Name 4 things you can feel with your hands</div>
+                                    </div>
+                                    <div class="step-check">✓</div>
+                                </div>
+                                
+                                <div class="grounding-step" onclick="toggleGroundingStep(2)">
+                                    <div class="step-number">3</div>
+                                    <div class="step-content">
+                                        <div class="step-text">things you can hear</div>
+                                        <div class="step-description">Listen and identify 3 sounds around you</div>
+                                    </div>
+                                    <div class="step-check">✓</div>
+                                </div>
+                                
+                                <div class="grounding-step" onclick="toggleGroundingStep(3)">
+                                    <div class="step-number">2</div>
+                                    <div class="step-content">
+                                        <div class="step-text">things you can smell</div>
+                                        <div class="step-description">Take a deep breath and notice 2 scents</div>
+                                    </div>
+                                    <div class="step-check">✓</div>
+                                </div>
+                                
+                                <div class="grounding-step" onclick="toggleGroundingStep(4)">
+                                    <div class="step-number">1</div>
+                                    <div class="step-content">
+                                        <div class="step-text">thing you can taste</div>
+                                        <div class="step-description">Focus on 1 taste in your mouth</div>
+                                    </div>
+                                    <div class="step-check">✓</div>
+                                </div>
                             </div>
                             
-                            <div class="grounding-step">
-                                <div class="step-number">4</div>
-                                <div class="step-text">things you can touch: Name 4 things you can feel with your hands</div>
+                            <div class="grounding-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="groundingProgress"></div>
+                                </div>
+                                <p class="progress-text">Complete each step by tapping on it</p>
                             </div>
-                            
-                            <div class="grounding-step">
-                                <div class="step-number">3</div>
-                                <div class="step-text">things you can hear: Listen and identify 3 sounds around you</div>
-                            </div>
-                            
-                            <div class="grounding-step">
-                                <div class="step-number">2</div>
-                                <div class="step-text">things you can smell: Take a deep breath and notice 2 scents</div>
-                            </div>
-                            
-                            <div class="grounding-step">
-                                <div class="step-number">1</div>
-                                <div class="step-text">thing you can taste: Focus on 1 taste in your mouth</div>
-                            </div>
-                            
-                            <button class="button" onclick="startGroundingExercise()">Start Grounding Exercise</button>
                         </div>
                         
                         <div class="card">
                             <h2>💙 Remember</h2>
-                            <p>• You are not alone in this moment</p>
-                            <p>• These feelings are temporary</p>
-                            <p>• You are worthy of help and support</p>
-                            <p>• There are people who care about you</p>
-                            <p>• This crisis will pass</p>
+                            <div class="support-messages">
+                                <div class="support-message">✨ You are not alone in this moment</div>
+                                <div class="support-message">⏰ These feelings are temporary</div>
+                                <div class="support-message">💎 You are worthy of help and support</div>
+                                <div class="support-message">🤗 There are people who care about you</div>
+                                <div class="support-message">🌈 This crisis will pass</div>
+                            </div>
                         </div>
                     `;
                     break;
@@ -954,8 +1234,83 @@
             }
         }
         
-        function startGroundingExercise() {
-            alert('Starting grounding exercise... Take your time with each step. You\'ve got this!');
+        function startBreathingExercise() {
+            const circle = document.getElementById('breathingCircle');
+            const text = document.getElementById('breathingText');
+            const button = document.getElementById('breathingButton');
+            const instructions = document.getElementById('breathingInstructions');
+            
+            if (button.textContent === 'Start Breathing Exercise') {
+                button.textContent = 'Stop Exercise';
+                instructions.innerHTML = '<p>Breathe in as the circle expands</p><p>Breathe out as the circle contracts</p>';
+                
+                let isBreathingIn = true;
+                let cycleCount = 0;
+                const maxCycles = 5;
+                
+                const breathingInterval = setInterval(() => {
+                    if (cycleCount >= maxCycles) {
+                        clearInterval(breathingInterval);
+                        circle.className = 'breathing-circle';
+                        text.textContent = 'Exercise Complete!';
+                        button.textContent = 'Start Breathing Exercise';
+                        instructions.innerHTML = '<p>Great job! You\'ve completed the breathing exercise.</p><p>Take a moment to notice how you feel.</p>';
+                        return;
+                    }
+                    
+                    if (isBreathingIn) {
+                        circle.className = 'breathing-circle breathing-in';
+                        text.textContent = 'Breathe In';
+                        setTimeout(() => {
+                            isBreathingIn = false;
+                        }, 3000);
+                    } else {
+                        circle.className = 'breathing-circle breathing-out';
+                        text.textContent = 'Breathe Out';
+                        setTimeout(() => {
+                            isBreathingIn = true;
+                            cycleCount++;
+                        }, 3000);
+                    }
+                }, 3000);
+                
+                // Store interval ID for stopping
+                circle.dataset.intervalId = breathingInterval;
+            } else {
+                // Stop the exercise
+                const intervalId = circle.dataset.intervalId;
+                if (intervalId) {
+                    clearInterval(intervalId);
+                }
+                circle.className = 'breathing-circle';
+                text.textContent = 'Tap to Start';
+                button.textContent = 'Start Breathing Exercise';
+                instructions.innerHTML = '<p>Follow the circle as it expands and contracts</p><p>Breathe in as it grows, breathe out as it shrinks</p>';
+            }
+        }
+        
+        function toggleGroundingStep(stepIndex) {
+            const step = document.querySelectorAll('.grounding-step')[stepIndex];
+            const progressFill = document.getElementById('groundingProgress');
+            
+            if (step.classList.contains('completed')) {
+                step.classList.remove('completed');
+            } else {
+                step.classList.add('completed');
+            }
+            
+            // Update progress
+            const completedSteps = document.querySelectorAll('.grounding-step.completed').length;
+            const totalSteps = 5;
+            const progressPercentage = (completedSteps / totalSteps) * 100;
+            progressFill.style.width = progressPercentage + '%';
+            
+            // Show completion message
+            if (completedSteps === totalSteps) {
+                setTimeout(() => {
+                    alert('🎉 Congratulations! You\'ve completed the grounding exercise. Take a moment to notice how you feel now.');
+                }, 500);
+            }
         }
         
         function callContact(contactType) {
