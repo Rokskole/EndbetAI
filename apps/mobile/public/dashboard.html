@@ -1150,8 +1150,90 @@
         }
         
         function showFinanceReport() {
-            // Switch to finance tab
-            showTab('finance');
+            // Switch to finance tab directly
+            // Remove active class from all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Add active class to finance nav item
+            const financeNavItem = document.querySelector('.nav-item[onclick*="finance"]');
+            if (financeNavItem) {
+                financeNavItem.classList.add('active');
+            }
+            
+            // Update content directly to finance tab
+            const content = document.getElementById('content');
+            
+            // Calculate financial data
+            const expenses = JSON.parse(localStorage.getItem('expenses') || '[]');
+            const expenseItems = expenses.filter(item => item.type === 'expense');
+            const savingsItems = expenses.filter(item => item.type === 'savings');
+            
+            const totalExpenses = expenseItems.reduce((sum, expense) => sum + expense.amount, 0);
+            const totalSavings = savingsItems.reduce((sum, saving) => sum + saving.amount, 0);
+            const netAmount = totalSavings - totalExpenses;
+            
+            const todayExpenses = expenseItems.filter(expense => expense.date === new Date().toLocaleDateString());
+            const todayTotal = todayExpenses.reduce((sum, expense) => sum + expense.amount, 0);
+            
+            const monthlyGoal = 500;
+            const progress = Math.min((totalSavings / monthlyGoal) * 100, 100);
+            
+            // Determine colors based on whether expenses exceed savings
+            const amountColor = netAmount < 0 ? '#dc2626' : '#60a5fa';
+            const todayColor = todayTotal > 0 ? '#dc2626' : '#60a5fa';
+            
+            content.innerHTML = `
+                <div class="card">
+                    <h2>Finance</h2>
+                    <p>Track your financial recovery.</p>
+                    
+                    <div class="progress-grid">
+                        <div class="progress-item">
+                            <h3 style="color: ${todayColor}">$${todayTotal.toFixed(2)}</h3>
+                            <p>Spent today</p>
+                        </div>
+                        <div class="progress-item">
+                            <h3 style="color: ${amountColor}">$${netAmount.toFixed(2)}</h3>
+                            <p>Net amount</p>
+                        </div>
+                        <div class="progress-item">
+                            <h3 style="color: #34d399">$${totalSavings.toFixed(2)}</h3>
+                            <p>Total saved</p>
+                        </div>
+                        <div class="progress-item">
+                            <h3 style="color: #60a5fa">${progress.toFixed(0)}%</h3>
+                            <p>Goal progress</p>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <h3 style="color: #60a5fa; margin-bottom: 12px;">Recent Transactions</h3>
+                        ${expenses.length > 0 ? expenses.slice(0, 5).map(expense => {
+                            const isExpense = expense.type === 'expense';
+                            const color = isExpense ? '#dc2626' : '#34d399';
+                            const icon = isExpense ? '📉' : '📈';
+                            const prefix = isExpense ? '-' : '+';
+                            return `
+                                <div style="background: #374151; padding: 12px; border-radius: 8px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <span style="color: ${color}; font-weight: 600;">${icon} ${prefix}$${expense.amount.toFixed(2)}</span>
+                                        <span style="color: #9ca3af; font-size: 12px; margin-left: 8px;">${expense.date}</span>
+                                        <span style="color: #9ca3af; font-size: 12px; margin-left: 4px;">(${expense.type})</span>
+                                    </div>
+                                    <button onclick="deleteExpense(${expense.id})" style="background: #dc2626; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Delete</button>
+                                </div>
+                            `;
+                        }).join('') : '<p style="color: #9ca3af;">No transactions yet</p>'}
+                    </div>
+                    
+                    <div style="display: flex; gap: 12px; margin-top: 16px;">
+                        <button class="button" onclick="addExpense()" style="flex: 1;">Add Expense</button>
+                        <button class="button" onclick="addSavings()" style="flex: 1; background: #34d399;">Add Savings</button>
+                    </div>
+                </div>
+            `;
         }
         
         function updateSavedTask(taskId) {
