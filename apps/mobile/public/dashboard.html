@@ -1298,7 +1298,7 @@
             window.location.href = '/';
         }
         
-        function sendMessage() {
+        async function sendMessage() {
             const input = document.getElementById('chatInput');
             const message = input.value.trim();
             if (!message) {
@@ -1309,37 +1309,100 @@
             addMessageToChat('You', message, '#60a5fa');
             input.value = '';
             
-            // Simulate AI response based on user input
-            setTimeout(() => {
-                let response = "";
-                const lowerMessage = message.toLowerCase();
+            // Show typing indicator
+            const typingId = addTypingIndicator();
+            
+            try {
+                // Get API URL from environment or use default
+                const apiUrl = localStorage.getItem('apiUrl') || 'https://endbet-ai-api.vercel.app';
                 
-                if (lowerMessage.includes('step') || lowerMessage.includes('plan') || lowerMessage.includes('help')) {
-                    response = "Here's a step-by-step plan to help you stop gambling:\n\n1. **Acknowledge the problem** - You've already done this by reaching out!\n2. **Set a quit date** - Choose a specific date to stop completely\n3. **Remove triggers** - Delete gambling apps, block gambling sites\n4. **Find alternatives** - Replace gambling with healthy activities\n5. **Build support** - Connect with friends, family, or support groups\n6. **Track progress** - Use this app to monitor your recovery\n7. **Celebrate milestones** - Reward yourself for each day gambling-free\n\nWould you like me to help you with any specific step?";
-                } else if (lowerMessage.includes('urge') || lowerMessage.includes('craving') || lowerMessage.includes('want to gamble')) {
-                    response = "When you feel the urge to gamble, try these techniques:\n\n🚨 **Immediate actions:**\n• Take 10 deep breaths\n• Call a support person\n• Go for a walk\n• Do something with your hands\n\n💪 **Long-term strategies:**\n• Identify your triggers\n• Practice mindfulness\n• Keep busy with hobbies\n• Remember why you're quitting\n\nYou've got this! The urge will pass.";
-                } else if (lowerMessage.includes('relapse') || lowerMessage.includes('slipped') || lowerMessage.includes('gambled')) {
-                    response = "It's okay - relapses are part of recovery. Don't be too hard on yourself.\n\n**What to do now:**\n1. Stop immediately - don't chase losses\n2. Remove yourself from the situation\n3. Call someone for support\n4. Learn from this experience\n5. Get back on track\n\n**Remember:** Every day is a new chance to start fresh. You're still making progress!";
-                } else if (lowerMessage.includes('money') || lowerMessage.includes('debt') || lowerMessage.includes('financial')) {
-                    response = "Financial recovery is important. Here are some steps:\n\n💰 **Immediate actions:**\n• Stop all gambling immediately\n• Create a budget\n• Cut unnecessary expenses\n• Consider debt consolidation\n\n📊 **Track your progress:**\n• Use the Finance tab in this app\n• Monitor money saved daily\n• Set realistic financial goals\n\n💡 **Remember:** Every dollar not gambled is money saved!";
-                } else if (lowerMessage.includes('family') || lowerMessage.includes('relationship') || lowerMessage.includes('support')) {
-                    response = "Building a support system is crucial for recovery:\n\n👨‍👩‍👧‍👦 **Family & Friends:**\n• Be honest about your struggles\n• Ask for their support\n• Let them know how they can help\n• Consider family therapy\n\n🤝 **Professional Support:**\n• Therapists specializing in gambling addiction\n• Support groups (Gamblers Anonymous)\n• Financial counselors\n• This AI assistant (me!)\n\nYou don't have to do this alone!";
-                } else {
-                    const responses = [
-                        "I'm here to support you on your recovery journey. What specific challenge are you facing today?",
-                        "It's great that you're reaching out for help. How can I best support you right now?",
-                        "I understand this is difficult. What would be most helpful for you to hear right now?",
-                        "You're taking important steps by seeking support. What's on your mind?",
-                        "I'm proud of you for reaching out. What's been the most challenging part of your day?",
-                        "Remember, recovery is a journey with ups and downs. How are you feeling right now?",
-                        "You're stronger than you think. What support do you need today?",
-                        "Every small step counts in recovery. What would help you feel more supported?"
-                    ];
-                    response = responses[Math.floor(Math.random() * responses.length)];
+                // Send message to OpenAI via our API
+                const response = await fetch(`${apiUrl}/api/chat`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        userId: localStorage.getItem('userId') || 'user123',
+                        context: 'gambling_recovery'
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to get AI response');
                 }
                 
-                addMessageToChat('AI', response, '#34d399');
-            }, 1000);
+                const data = await response.json();
+                
+                // Remove typing indicator
+                removeTypingIndicator(typingId);
+                
+                // Add AI response to chat
+                addMessageToChat('AI', data.message || data.response, '#34d399');
+                
+            } catch (error) {
+                console.error('Error getting AI response:', error);
+                
+                // Remove typing indicator
+                removeTypingIndicator(typingId);
+                
+                // Fallback to local responses
+                const fallbackResponse = getFallbackResponse(message);
+                addMessageToChat('AI', fallbackResponse, '#34d399');
+            }
+        }
+        
+        function addTypingIndicator() {
+            const chatMessages = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            const typingId = 'typing-' + Date.now();
+            typingDiv.id = typingId;
+            typingDiv.className = 'chat-message ai';
+            typingDiv.innerHTML = `
+                <div class="chat-sender ai">AI:</div>
+                <div class="chat-content">Typing...</div>
+            `;
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            return typingId;
+        }
+        
+        function removeTypingIndicator(typingId) {
+            const typingDiv = document.getElementById(typingId);
+            if (typingDiv) {
+                typingDiv.remove();
+            }
+        }
+        
+        function getFallbackResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            if (lowerMessage.includes('encouragement') || lowerMessage.includes('compliment')) {
+                return "You are incredibly brave for taking this journey towards recovery. Every day you choose not to gamble is a victory worth celebrating. You have the strength within you to overcome this challenge, and I believe in your ability to build a healthier, happier life. You're not alone in this - you have support, you have resources, and most importantly, you have the determination to succeed. Keep going, one day at a time. You've got this! 💪";
+            } else if (lowerMessage.includes('step') || lowerMessage.includes('plan') || lowerMessage.includes('help')) {
+                return "Here's a step-by-step plan to help you stop gambling:\n\n1. **Acknowledge the problem** - You've already done this by reaching out!\n2. **Set a quit date** - Choose a specific date to stop completely\n3. **Remove triggers** - Delete gambling apps, block gambling sites\n4. **Find alternatives** - Replace gambling with healthy activities\n5. **Build support** - Connect with friends, family, or support groups\n6. **Track progress** - Use this app to monitor your recovery\n7. **Celebrate milestones** - Reward yourself for each day gambling-free\n\nWould you like me to help you with any specific step?";
+            } else if (lowerMessage.includes('urge') || lowerMessage.includes('craving') || lowerMessage.includes('want to gamble')) {
+                return "When you feel the urge to gamble, try these techniques:\n\n🚨 **Immediate actions:**\n• Take 10 deep breaths\n• Call a support person\n• Go for a walk\n• Do something with your hands\n\n💪 **Long-term strategies:**\n• Identify your triggers\n• Practice mindfulness\n• Keep busy with hobbies\n• Remember why you're quitting\n\nYou've got this! The urge will pass.";
+            } else if (lowerMessage.includes('relapse') || lowerMessage.includes('slipped') || lowerMessage.includes('gambled')) {
+                return "It's okay - relapses are part of recovery. Don't be too hard on yourself.\n\n**What to do now:**\n1. Stop immediately - don't chase losses\n2. Remove yourself from the situation\n3. Call someone for support\n4. Learn from this experience\n5. Get back on track\n\n**Remember:** Every day is a new chance to start fresh. You're still making progress!";
+            } else if (lowerMessage.includes('money') || lowerMessage.includes('debt') || lowerMessage.includes('financial')) {
+                return "Financial recovery is important. Here are some steps:\n\n💰 **Immediate actions:**\n• Stop all gambling immediately\n• Create a budget\n• Cut unnecessary expenses\n• Consider debt consolidation\n\n📊 **Track your progress:**\n• Use the Finance tab in this app\n• Monitor money saved daily\n• Set realistic financial goals\n\n💡 **Remember:** Every dollar not gambled is money saved!";
+            } else if (lowerMessage.includes('family') || lowerMessage.includes('relationship') || lowerMessage.includes('support')) {
+                return "Building a support system is crucial for recovery:\n\n👨‍👩‍👧‍👦 **Family & Friends:**\n• Be honest about your struggles\n• Ask for their support\n• Let them know how they can help\n• Consider family therapy\n\n🤝 **Professional Support:**\n• Therapists specializing in gambling addiction\n• Support groups (Gamblers Anonymous)\n• Financial counselors\n• This AI assistant (me!)\n\nYou don't have to do this alone!";
+            } else {
+                const responses = [
+                    "I'm here to support you on your recovery journey. What specific challenge are you facing today?",
+                    "It's great that you're reaching out for help. How can I best support you right now?",
+                    "I understand this is difficult. What would be most helpful for you to hear right now?",
+                    "You're taking important steps by seeking support. What's on your mind?",
+                    "I'm proud of you for reaching out. What's been the most challenging part of your day?",
+                    "Remember, recovery is a journey with ups and downs. How are you feeling right now?",
+                    "You're stronger than you think. What support do you need today?",
+                    "Every small step counts in recovery. What would help you feel more supported?"
+                ];
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
         }
         
         function addMessageToChat(sender, message, color) {
@@ -1488,19 +1551,30 @@
         
         function callEmergency() {
             if (confirm('Are you sure you want to call emergency services? This will dial 911.')) {
-                alert('Emergency services will be contacted. Please stay safe.');
+                makePhoneCall('911', 'Emergency Services');
             }
         }
         
         function callSuicidePrevention() {
             if (confirm('Call Suicide Prevention Lifeline (988)?')) {
-                alert('Connecting to Suicide Prevention Lifeline...');
+                makePhoneCall('988', 'Suicide Prevention Lifeline');
             }
         }
         
         function textCrisis() {
             if (confirm('Text HOME to 741741 for crisis support?')) {
-                alert('Opening text message to crisis support...');
+                // Open SMS app with crisis text line
+                if (navigator.userAgent.match(/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
+                    // Mobile device - use sms: protocol
+                    window.location.href = 'sms:741741&body=HOME';
+                } else {
+                    // Desktop - copy to clipboard
+                    navigator.clipboard.writeText('HOME').then(() => {
+                        alert('Text "HOME" copied to clipboard! Send it to 741741 for crisis support.');
+                    }).catch(() => {
+                        prompt('Text this message to 741741:', 'HOME');
+                    });
+                }
             }
         }
         
@@ -1582,15 +1656,47 @@
         
         function callContact(contactType) {
             const contacts = {
-                'therapist': 'Dr. Sarah Johnson',
-                'counselor': 'Mike Chen',
-                'family': 'Mom & Dad',
-                'support-group': 'Gamblers Anonymous'
+                'therapist': { name: 'Dr. Sarah Johnson', phone: '555-123-4567' },
+                'counselor': { name: 'Mike Chen', phone: '555-987-6543' },
+                'family': { name: 'Mom & Dad', phone: '555-456-7890' },
+                'support-group': { name: 'Gamblers Anonymous', phone: '555-321-0987' }
             };
             
-            const contactName = contacts[contactType];
-            if (confirm(`Call ${contactName}?`)) {
-                alert(`Calling ${contactName}... Stay strong!`);
+            const contact = contacts[contactType];
+            if (contact && confirm(`Call ${contact.name} at ${contact.phone}?`)) {
+                makePhoneCall(contact.phone, contact.name);
+            }
+        }
+        
+        function makePhoneCall(phoneNumber, contactName) {
+            // Clean the phone number (remove any non-digit characters except +)
+            const cleanNumber = phoneNumber.replace(/[^\d+]/g, '');
+            
+            // Check if we're on a mobile device or if the device supports calling
+            if (navigator.userAgent.match(/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
+                // Mobile device - use tel: protocol
+                window.location.href = `tel:${cleanNumber}`;
+            } else {
+                // Desktop or other device - show options
+                const callOptions = `
+                    Choose how to call ${contactName}:
+                    
+                    1. Copy number: ${cleanNumber}
+                    2. Open calling app
+                    3. Use video calling
+                    
+                    Click OK to copy the number to clipboard.
+                `;
+                
+                if (confirm(callOptions)) {
+                    // Copy to clipboard
+                    navigator.clipboard.writeText(cleanNumber).then(() => {
+                        alert(`Phone number ${cleanNumber} copied to clipboard! You can now paste it into your calling app.`);
+                    }).catch(() => {
+                        // Fallback if clipboard API fails
+                        prompt('Copy this phone number:', cleanNumber);
+                    });
+                }
             }
         }
         
@@ -1624,7 +1730,7 @@
         
         function callSavedContact(name, phone) {
             if (confirm(`Call ${name} at ${phone}?`)) {
-                alert(`Calling ${name}... Stay strong!`);
+                makePhoneCall(phone, name);
             }
         }
         
