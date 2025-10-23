@@ -725,7 +725,7 @@
         
         <div class="fab-container">
             <div class="fab crisis" onclick="showTab('crisis')" title="Crisis Support">🆘</div>
-            <div class="fab sos" onclick="callEmergency()" title="Emergency SOS">🚨</div>
+            <div class="fab sos" onclick="openSOS()" title="Emergency SOS">🚨</div>
         </div>
         
         <div style="padding: 24px;">
@@ -1108,9 +1108,79 @@
                     break;
                 case 'sos':
                     content.innerHTML = `
+                        <div class="crisis-card">
+                            <h2>🆘 Emergency Gambling Support</h2>
+                            <p>Free, confidential help available 24/7. You are not alone.</p>
+                        </div>
+                        
                         <div class="card">
-                            <h2>🆘 SOS Support</h2>
-                            <p>Emergency contacts and immediate help resources.</p>
+                            <h2>📞 National Gambling Helplines</h2>
+                            <p>Free, confidential support available 24/7</p>
+                            
+                            <div class="contact-card">
+                                <h4>🇺🇸 National Problem Gambling Helpline</h4>
+                                <p>📞 Phone: 1-800-522-4700</p>
+                                <p>🌐 Website: ncpgambling.org</p>
+                                <p>💬 Text: 1-800-522-4700</p>
+                                <button class="contact-button" onclick="callHelpline('1-800-522-4700', 'National Problem Gambling Helpline')">Call Now</button>
+                            </div>
+                            
+                            <div class="contact-card">
+                                <h4>🇺🇸 Gamblers Anonymous</h4>
+                                <p>📞 Phone: 1-626-960-3500</p>
+                                <p>🌐 Website: gamblersanonymous.org</p>
+                                <p>📍 Find meetings near you</p>
+                                <button class="contact-button" onclick="callHelpline('1-626-960-3500', 'Gamblers Anonymous')">Call Now</button>
+                            </div>
+                            
+                            <div class="contact-card">
+                                <h4>🇺🇸 SAMHSA National Helpline</h4>
+                                <p>📞 Phone: 1-800-662-4357</p>
+                                <p>🌐 Website: samhsa.gov</p>
+                                <p>💬 Text: 435748 (HELP4U)</p>
+                                <button class="contact-button" onclick="callHelpline('1-800-662-4357', 'SAMHSA National Helpline')">Call Now</button>
+                            </div>
+                            
+                            <div class="contact-card">
+                                <h4>🇺🇸 Crisis Text Line</h4>
+                                <p>💬 Text: HOME to 741741</p>
+                                <p>🌐 Website: crisistextline.org</p>
+                                <p>💬 Available 24/7 via text</p>
+                                <button class="contact-button" onclick="textCrisis()">Text Now</button>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <h2>🌍 International Helplines</h2>
+                            <p>Support available worldwide</p>
+                            
+                            <div class="contact-card">
+                                <h4>🇨🇦 Problem Gambling Institute of Ontario</h4>
+                                <p>📞 Phone: 1-888-230-3505</p>
+                                <p>🌐 Website: problemgambling.ca</p>
+                                <button class="contact-button" onclick="callHelpline('1-888-230-3505', 'Problem Gambling Institute of Ontario')">Call Now</button>
+                            </div>
+                            
+                            <div class="contact-card">
+                                <h4>🇬🇧 GamCare (UK)</h4>
+                                <p>📞 Phone: 0808 8020 133</p>
+                                <p>🌐 Website: gamcare.org.uk</p>
+                                <p>💬 Live chat available</p>
+                                <button class="contact-button" onclick="callHelpline('0808-8020-133', 'GamCare UK')">Call Now</button>
+                            </div>
+                            
+                            <div class="contact-card">
+                                <h4>🇦🇺 Gambling Help Online (Australia)</h4>
+                                <p>📞 Phone: 1800 858 858</p>
+                                <p>🌐 Website: gamblinghelponline.org.au</p>
+                                <p>💬 Live chat available</p>
+                                <button class="contact-button" onclick="callHelpline('1800-858-858', 'Gambling Help Online Australia')">Call Now</button>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <h2>👥 Your Personal Support</h2>
+                            <p>Your saved contacts and support network</p>
                             
                             <div class="contact-card">
                                 <h4>🏥 Dr. Sarah Johnson - Therapist</h4>
@@ -1132,12 +1202,7 @@
                                 <button class="contact-button" onclick="callContact('family')">Call</button>
                             </div>
                             
-                            <div class="contact-card">
-                                <h4>👥 Gamblers Anonymous</h4>
-                                <p>📞 Phone: (555) 321-0987</p>
-                                <p>📍 Meeting: Tuesdays 7 PM</p>
-                                <button class="contact-button" onclick="callContact('support-group')">Call</button>
-                            </div>
+                            <button class="button" onclick="addContact()" style="margin-top: 16px;">Add Personal Contact</button>
                         </div>
                     `;
                     break;
@@ -1845,6 +1910,54 @@
                         // Fallback if clipboard API fails
                         prompt('Copy this phone number:', cleanNumber);
                     });
+                }
+            }
+        }
+        
+        function callHelpline(phoneNumber, helplineName) {
+            if (confirm(`Call ${helplineName} at ${phoneNumber}?\n\nThis is a free, confidential gambling support helpline available 24/7.`)) {
+                makePhoneCall(phoneNumber, helplineName);
+            }
+        }
+        
+        function textCrisis() {
+            if (confirm('Text HOME to 741741 for Crisis Text Line?\n\nThis will open your messaging app with the number pre-filled.')) {
+                // Open messaging app with the crisis text line number
+                if (navigator.userAgent.match(/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i)) {
+                    window.location.href = 'sms:741741&body=HOME';
+                } else {
+                    // Desktop fallback
+                    navigator.clipboard.writeText('741741').then(() => {
+                        alert('Crisis Text Line number 741741 copied to clipboard!\n\nText "HOME" to this number for immediate support.');
+                    }).catch(() => {
+                        prompt('Text this number: 741741\n\nSend "HOME" to this number for immediate support.', '741741');
+                    });
+                }
+            }
+        }
+        
+        function openSOS() {
+            // Show immediate crisis support options
+            const crisisOptions = `
+                🚨 EMERGENCY SUPPORT OPTIONS 🚨
+                
+                Choose your preferred support method:
+                
+                1. 📞 Call National Gambling Helpline: 1-800-522-4700
+                2. 💬 Text Crisis Text Line: HOME to 741741
+                3. 🌐 Open full SOS section with all resources
+                4. 📱 Call your personal contacts
+                
+                Click OK to open the full SOS section with all resources.
+            `;
+            
+            if (confirm(crisisOptions)) {
+                showTab('sos');
+            } else {
+                // Quick access to most important helplines
+                const quickHelp = confirm('Call National Gambling Helpline (1-800-522-4700) now?');
+                if (quickHelp) {
+                    callHelpline('1-800-522-4700', 'National Problem Gambling Helpline');
                 }
             }
         }
