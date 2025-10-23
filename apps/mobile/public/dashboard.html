@@ -473,28 +473,100 @@
             transform: translateY(-2px);
         }
         
+        .grounding-steps {
+            margin-bottom: 20px;
+        }
+        
         .grounding-step {
             background: #374151;
             padding: 16px;
-            border-radius: 12px;
+            border-radius: 16px;
             margin-bottom: 12px;
             display: flex;
-            align-items: flex-start;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .grounding-step:hover {
+            background: #4b5563;
+            transform: translateX(4px);
+        }
+        
+        .grounding-step.completed {
+            background: #1f2937;
+            border-color: #34d399;
+            box-shadow: 0 4px 12px rgba(52, 211, 153, 0.2);
+        }
+        
+        .grounding-step.completed .step-check {
+            opacity: 1;
+            color: #34d399;
         }
         
         .step-number {
             color: #60a5fa;
             font-weight: 700;
-            font-size: 24px;
+            font-size: 28px;
             margin-right: 16px;
-            min-width: 30px;
+            min-width: 40px;
+            text-align: center;
+        }
+        
+        .step-content {
+            flex: 1;
         }
         
         .step-text {
             color: #f9fafb;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .step-description {
+            color: #d1d5db;
             font-size: 14px;
-            line-height: 1.5;
-            flex: 1;
+            line-height: 1.4;
+        }
+        
+        .step-check {
+            color: #34d399;
+            font-size: 24px;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .grounding-progress {
+            margin-top: 20px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #374151;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #60a5fa, #34d399);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+        
+        .progress-text {
+            color: #9ca3af;
+            font-size: 12px;
+            text-align: center;
+            margin: 0;
         }
         
         .breathing-container {
@@ -941,34 +1013,62 @@
                             <h2>🧘 Grounding Exercise</h2>
                             <p>If you're feeling overwhelmed, try this 5-4-3-2-1 technique:</p>
                             
-                            <div class="grounding-step">
-                                <div class="step-number">5</div>
-                                <div class="step-text">things you can see: Look around and name 5 things you can see</div>
+                            <div class="grounding-steps">
+                                <div class="grounding-step" onclick="toggleGroundingStep(0)">
+                                    <div class="step-number">5</div>
+                                    <div class="step-content">
+                                        <div class="step-text">things you can see</div>
+                                        <div class="step-description">Look around and name 5 things you can see</div>
+                                    </div>
+                                    <div class="step-check">✓</div>
+                                </div>
+                                
+                                <div class="grounding-step" onclick="toggleGroundingStep(1)">
+                                    <div class="step-number">4</div>
+                                    <div class="step-content">
+                                        <div class="step-text">things you can touch</div>
+                                        <div class="step-description">Name 4 things you can feel with your hands</div>
+                                    </div>
+                                    <div class="step-check">✓</div>
+                                </div>
+                                
+                                <div class="grounding-step" onclick="toggleGroundingStep(2)">
+                                    <div class="step-number">3</div>
+                                    <div class="step-content">
+                                        <div class="step-text">things you can hear</div>
+                                        <div class="step-description">Listen and identify 3 sounds around you</div>
+                                    </div>
+                                    <div class="step-check">✓</div>
+                                </div>
+                                
+                                <div class="grounding-step" onclick="toggleGroundingStep(3)">
+                                    <div class="step-number">2</div>
+                                    <div class="step-content">
+                                        <div class="step-text">things you can smell</div>
+                                        <div class="step-description">Take a deep breath and notice 2 scents</div>
+                                    </div>
+                                    <div class="step-check">✓</div>
+                                </div>
+                                
+                                <div class="grounding-step" onclick="toggleGroundingStep(4)">
+                                    <div class="step-number">1</div>
+                                    <div class="step-content">
+                                        <div class="step-text">thing you can taste</div>
+                                        <div class="step-description">Focus on 1 taste in your mouth</div>
+                                    </div>
+                                    <div class="step-check">✓</div>
+                                </div>
                             </div>
                             
-                            <div class="grounding-step">
-                                <div class="step-number">4</div>
-                                <div class="step-text">things you can touch: Name 4 things you can feel with your hands</div>
+                            <div class="grounding-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="groundingProgress"></div>
+                                </div>
+                                <p class="progress-text">Complete each step by tapping on it</p>
                             </div>
-                            
-                            <div class="grounding-step">
-                                <div class="step-number">3</div>
-                                <div class="step-text">things you can hear: Listen and identify 3 sounds around you</div>
-                            </div>
-                            
-                            <div class="grounding-step">
-                                <div class="step-number">2</div>
-                                <div class="step-text">things you can smell: Take a deep breath and notice 2 scents</div>
-                            </div>
-                            
-                            <div class="grounding-step">
-                                <div class="step-number">1</div>
-                                <div class="step-text">thing you can taste: Focus on 1 taste in your mouth</div>
-                            </div>
-                            
-                            <button class="button" onclick="completeGroundingExercise()">Complete Exercise</button>
                         </div>
                     `;
+                    loadGroundingProgress();
                     break;
                 case 'crisis':
                     content.innerHTML = `
@@ -1279,6 +1379,55 @@
                 
                 alert('Custom task added!');
                 showTab('tasks'); // Refresh the tasks view
+            }
+        }
+        
+        function toggleGroundingStep(stepIndex) {
+            const step = document.querySelectorAll('.grounding-step')[stepIndex];
+            const progressFill = document.getElementById('groundingProgress');
+            
+            if (step.classList.contains('completed')) {
+                step.classList.remove('completed');
+            } else {
+                step.classList.add('completed');
+            }
+            
+            // Update progress
+            const completedSteps = document.querySelectorAll('.grounding-step.completed').length;
+            const totalSteps = 5;
+            const progressPercentage = (completedSteps / totalSteps) * 100;
+            progressFill.style.width = progressPercentage + '%';
+            
+            // Save progress to localStorage
+            localStorage.setItem('groundingProgress', completedSteps.toString());
+            
+            // Show completion message
+            if (completedSteps === totalSteps) {
+                setTimeout(() => {
+                    alert('🎉 Congratulations! You\'ve completed the grounding exercise. Take a moment to notice how you feel now.');
+                    // Increment total grounding exercises completed
+                    const groundingExercises = parseInt(localStorage.getItem('groundingExercises') || '0');
+                    localStorage.setItem('groundingExercises', (groundingExercises + 1).toString());
+                    loadDashboardData();
+                }, 500);
+            }
+        }
+        
+        function loadGroundingProgress() {
+            const completedSteps = parseInt(localStorage.getItem('groundingProgress') || '0');
+            const progressFill = document.getElementById('groundingProgress');
+            
+            if (progressFill) {
+                const progressPercentage = (completedSteps / 5) * 100;
+                progressFill.style.width = progressPercentage + '%';
+                
+                // Mark completed steps
+                for (let i = 0; i < completedSteps; i++) {
+                    const step = document.querySelectorAll('.grounding-step')[i];
+                    if (step) {
+                        step.classList.add('completed');
+                    }
+                }
             }
         }
         
