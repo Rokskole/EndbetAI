@@ -725,7 +725,6 @@
         
         <div class="fab-container">
             <div class="fab crisis" onclick="showTab('crisis')" title="Crisis Support">🆘</div>
-            <div class="fab sos" onclick="openSOS()" title="Emergency SOS">🚨</div>
         </div>
         
         <div style="padding: 24px;">
@@ -748,8 +747,7 @@
         
         function loadDashboardData() {
             // Load days gambling-free
-            const daysCount = localStorage.getItem('daysGamblingFree') || '0';
-            document.getElementById('daysCount').textContent = daysCount;
+            updateGamblingFreeCounter();
             
             // Load tasks completed
             const tasksCompleted = localStorage.getItem('tasksCompleted') || '0';
@@ -762,6 +760,9 @@
             // Load grounding exercises
             const groundingExercises = localStorage.getItem('groundingExercises') || '0';
             document.getElementById('groundingExercises').textContent = groundingExercises;
+            
+            // Start the day checking timer
+            startDayCheckTimer();
             
             // Load financial data
             const expenses = JSON.parse(localStorage.getItem('expenses') || '[]');
@@ -1268,11 +1269,7 @@
         }
         
         function resetCounter() {
-            if (confirm('Are you sure you want to reset your gambling-free counter?')) {
-                localStorage.setItem('daysGamblingFree', '0');
-                document.getElementById('daysCount').textContent = '0';
-                alert('Counter reset. You can start fresh!');
-            }
+            resetGamblingCounter();
         }
         
         function setTodaysGoal() {
@@ -1993,6 +1990,78 @@
         function callSavedContact(name, phone) {
             if (confirm(`Call ${name} at ${phone}?`)) {
                 makePhoneCall(phone, name);
+            }
+        }
+        
+        function updateGamblingFreeCounter() {
+            const startDate = localStorage.getItem('gamblingFreeStartDate');
+            const lastCheckedDate = localStorage.getItem('lastCheckedDate');
+            const today = new Date().toDateString();
+            
+            // If no start date is set, set it to today
+            if (!startDate) {
+                localStorage.setItem('gamblingFreeStartDate', today);
+                localStorage.setItem('lastCheckedDate', today);
+                document.getElementById('daysCount').textContent = '0';
+                return;
+            }
+            
+            // If it's a new day, update the counter
+            if (lastCheckedDate !== today) {
+                const start = new Date(startDate);
+                const current = new Date();
+                const timeDiff = current.getTime() - start.getTime();
+                const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+                
+                // Update the counter
+                document.getElementById('daysCount').textContent = daysDiff;
+                localStorage.setItem('lastCheckedDate', today);
+                localStorage.setItem('daysGamblingFree', daysDiff.toString());
+                
+                // Show celebration for milestones
+                if (daysDiff > 0 && daysDiff % 7 === 0) {
+                    showMilestoneCelebration(daysDiff);
+                }
+            } else {
+                // Just display the current count
+                const daysCount = localStorage.getItem('daysGamblingFree') || '0';
+                document.getElementById('daysCount').textContent = daysCount;
+            }
+        }
+        
+        function startDayCheckTimer() {
+            // Check for new day every 5 minutes
+            setInterval(() => {
+                updateGamblingFreeCounter();
+            }, 5 * 60 * 1000); // 5 minutes
+        }
+        
+        function showMilestoneCelebration(days) {
+            const messages = {
+                7: "🎉 Congratulations! You've been gambling-free for 1 week!",
+                14: "🌟 Amazing! 2 weeks gambling-free! You're building great habits!",
+                30: "🏆 Incredible! 1 month gambling-free! You're doing fantastic!",
+                60: "💪 Outstanding! 2 months gambling-free! You're unstoppable!",
+                90: "🎊 Phenomenal! 3 months gambling-free! You're a true champion!",
+                180: "🌟 Spectacular! 6 months gambling-free! You're an inspiration!",
+                365: "🏆 LEGENDARY! 1 year gambling-free! You've completely transformed your life!"
+            };
+            
+            if (messages[days]) {
+                setTimeout(() => {
+                    alert(messages[days] + "\n\nKeep up the amazing work! 💚");
+                }, 1000);
+            }
+        }
+        
+        function resetGamblingCounter() {
+            if (confirm('Are you sure you want to reset your gambling-free counter? This will start counting from today.')) {
+                const today = new Date().toDateString();
+                localStorage.setItem('gamblingFreeStartDate', today);
+                localStorage.setItem('lastCheckedDate', today);
+                localStorage.setItem('daysGamblingFree', '0');
+                updateGamblingFreeCounter();
+                alert('Gambling-free counter reset. Starting fresh from today!');
             }
         }
         
