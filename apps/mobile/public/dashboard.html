@@ -640,39 +640,39 @@
         </div>
         
         <div class="nav">
-            <div class="nav-item active" onclick="showTab('dashboard', event)">
+            <div class="nav-item active" data-tab="dashboard">
                 <div class="nav-icon">📊</div>
                 <div>Dashboard</div>
             </div>
-            <div class="nav-item" onclick="showTab('chat', event)">
+            <div class="nav-item" data-tab="chat">
                 <div class="nav-icon">💬</div>
                 <div>Chat</div>
             </div>
-            <div class="nav-item" onclick="showTab('journal', event)">
+            <div class="nav-item" data-tab="journal">
                 <div class="nav-icon">📖</div>
                 <div>Journal</div>
             </div>
-            <div class="nav-item" onclick="showTab('tasks', event)">
+            <div class="nav-item" data-tab="tasks">
                 <div class="nav-icon">✅</div>
                 <div>Tasks</div>
             </div>
-            <div class="nav-item" onclick="showTab('contacts', event)">
+            <div class="nav-item" data-tab="contacts">
                 <div class="nav-icon">👥</div>
                 <div>Contacts</div>
             </div>
-            <div class="nav-item" onclick="showTab('finance', event)">
+            <div class="nav-item" data-tab="finance">
                 <div class="nav-icon">💰</div>
                 <div>Finance</div>
             </div>
-            <div class="nav-item" onclick="showTab('grounding', event)">
+            <div class="nav-item" data-tab="grounding">
                 <div class="nav-icon">🏔️</div>
                 <div>Grounding</div>
             </div>
-            <div class="nav-item" onclick="showTab('crisis', event)">
+            <div class="nav-item" data-tab="crisis">
                 <div class="nav-icon">⚠️</div>
                 <div>Crisis</div>
             </div>
-            <div class="nav-item" onclick="showTab('sos')">
+            <div class="nav-item" data-tab="sos">
                 <div class="nav-icon">🆘</div>
                 <div>SOS</div>
             </div>
@@ -764,6 +764,17 @@
         // Load saved data
         loadDashboardData();
         
+        // Add event listeners for navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const navItems = document.querySelectorAll('.nav-item[data-tab]');
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const tab = this.getAttribute('data-tab');
+                    showTab(tab);
+                });
+            });
+        });
+        
         // Restore current tab if available
         const currentTab = localStorage.getItem('currentTab') || 'dashboard';
         showTab(currentTab);
@@ -805,23 +816,18 @@
             document.getElementById('weeklyProgress').style.width = weeklyProgress + '%';
         }
         
-        function showTab(tab, event) {
+        function showTab(tab) {
+            console.log('Switching to tab:', tab);
+            
             // Remove active class from all nav items
             document.querySelectorAll('.nav-item').forEach(item => {
                 item.classList.remove('active');
             });
             
-            // Add active class to clicked item
-            if (event) {
-                event.target.closest('.nav-item').classList.add('active');
-            } else {
-                // Fallback: find the nav item by tab name
-                const navItems = document.querySelectorAll('.nav-item');
-                navItems.forEach(item => {
-                    if (item.onclick && item.onclick.toString().includes(`'${tab}'`)) {
-                        item.classList.add('active');
-                    }
-                });
+            // Add active class to the correct nav item
+            const activeItem = document.querySelector(`[data-tab="${tab}"]`);
+            if (activeItem) {
+                activeItem.classList.add('active');
             }
             
             // Store current tab for reference
@@ -975,7 +981,7 @@
                     break;
                 case 'finance':
                     // Calculate financial data
-                    const expenses = JSON.parse(getUserData('expenses', []) || '[]');
+                    const expenses = getUserData('expenses', []);
                     const expenseItems = expenses.filter(item => item.type === 'expense');
                     const savingsItems = expenses.filter(item => item.type === 'savings');
                     
@@ -1245,7 +1251,7 @@
                     break;
                 case 'contacts':
                     // Load saved contacts
-                    const savedContacts = JSON.parse(getUserData('contacts', []) || '[]');
+                    const savedContacts = getUserData('contacts', []);
                     
                     let contactsHtml = `
                         <div class="card">
@@ -1322,7 +1328,7 @@
                     date: new Date().toLocaleDateString()
                 };
                 
-                let tasks = JSON.parse(getUserData('savedTasks', []) || '[]');
+                let tasks = getUserData('savedTasks', []);
                 tasks.unshift(newTask);
                 setUserData('savedTasks', tasks);
                 
@@ -1338,7 +1344,7 @@
         
         function loadTasks() {
             // Load saved task states
-            const savedTasks = JSON.parse(getUserData('savedTasks', []) || '[]');
+            const savedTasks = getUserData('savedTasks', []);
             savedTasks.forEach(task => {
                 const checkbox = document.getElementById(`task${task.id}`);
                 if (checkbox) {
@@ -1364,7 +1370,7 @@
             const content = document.getElementById('content');
             
             // Calculate financial data
-            const expenses = JSON.parse(getUserData('expenses', []) || '[]');
+            const expenses = getUserData('expenses', []);
             const expenseItems = expenses.filter(item => item.type === 'expense');
             const savingsItems = expenses.filter(item => item.type === 'savings');
             
@@ -1436,7 +1442,7 @@
         
         function updateSavedTask(taskId) {
             const checkbox = document.getElementById(`savedTask${taskId}`);
-            const tasks = JSON.parse(getUserData('savedTasks', []) || '[]');
+            const tasks = getUserData('savedTasks', []);
             const task = tasks.find(t => t.id === taskId);
             
             if (task) {
@@ -1453,7 +1459,7 @@
         
         function deleteTask(taskId) {
             if (confirm('Are you sure you want to delete this task?')) {
-                let tasks = JSON.parse(getUserData('savedTasks', []) || '[]');
+                let tasks = getUserData('savedTasks', []);
                 tasks = tasks.filter(task => task.id !== taskId);
                 setUserData('savedTasks', tasks);
                 showTab('tasks'); // Refresh the tasks view
@@ -1471,7 +1477,7 @@
                     date: new Date().toLocaleDateString()
                 };
                 
-                let tasks = JSON.parse(getUserData('savedTasks', []) || '[]');
+                let tasks = getUserData('savedTasks', []);
                 tasks.unshift(newTask);
                 setUserData('savedTasks', tasks);
                 
@@ -1752,7 +1758,7 @@
                     type: 'expense'
                 };
                 
-                let expenses = JSON.parse(getUserData('expenses', []) || '[]');
+                let expenses = getUserData('expenses', []);
                 expenses.unshift(expense);
                 setUserData('expenses', expenses);
                 
@@ -1781,7 +1787,7 @@
                     type: 'savings'
                 };
                 
-                let expenses = JSON.parse(getUserData('expenses', []) || '[]');
+                let expenses = getUserData('expenses', []);
                 expenses.unshift(saving);
                 setUserData('expenses', expenses);
                 
@@ -1800,7 +1806,7 @@
         
         function deleteExpense(expenseId) {
             if (confirm('Are you sure you want to delete this expense?')) {
-                let expenses = JSON.parse(getUserData('expenses', []) || '[]');
+                let expenses = getUserData('expenses', []);
                 expenses = expenses.filter(expense => expense.id !== expenseId);
                 setUserData('expenses', expenses);
                 alert('Expense deleted successfully!');
@@ -2020,7 +2026,7 @@
                         type: 'personal'
                     };
                     
-                    let contacts = JSON.parse(getUserData('contacts', []) || '[]');
+                    let contacts = getUserData('contacts', []);
                     contacts.push(contact);
                     setUserData('contacts', contacts);
                     
@@ -2181,7 +2187,7 @@
         
         function deleteContact(contactId) {
             if (confirm('Are you sure you want to delete this contact?')) {
-                let contacts = JSON.parse(getUserData('contacts', []) || '[]');
+                let contacts = getUserData('contacts', []);
                 contacts = contacts.filter(contact => contact.id !== contactId);
                 setUserData('contacts', contacts);
                 alert('Contact deleted successfully!');
