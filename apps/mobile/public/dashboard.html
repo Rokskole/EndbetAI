@@ -640,35 +640,35 @@
         </div>
         
         <div class="nav">
-            <div class="nav-item active" onclick="showTab('dashboard')">
+            <div class="nav-item active" onclick="showTab('dashboard', event)">
                 <div class="nav-icon">📊</div>
                 <div>Dashboard</div>
             </div>
-            <div class="nav-item" onclick="showTab('chat')">
+            <div class="nav-item" onclick="showTab('chat', event)">
                 <div class="nav-icon">💬</div>
                 <div>Chat</div>
             </div>
-            <div class="nav-item" onclick="showTab('journal')">
+            <div class="nav-item" onclick="showTab('journal', event)">
                 <div class="nav-icon">📖</div>
                 <div>Journal</div>
             </div>
-            <div class="nav-item" onclick="showTab('tasks')">
+            <div class="nav-item" onclick="showTab('tasks', event)">
                 <div class="nav-icon">✅</div>
                 <div>Tasks</div>
             </div>
-            <div class="nav-item" onclick="showTab('contacts')">
+            <div class="nav-item" onclick="showTab('contacts', event)">
                 <div class="nav-icon">👥</div>
                 <div>Contacts</div>
             </div>
-            <div class="nav-item" onclick="showTab('finance')">
+            <div class="nav-item" onclick="showTab('finance', event)">
                 <div class="nav-icon">💰</div>
                 <div>Finance</div>
             </div>
-            <div class="nav-item" onclick="showTab('grounding')">
+            <div class="nav-item" onclick="showTab('grounding', event)">
                 <div class="nav-icon">🏔️</div>
                 <div>Grounding</div>
             </div>
-            <div class="nav-item" onclick="showTab('crisis')">
+            <div class="nav-item" onclick="showTab('crisis', event)">
                 <div class="nav-icon">⚠️</div>
                 <div>Crisis</div>
             </div>
@@ -724,7 +724,7 @@
                         <p>Daily Avg</p>
                     </div>
                 </div>
-                <button class="button" onclick="showTab('finance')">View Full Finance Report</button>
+                <button class="button" onclick="showTab('finance', event)">View Full Finance Report</button>
             </div>
         </div>
         
@@ -764,6 +764,10 @@
         // Load saved data
         loadDashboardData();
         
+        // Restore current tab if available
+        const currentTab = localStorage.getItem('currentTab') || 'dashboard';
+        showTab(currentTab);
+        
         function loadDashboardData() {
             // Load days gambling-free
             updateGamblingFreeCounter();
@@ -801,14 +805,27 @@
             document.getElementById('weeklyProgress').style.width = weeklyProgress + '%';
         }
         
-        function showTab(tab) {
+        function showTab(tab, event) {
             // Remove active class from all nav items
             document.querySelectorAll('.nav-item').forEach(item => {
                 item.classList.remove('active');
             });
             
             // Add active class to clicked item
-            event.target.closest('.nav-item').classList.add('active');
+            if (event) {
+                event.target.closest('.nav-item').classList.add('active');
+            } else {
+                // Fallback: find the nav item by tab name
+                const navItems = document.querySelectorAll('.nav-item');
+                navItems.forEach(item => {
+                    if (item.onclick && item.onclick.toString().includes(`'${tab}'`)) {
+                        item.classList.add('active');
+                    }
+                });
+            }
+            
+            // Store current tab for reference
+            localStorage.setItem('currentTab', tab);
             
             // Update content based on tab
             const content = document.getElementById('content');
