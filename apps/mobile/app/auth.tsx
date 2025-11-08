@@ -9,6 +9,7 @@ export default function AuthScreen() {
   const { signIn } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
+  const [emailSent, setEmailSent] = useState(false);
 
   const handleSubmit = async () => {
     if (!email) {
@@ -19,10 +20,10 @@ export default function AuthScreen() {
     setIsLoading(true);
     try {
       await signIn(email);
-      router.replace('/(tabs)');
+      setEmailSent(true);
     } catch (error) {
       console.error('Sign in error:', error);
-      alert('Sign in failed. Please try again.');
+      alert('Failed to send magic link. Please check your email and try again.');
     } finally {
       setIsLoading(false);
     }

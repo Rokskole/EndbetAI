@@ -9,6 +9,7 @@ import { Appearance } from 'react-native';
 
 import { theme } from '@/styles/theme';
 import { AuthProvider } from '@/features/auth/AuthProvider';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 // Force dark theme
 const FORCE_DARK_THEME = {
@@ -72,11 +73,12 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <SafeAreaProvider>
-        <PaperProvider theme={FORCE_DARK_THEME}>
-          <AuthProvider>
-            <Stack
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <SafeAreaProvider>
+          <PaperProvider theme={FORCE_DARK_THEME}>
+            <AuthProvider>
+              <Stack
               screenOptions={{
                 headerShown: false,
                 contentStyle: { 
@@ -169,5 +171,6 @@ export default function RootLayout() {
         </PaperProvider>
       </SafeAreaProvider>
     </QueryClientProvider>
+    </ErrorBoundary>
   );
 }

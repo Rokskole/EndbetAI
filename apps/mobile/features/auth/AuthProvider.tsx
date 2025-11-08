@@ -53,10 +53,38 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const checkSession = async () => {
     try {
-      // Don't auto-login for demo - always show login page
-      setUser(null);
+      // Check for existing session in Supabase
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (session?.user) {
+        // Get user data from our API
+        try {
+          const response = await apiClient.getCurrentUser();
+          if (response.success && response.data) {
+            setUser(response.data);
+            // Extract session ID from response if available
+            if (response.sessionId) {
+              setSessionId(response.sessionId);
+              apiClient.setSessionId(response.sessionId);
+            }
+          }
+        } catch (error) {
+          console.error('Failed to fetch user data:', error);
+          // If API call fails, still set basic user from Supabase
+          setUser({
+            id: session.user.id,
+            email: session.user.email || '',
+            name: session.user.user_metadata?.name || 'User',
+          });
+        }
+      } else {
+        setUser(null);
+        setSessionId(null);
+        apiClient.setSessionId(null);
+      }
     } catch (error) {
       console.error('Failed to check session:', error);
+      setUser(null);
     } finally {
       setIsLoading(false);
     }
@@ -65,19 +93,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signIn = async (email: string) => {
     setIsLoading(true);
     try {
-      // Simulate successful login for demo
-      const user = {
-        id: 'user123',
-        email: email,
-        name: 'User'
-      };
+      // Send magic link via API
+      const response = await apiClient.sendMagicLink(email);
       
-      setUser(user);
-      setSessionId('mock_session');
-      apiClient.setSessionId('mock_session');
+      if (!response.success) {
+        throw new Error(response.error || 'Failed to send magic link');
+      }
       
-      // Return success
-      return { success: true, user };
+      // Magic link sent - user will click link in email
+      // The callback will handle the actual authentication
+      return { success: true };
     } catch (error) {
       console.error('Sign in error:', error);
       throw error;

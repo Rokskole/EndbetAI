@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "QuitBet AI",
-    "slug": "quitbet-ai",
+    "name": "TvojaAplikacija",
+    "slug": "tvoja-aplikacija",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,29 +23,60 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.quitbetai.app",
-      "buildNumber": "1"
+      "bundleIdentifier": "com.tvojaaplikacija.app",
+      "buildNumber": "1",
+      "infoPlist": {
+        "NSHealthShareUsageDescription": "This app does not access health data.",
+        "NSHealthUpdateUsageDescription": "This app does not update health data.",
+        "ITSAppUsesNonExemptEncryption": false
+      },
+      "config": {
+        "usesNonExemptEncryption": false
+      },
+      "privacyManifests": {
+        "NSPrivacyAccessedAPITypes": []
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#111827"
       },
-      "package": "com.quitbetai.app",
-      "versionCode": 1
+      "package": "com.tvojaaplikacija.app",
+      "versionCode": 1,
+      "permissions": [
+        "INTERNET",
+        "ACCESS_NETWORK_STATE"
+      ],
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
-      "favicon": "./assets/favicon.png",
+      "favicon": "./assets/icon.png",
       "bundler": "metro"
     },
-    "scheme": "quitbet-ai",
+    "scheme": "tvoja-aplikacija",
     "plugins": [
-      "expo-notifications"
+      "expo-notifications",
+      [
+        "expo-build-properties",
+        {
+        "ios": {
+          "deploymentTarget": "13.4"
+        },
+          "android": {
+            "compileSdkVersion": 34,
+            "targetSdkVersion": 34,
+            "minSdkVersion": 21
+          }
+        }
+      ]
     ],
     "extra": {
       "eas": {
         "projectId": "your-project-id-here"
-      }
+      },
+      "apiUrl": "https://endbet-ai-api-749k.vercel.app"
     }
   }
 }
+

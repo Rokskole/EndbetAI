@@ -1,7 +1,26 @@
 import { config } from '@packages/config';
 import { ApiResponse } from '@packages/types';
+import Constants from 'expo-constants';
 
-const API_BASE_URL = 'https://endbet-ai-api-749k.vercel.app/api';
+// Get API URL from app.json extra config or fallback to environment variable or default
+const getApiBaseUrl = () => {
+  // Try expo constants first (from app.json extra.apiUrl)
+  const extraApiUrl = Constants.expoConfig?.extra?.apiUrl;
+  if (extraApiUrl) {
+    return `${extraApiUrl}/api`;
+  }
+  
+  // Try environment variable
+  const envApiUrl = process.env.EXPO_PUBLIC_API_URL || process.env.API_URL;
+  if (envApiUrl) {
+    return `${envApiUrl}/api`;
+  }
+  
+  // Fallback to default (development)
+  return 'https://endbet-ai-api-749k.vercel.app/api';
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 export class ApiClient {
   private sessionId: string | null = null;

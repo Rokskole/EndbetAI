@@ -147,3 +147,4 @@ Write-Host ""
 Write-Host "Configuration file location: $(Resolve-Path .env)" -ForegroundColor Gray
 Write-Host ""
 
+

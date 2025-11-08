@@ -5,8 +5,8 @@
       "ES2022",
       "DOM"
     ],
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
