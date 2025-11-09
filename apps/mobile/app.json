@@ -60,16 +60,17 @@
       [
         "expo-build-properties",
         {
-        "ios": {
-          "deploymentTarget": "13.4"
-        },
+          "ios": {
+            "deploymentTarget": "15.1"
+          },
           "android": {
             "compileSdkVersion": 34,
             "targetSdkVersion": 34,
             "minSdkVersion": 21
           }
         }
-      ]
+      ],
+      "expo-font"
     ],
     "extra": {
       "eas": {
@@ -79,4 +80,3 @@
     }
   }
 }
-
