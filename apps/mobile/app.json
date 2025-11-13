@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "TvojaAplikacija",
-    "slug": "tvoja-aplikacija",
+    "name": "QuitBet AI",
+    "slug": "quitbet-ai",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,7 +23,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.tvojaaplikacija.app",
+      "bundleIdentifier": "com.quitbetai.app",
       "buildNumber": "1",
       "infoPlist": {
         "NSHealthShareUsageDescription": "This app does not access health data.",
@@ -42,7 +42,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#111827"
       },
-      "package": "com.tvojaaplikacija.app",
+      "package": "com.quitbetai.app",
       "versionCode": 1,
       "permissions": [
         "INTERNET",
@@ -54,7 +54,7 @@
       "favicon": "./assets/icon.png",
       "bundler": "metro"
     },
-    "scheme": "tvoja-aplikacija",
+    "scheme": "quitbet-ai",
     "plugins": [
       "expo-notifications",
       [

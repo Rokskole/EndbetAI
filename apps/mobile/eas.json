@@ -38,14 +38,18 @@
     "production": {
       "ios": {
         "appleId": "your-apple-id@example.com",
+        "_comment_appleId": "Your Apple ID email used for App Store Connect",
         "ascAppId": "your-app-store-connect-app-id",
-        "appleTeamId": "your-team-id"
+        "_comment_ascAppId": "Get this from App Store Connect: My Apps > Your App > App Information > General Information > Apple ID",
+        "appleTeamId": "your-team-id",
+        "_comment_appleTeamId": "Get from Apple Developer portal: https://developer.apple.com/account > Membership > Team ID (format: ABC1234567)"
       },
       "android": {
         "serviceAccountKeyPath": "./google-service-account.json",
         "track": "internal"
       }
     }
-  }
+  },
+  "_instructions": "Fill in the iOS submit values above before running 'eas submit --platform ios'. You can also skip these and EAS will prompt you during submission."
 }
 
