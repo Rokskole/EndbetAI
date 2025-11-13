@@ -62,20 +62,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           const response = await apiClient.getCurrentUser();
           if (response.success && response.data) {
             setUser(response.data);
-            // Extract session ID from response if available
-            if (response.sessionId) {
-              setSessionId(response.sessionId);
-              apiClient.setSessionId(response.sessionId);
-            }
+            // Session ID is managed by ApiClient, not returned in response
+            // If we have a valid user, the session is active
           }
         } catch (error) {
           console.error('Failed to fetch user data:', error);
           // If API call fails, still set basic user from Supabase
-          setUser({
+          // Create a minimal User object from Supabase session
+          const basicUser: User = {
             id: session.user.id,
             email: session.user.email || '',
-            name: session.user.user_metadata?.name || 'User',
-          });
+            display_name: session.user.user_metadata?.name || 'User',
+            created_at: session.user.created_at || new Date().toISOString(),
+            updated_at: session.user.updated_at || new Date().toISOString(),
+          };
+          setUser(basicUser);
         }
       } else {
         setUser(null);
@@ -90,7 +91,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const signIn = async (email: string) => {
+  const signIn = async (email: string): Promise<void> => {
     setIsLoading(true);
     try {
       // Send magic link via API
@@ -102,7 +103,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       
       // Magic link sent - user will click link in email
       // The callback will handle the actual authentication
-      return { success: true };
+      // Function returns void, success is indicated by no error being thrown
     } catch (error) {
       console.error('Sign in error:', error);
       throw error;

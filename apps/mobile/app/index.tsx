@@ -61,10 +61,9 @@ export default function WelcomeScreen() {
           
           <Button 
             mode="outlined" 
-            style={styles.secondaryButton}
+            style={[styles.secondaryButton, { borderColor: '#60a5fa' }]}
             onPress={handleCreateAccount}
             textColor="#60a5fa"
-            borderColor="#60a5fa"
           >
             Create Account
           </Button>
