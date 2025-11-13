@@ -73,10 +73,11 @@
       "expo-font"
     ],
     "extra": {
+      "apiUrl": "https://endbet-ai-api-749k.vercel.app",
       "eas": {
-        "projectId": "your-project-id-here"
-      },
-      "apiUrl": "https://endbet-ai-api-749k.vercel.app"
-    }
+        "projectId": "c89bfd86-eb50-4da8-a830-ab48f0b90a4a"
+      }
+    },
+    "owner": "r0k1"
   }
 }
