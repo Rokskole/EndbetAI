@@ -146,8 +146,10 @@ https://[your-website.com]/privacy-policy
 - **User Access**: Full Access
 
 ### Pricing
-- **Price**: Free
+- **Price**: Paid (One-time purchase) OR Free with In-App Purchases OR Subscription
+- **Pricing Tier**: Set in App Store Connect (e.g., $2.99, $4.99, $9.99, etc.)
 - **Availability**: All countries (or select specific regions)
+- **Note**: You'll configure the exact price in App Store Connect
 
 ---
 
