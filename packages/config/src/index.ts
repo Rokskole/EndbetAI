@@ -51,6 +51,15 @@ export const config = {
     twilioPhoneNumber: process.env.TWILIO_PHONE_NUMBER || '',
   },
 
+  // Payments
+  payments: {
+    stripeSecretKey: process.env.STRIPE_SECRET_KEY || '',
+    stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY || '',
+    stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET || '',
+    appleSharedSecret: process.env.APPLE_SHARED_SECRET || '',
+    appleBundleId: process.env.APPLE_BUNDLE_ID || 'com.quitbetai.app',
+  },
+
   // Development
   development: {
     isDev: process.env.NODE_ENV === 'development',

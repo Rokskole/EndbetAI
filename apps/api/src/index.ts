@@ -19,6 +19,7 @@ import { tasksRouter } from './modules/tasks/routes';
 import { sosRouter } from './modules/sos/routes';
 import { chatRouter } from './modules/chat/routes';
 import { contentRouter } from './modules/content/routes';
+import { paymentsRouter } from './modules/payments/routes';
 
 
 // Configuration loaded
@@ -42,6 +43,7 @@ app.use(limiter);
 
 // Body parsing and compression
 app.use(compression());
+// Note: Webhook route uses raw body - must be before JSON parsing
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
@@ -70,6 +72,7 @@ app.use('/api/tasks', tasksRouter);
 app.use('/api/sos', sosRouter);
 app.use('/api/chat', chatRouter);
 app.use('/api/content', contentRouter);
+app.use('/api/payments', paymentsRouter);
 
 // 404 handler
 app.use('*', (req, res) => {
