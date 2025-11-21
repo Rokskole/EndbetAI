@@ -7,15 +7,16 @@ import { apiClient } from './apiClient';
 declare const window: any;
 
 // Product IDs - must match App Store Connect / Stripe
+// Note: Product IDs cannot be reused after deletion, so using .v1 suffix
 export const PRODUCT_IDS = {
   PREMIUM_MONTHLY: Platform.OS === 'ios' 
-    ? 'com.quitbetai.app.premium.monthly' 
+    ? 'com.quitbetai.app.premium.monthly.v1' 
     : 'premium_monthly',
   PREMIUM_YEARLY: Platform.OS === 'ios'
-    ? 'com.quitbetai.app.premium.yearly'
+    ? 'com.quitbetai.app.premium.yearly.v1'
     : 'premium_yearly',
   PREMIUM_LIFETIME: Platform.OS === 'ios'
-    ? 'com.quitbetai.app.premium.lifetime'
+    ? 'com.quitbetai.app.premium.lifetime.v1'
     : 'premium_lifetime',
 } as const;
 
