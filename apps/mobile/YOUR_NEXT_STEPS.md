@@ -64,42 +64,62 @@ This is your prioritized action plan for getting your app on the App Store.
 
 **After Step 2 is done:**
 
-1. In App Store Connect → Your app (`QuitBet AI`)
-2. Click **"Features"** tab → **"In-App Purchases"**
-3. Click **"+"** to create products
+**⚠️ IMPORTANT: If you only see "Consumable" and "Non-Consumable" options:**
 
-**Create 3 products:**
+You're in the **"In-App Purchases"** section. **Subscriptions are in a separate section!**
 
-#### Product 1: Monthly Subscription
-- Click **"+"** → Select **"Auto-Renewable Subscription"** → **"Create"**
+**Two options:**
+
+#### **Option A: Use Non-Consumable for All (SIMPLER - Recommended)** ✅
+
+**If subscriptions are too complex, use Non-Consumable for everything:**
+
+1. In App Store Connect → Your app → **"Features"** → **"In-App Purchases"**
+2. Click **"+"** → Select **"Non-Consumable"**
+3. **Create all 3 products as Non-Consumable:**
+
+**Product 1: Monthly (Non-Consumable)**
 - **Reference Name**: `Premium Monthly`
 - **Product ID**: `com.quitbetai.app.premium.monthly` ← **Must match exactly!**
-- **Subscription Group**: Create new `Premium Subscription`
-- **Duration**: `1 Month`
 - **Price**: `$4.99` (Tier 5)
 - **Display Name**: `Premium Monthly`
 - **Description**: `Unlock all premium features for one month`
 - Click **"Save"**
 
-#### Product 2: Yearly Subscription
-- Click **"+"** → Select **"Auto-Renewable Subscription"** → **"Create"**
+**Product 2: Yearly (Non-Consumable)**
+- Click **"+"** → Select **"Non-Consumable"**
 - **Reference Name**: `Premium Yearly`
 - **Product ID**: `com.quitbetai.app.premium.yearly` ← **Must match exactly!**
-- **Subscription Group**: Same `Premium Subscription`
-- **Duration**: `1 Year`
 - **Price**: `$39.99` (Tier 20)
 - **Display Name**: `Premium Yearly`
-- **Description**: `Unlock all premium features for one year (Save 30%)`
+- **Description**: `Unlock all premium features for one year`
 - Click **"Save"**
 
-#### Product 3: Lifetime Purchase
-- Click **"+"** → Select **"Non-Consumable"** → **"Create"**
+**Product 3: Lifetime (Non-Consumable)**
+- Click **"+"** → Select **"Non-Consumable"**
 - **Reference Name**: `Premium Lifetime`
 - **Product ID**: `com.quitbetai.app.premium.lifetime` ← **Must match exactly!**
 - **Price**: `$99.99` (Tier 50)
 - **Display Name**: `Premium Lifetime`
 - **Description**: `Unlock all premium features forever`
-- Click **"Save"**
+- Click **"Save"`
+
+**Note:** Your backend will handle expiration dates. When user purchases Monthly/Yearly, backend sets expiration date and checks it.
+
+#### **Option B: Use Subscriptions (More Complex)**
+
+**If you want auto-renewal:**
+
+1. In App Store Connect → Your app → **"Features"** tab
+2. Look for **"Subscriptions"** (separate from "In-App Purchases")
+3. If you see it:
+   - Click **"Subscriptions"** → **"+ Subscription Group"**
+   - Create group: `Premium Subscription`
+   - In group: **"+ Subscription"** → **"Auto-Renewable Subscription"**
+   - Create Monthly and Yearly as subscriptions
+   - Create Lifetime as Non-Consumable (in In-App Purchases)
+
+**✅ Recommended: Use Option A (Non-Consumable for all)** - It's simpler and works perfectly!
 
 **✅ Step 3 Complete!** All IAP products created.
 
