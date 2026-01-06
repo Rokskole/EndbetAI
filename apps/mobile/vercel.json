@@ -8,12 +8,20 @@
     {
       "src": "public/dashboard.html",
       "use": "@vercel/static"
+    },
+    {
+      "src": "public/privacy-policy.html",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/dashboard",
       "dest": "/public/dashboard.html"
+    },
+    {
+      "src": "/privacy-policy",
+      "dest": "/public/privacy-policy.html"
     },
     {
       "src": "/(.*)",
