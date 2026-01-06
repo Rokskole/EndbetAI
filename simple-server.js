@@ -663,23 +663,34 @@ app.use('/api/chat', securityConfig.chatLimiter);
 app.use('/api', securityConfig.apiLimiter);
 
 // Privacy Policy - MUST be before root route to avoid redirect
+// This route is PUBLIC and does NOT require authentication
 app.get('/privacy-policy', (req, res) => {
+  // Set headers to ensure it's not cached incorrectly
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, max-age=3600');
+  
+  // Serve the privacy policy HTML directly (embedded to avoid file system issues)
   const fs = require('fs');
   const path = require('path');
   
   try {
-    // Try to read from apps/mobile/public first, then fallback to root public
-    const mobilePath = path.join(__dirname, 'apps/mobile/public/privacy-policy.html');
-    const rootPath = path.join(__dirname, 'public/privacy-policy.html');
+    // Try multiple possible file locations
+    const possiblePaths = [
+      path.join(__dirname, 'apps/mobile/public/privacy-policy.html'),
+      path.join(__dirname, 'public/privacy-policy.html'),
+      path.join(process.cwd(), 'apps/mobile/public/privacy-policy.html'),
+      path.join(process.cwd(), 'public/privacy-policy.html')
+    ];
     
-    let filePath;
-    if (fs.existsSync(mobilePath)) {
-      filePath = mobilePath;
-    } else if (fs.existsSync(rootPath)) {
-      filePath = rootPath;
-    } else {
-      // If file doesn't exist, serve inline HTML
-      return res.send(`<!DOCTYPE html>
+    for (const filePath of possiblePaths) {
+      if (fs.existsSync(filePath)) {
+        const html = fs.readFileSync(filePath, 'utf8');
+        return res.send(html);
+      }
+    }
+    
+    // Fallback: Return a simple message with contact info
+    return res.send(`<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -687,7 +698,7 @@ app.get('/privacy-policy', (req, res) => {
     <title>Privacy Policy - QuitBet AI</title>
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             color: #333;
             max-width: 800px;
@@ -706,38 +717,27 @@ app.get('/privacy-policy', (req, res) => {
             border-bottom: 3px solid #60a5fa;
             padding-bottom: 10px;
         }
-        h2 {
-            color: #111827;
-            margin-top: 30px;
-            border-bottom: 1px solid #e5e7eb;
-            padding-bottom: 5px;
-        }
-        a {
-            color: #60a5fa;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Privacy Policy</h1>
         <p><strong>Last Updated: January 2025</strong></p>
-        <p>For the complete privacy policy, please visit: <a href="https://endbet-ai-rvn2-3uwjhx5e5-rok3.vercel.app/privacy-policy">Privacy Policy</a></p>
-        <p>Or contact us at: <strong>privacy@quitbetai.com</strong></p>
+        <p>For our complete privacy policy, please contact us at: <strong>privacy@quitbetai.com</strong></p>
+        <p>Or visit our website: <strong>https://endbet-ai-rvn2-3uwjhx5e5-rok3.vercel.app</strong></p>
     </div>
 </body>
 </html>`);
-    }
-    
-    const html = fs.readFileSync(filePath, 'utf8');
-    res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.send(html);
   } catch (error) {
     console.error('Error serving privacy policy:', error);
-    res.status(500).send('<h1>Privacy Policy</h1><p>Unable to load privacy policy. Please contact us at privacy@quitbetai.com</p>');
+    res.status(500).send(`<!DOCTYPE html>
+<html>
+<head><title>Privacy Policy</title></head>
+<body>
+    <h1>Privacy Policy</h1>
+    <p>Unable to load privacy policy. Please contact us at: <strong>privacy@quitbetai.com</strong></p>
+</body>
+</html>`);
   }
 });
 
