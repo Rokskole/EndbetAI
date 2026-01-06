@@ -662,6 +662,85 @@ app.use((req, res, next) => {
 app.use('/api/chat', securityConfig.chatLimiter);
 app.use('/api', securityConfig.apiLimiter);
 
+// Privacy Policy - MUST be before root route to avoid redirect
+app.get('/privacy-policy', (req, res) => {
+  const fs = require('fs');
+  const path = require('path');
+  
+  try {
+    // Try to read from apps/mobile/public first, then fallback to root public
+    const mobilePath = path.join(__dirname, 'apps/mobile/public/privacy-policy.html');
+    const rootPath = path.join(__dirname, 'public/privacy-policy.html');
+    
+    let filePath;
+    if (fs.existsSync(mobilePath)) {
+      filePath = mobilePath;
+    } else if (fs.existsSync(rootPath)) {
+      filePath = rootPath;
+    } else {
+      // If file doesn't exist, serve inline HTML
+      return res.send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - QuitBet AI</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #111827;
+            border-bottom: 3px solid #60a5fa;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #111827;
+            margin-top: 30px;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 5px;
+        }
+        a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Privacy Policy</h1>
+        <p><strong>Last Updated: January 2025</strong></p>
+        <p>For the complete privacy policy, please visit: <a href="https://endbet-ai-rvn2-3uwjhx5e5-rok3.vercel.app/privacy-policy">Privacy Policy</a></p>
+        <p>Or contact us at: <strong>privacy@quitbetai.com</strong></p>
+    </div>
+</body>
+</html>`);
+    }
+    
+    const html = fs.readFileSync(filePath, 'utf8');
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.send(html);
+  } catch (error) {
+    console.error('Error serving privacy policy:', error);
+    res.status(500).send('<h1>Privacy Policy</h1><p>Unable to load privacy policy. Please contact us at privacy@quitbetai.com</p>');
+  }
+});
+
 // Welcome/Login Page
 app.get('/', (req, res) => {
   res.send(`
