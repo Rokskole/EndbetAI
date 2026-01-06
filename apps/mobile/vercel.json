@@ -14,14 +14,20 @@
       "use": "@vercel/static"
     }
   ],
+  "rewrites": [
+    {
+      "source": "/privacy-policy",
+      "destination": "/public/privacy-policy.html"
+    },
+    {
+      "source": "/privacy-policy.html",
+      "destination": "/public/privacy-policy.html"
+    }
+  ],
   "routes": [
     {
       "src": "/dashboard",
       "dest": "/public/dashboard.html"
-    },
-    {
-      "src": "/privacy-policy",
-      "dest": "/public/privacy-policy.html"
     },
     {
       "src": "/(.*)",
