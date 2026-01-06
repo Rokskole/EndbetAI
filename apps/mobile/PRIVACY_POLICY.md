@@ -137,7 +137,7 @@ You have the following rights regarding your personal information:
 - **Account Deletion**: You can delete your account at any time through the App settings
 - **Data Export**: You can request an export of your data in a portable format
 
-To exercise these rights, please contact us at: **privacy@quitbetai.com**
+To exercise these rights, please contact us at: **YOUR_EMAIL_HERE@example.com**
 
 We will respond to your request within 30 days. In some cases, we may need to verify your identity before processing your request.
 
@@ -215,17 +215,17 @@ If you are a California resident, you have additional rights under the Californi
 - **Right to Correct**: Request correction of inaccurate personal information
 - **Right to Limit Use of Sensitive Information**: Request limits on use of sensitive personal information
 
-To exercise your California privacy rights, contact us at: **privacy@quitbetai.com**
+To exercise your California privacy rights, contact us at: **YOUR_EMAIL_HERE@example.com**
 
 ## Contact Us
 
 If you have questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:
 
 **QuitBet AI**  
-Email: **privacy@quitbetai.com**  
+Email: **YOUR_EMAIL_HERE@example.com**  
 Website: **https://endbet-ai-rvn2-3uwjhx5e5-rok3.vercel.app**
 
-For general inquiries: **support@quitbetai.com**
+For general inquiries: **YOUR_EMAIL_HERE@example.com**
 
 We are committed to addressing your privacy concerns and will respond to your inquiry as soon as possible.
 
