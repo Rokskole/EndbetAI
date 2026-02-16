@@ -68,7 +68,7 @@ export const selfExclusionSchema = z.object({
   starts_at: z.string().datetime(),
   ends_at: z.string().datetime(),
   reason: z.string().optional(),
-}).refine(data => new Date(data.ends_at) > new Date(data.starts_at), {
+}).refine((data: { starts_at: string; ends_at: string }) => new Date(data.ends_at) > new Date(data.starts_at), {
   message: "End date must be after start date",
 });
 

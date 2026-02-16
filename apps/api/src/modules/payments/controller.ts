@@ -9,7 +9,7 @@ import { createError } from '../../middleware/errorHandler';
 // Initialize Stripe
 const stripe = config.payments.stripeSecretKey
   ? new Stripe(config.payments.stripeSecretKey, {
-      apiVersion: '2024-11-20.acacia',
+      apiVersion: '2025-10-29.clover',
     })
   : null;
 
@@ -94,7 +94,7 @@ export const paymentsController = {
         products: productsList.length > 0 ? productsList : FALLBACK_PRODUCTS,
       });
     } catch (error: any) {
-      throw createError('Failed to fetch products', 500, error);
+      throw createError('Failed to fetch products', 500);
     }
   },
 
@@ -175,7 +175,7 @@ export const paymentsController = {
         });
       }
     } catch (error: any) {
-      throw createError('Failed to create payment intent', 500, error);
+      throw createError('Failed to create payment intent', 500);
     }
   },
 
@@ -219,7 +219,7 @@ export const paymentsController = {
         verified: true,
       });
     } catch (error: any) {
-      throw createError('Failed to verify IAP purchase', 500, error);
+      throw createError('Failed to verify IAP purchase', 500);
     }
   },
 
@@ -244,7 +244,7 @@ export const paymentsController = {
         },
       });
     } catch (error: any) {
-      throw createError('Failed to check premium status', 500, error);
+      throw createError('Failed to check premium status', 500);
     }
   },
 
@@ -269,7 +269,7 @@ export const paymentsController = {
         },
       });
     } catch (error: any) {
-      throw createError('Failed to check subscription status', 500, error);
+      throw createError('Failed to check subscription status', 500);
     }
   },
 
@@ -342,7 +342,7 @@ export const paymentsController = {
 
       res.json({ received: true });
     } catch (error: any) {
-      throw createError('Webhook handling failed', 500, error);
+      throw createError('Webhook handling failed', 500);
     }
   },
 };

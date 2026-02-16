@@ -13,7 +13,7 @@ router.post(
   express.raw({ type: 'application/json' }),
   (req: Request, res: Response, next: NextFunction) => {
     // Wrap in async handler for webhook
-    Promise.resolve(paymentsController.handleWebhook(req as any, res, next)).catch(next);
+    Promise.resolve(paymentsController.handleWebhook(req as any, res)).catch(next);
   }
 );
 

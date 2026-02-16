@@ -36,6 +36,13 @@ export declare const config: {
         twilioAuthToken: string;
         twilioPhoneNumber: string;
     };
+    payments: {
+        stripeSecretKey: string;
+        stripePublishableKey: string;
+        stripeWebhookSecret: string;
+        appleSharedSecret: string;
+        appleBundleId: string;
+    };
     development: {
         isDev: boolean;
         isProd: boolean;

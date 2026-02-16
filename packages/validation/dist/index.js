@@ -62,7 +62,7 @@ exports.selfExclusionSchema = zod_1.z.object({
     starts_at: zod_1.z.string().datetime(),
     ends_at: zod_1.z.string().datetime(),
     reason: zod_1.z.string().optional(),
-}).refine(data => new Date(data.ends_at) > new Date(data.starts_at), {
+}).refine((data) => new Date(data.ends_at) > new Date(data.starts_at), {
     message: "End date must be after start date",
 });
 // Query parameters validation

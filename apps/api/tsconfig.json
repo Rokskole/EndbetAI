@@ -2,15 +2,15 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": "../../",
+    "rootDir": ".",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
-      "@packages/*": ["../../packages/*/src"]
+      "@packages/*": ["../../packages/*"]
     }
   },
-  "include": ["src/**/*", "../../packages/*/src/**/*"],
+  "include": ["src/**/*"],
   "exclude": ["dist", "node_modules", "**/*.test.ts"]
 }
