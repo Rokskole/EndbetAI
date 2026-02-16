@@ -28,7 +28,7 @@ Your promotional image must meet the following requirements:
 2. **Design Your Image**
    - Add your app logo, text, or graphics
    - Use your app's color scheme:
-     - Primary: #60a5fa (light blue)
+     - Primary: #22c55e (green)
      - Secondary: #34d399 (green)
      - Background: #111827 (dark gray)
      - Text: #f9fafb (light)

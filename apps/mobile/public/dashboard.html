@@ -38,7 +38,7 @@
         .title {
             font-size: 24px;
             font-weight: 700;
-            color: #60a5fa;
+            color: #22c55e;
         }
         
         .welcome-text {
@@ -78,11 +78,11 @@
         
         .nav-item:hover {
             background: rgba(96, 165, 250, 0.1);
-            color: #60a5fa;
+            color: #22c55e;
         }
         
         .nav-item.active {
-            background: #60a5fa;
+            background: #22c55e;
             color: #000;
             box-shadow: 0 2px 8px rgba(96, 165, 250, 0.3);
         }
@@ -186,7 +186,7 @@
         }
         
         .progress-item h3 {
-            color: #60a5fa;
+            color: #22c55e;
             font-size: 24px;
             font-weight: 700;
             margin-bottom: 4px;
@@ -209,7 +209,7 @@
         
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #60a5fa, #34d399);
+            background: linear-gradient(90deg, #22c55e, #34d399);
             border-radius: 4px;
             transition: width 0.3s ease;
             width: 20%;
@@ -253,7 +253,7 @@
         }
         
         .button {
-            background: #60a5fa;
+            background: #22c55e;
             color: #000;
             border: none;
             padding: 12px 24px;
@@ -267,7 +267,7 @@
         }
         
         .button:hover {
-            background: #3b82f6;
+            background: #16a34a;
             transform: translateY(-1px);
         }
         
@@ -307,7 +307,7 @@
         
         .textarea:focus {
             outline: none;
-            border-color: #60a5fa;
+            border-color: #22c55e;
             box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
         }
         
@@ -321,7 +321,7 @@
         
         .chat-message.user {
             background: #1f2937;
-            border: 1px solid #60a5fa;
+            border: 1px solid #22c55e;
             margin-left: 20px;
         }
         
@@ -332,7 +332,7 @@
         }
         
         .chat-sender {
-            color: #60a5fa;
+            color: #22c55e;
             font-weight: 600;
             font-size: 14px;
             margin-bottom: 4px;
@@ -389,7 +389,7 @@
         }
         
         .contact-button {
-            background: #60a5fa;
+            background: #22c55e;
             color: #000;
             border: none;
             padding: 8px 16px;
@@ -472,7 +472,7 @@
         }
         
         .step-number {
-            color: #60a5fa;
+            color: #22c55e;
             font-weight: 700;
             font-size: 28px;
             margin-right: 16px;
@@ -520,7 +520,7 @@
         
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #60a5fa, #34d399);
+            background: linear-gradient(90deg, #22c55e, #34d399);
             border-radius: 4px;
             transition: width 0.3s ease;
             width: 0%;
@@ -554,7 +554,7 @@
         
         .breathing-circle.breathing-in {
             transform: scale(1.2);
-            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+            background: linear-gradient(135deg, #22c55e, #16a34a);
         }
         
         .breathing-circle.breathing-out {
@@ -583,7 +583,7 @@
             width: 200px;
             height: 200px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+            background: linear-gradient(135deg, #22c55e, #16a34a);
             margin: 0 auto 20px;
             display: flex;
             align-items: center;
@@ -939,7 +939,7 @@
                             <h2>Tasks</h2>
                             <p>Complete daily tasks to build healthy habits.</p>
                             
-                            <h3 style="color: #60a5fa; margin: 16px 0 12px 0;">Daily Habits</h3>
+                            <h3 style="color: #22c55e; margin: 16px 0 12px 0;">Daily Habits</h3>
                             <div class="task-item">
                                 <input type="checkbox" class="task-checkbox" id="task1" onchange="updateTask(1)">
                                 <label class="task-label" for="task1">Take a 10-minute walk</label>
@@ -996,8 +996,8 @@
                     const progress = Math.min((totalSavings / monthlyGoal) * 100, 100);
                     
                     // Determine colors based on whether expenses exceed savings
-                    const amountColor = netAmount < 0 ? '#dc2626' : '#60a5fa';
-                    const todayColor = todayTotal > 0 ? '#dc2626' : '#60a5fa';
+                    const amountColor = netAmount < 0 ? '#dc2626' : '#22c55e';
+                    const todayColor = todayTotal > 0 ? '#dc2626' : '#22c55e';
                     
                     content.innerHTML = `
                         <div class="card">
@@ -1018,13 +1018,13 @@
                                     <p>Total saved</p>
                                 </div>
                                 <div class="progress-item">
-                                    <h3 style="color: #60a5fa">${progress.toFixed(0)}%</h3>
+                                    <h3 style="color: #22c55e">${progress.toFixed(0)}%</h3>
                                     <p>Goal progress</p>
                                 </div>
                             </div>
                             
                             <div style="margin-top: 20px;">
-                                <h3 style="color: #60a5fa; margin-bottom: 12px;">Recent Transactions</h3>
+                                <h3 style="color: #22c55e; margin-bottom: 12px;">Recent Transactions</h3>
                                 ${expenses.length > 0 ? expenses.slice(0, 5).map(expense => {
                                     const isExpense = expense.type === 'expense';
                                     const color = isExpense ? '#dc2626' : '#34d399';
@@ -1119,7 +1119,7 @@
                             <h2>🚨 Crisis Support</h2>
                             <p>You are not alone. Help is available right now.</p>
                             <button class="emergency-button" onclick="callEmergency()">Call Emergency Services (911)</button>
-                            <button class="emergency-button" onclick="callSuicidePrevention()" style="background: #60a5fa; border-color: #60a5fa;">Call Suicide Prevention (988)</button>
+                            <button class="emergency-button" onclick="callSuicidePrevention()" style="background: #22c55e; border-color: #22c55e;">Call Suicide Prevention (988)</button>
                             <button class="emergency-button" onclick="textCrisis()" style="background: #34d399; border-color: #34d399;">Text HOME to 741741</button>
                         </div>
                         
@@ -1258,7 +1258,7 @@
                             <h2>Support Contacts</h2>
                             <p>Your personal support network and professional contacts.</p>
                             
-                            <h3 style="color: #60a5fa; margin: 20px 0 12px 0;">Professional Support</h3>
+                            <h3 style="color: #22c55e; margin: 20px 0 12px 0;">Professional Support</h3>
                             <div class="contact-card">
                                 <h4>🏥 Dr. Sarah Johnson - Therapist</h4>
                                 <p>📞 Phone: (555) 123-4567</p>
@@ -1273,7 +1273,7 @@
                                 <button class="contact-button" onclick="callContact('counselor')">Call</button>
                             </div>
                             
-                            <h3 style="color: #60a5fa; margin: 20px 0 12px 0;">Personal Support</h3>
+                            <h3 style="color: #22c55e; margin: 20px 0 12px 0;">Personal Support</h3>
                             <div class="contact-card">
                                 <h4>👨‍👩‍👧‍👦 Mom & Dad</h4>
                                 <p>📞 Phone: (555) 456-7890</p>
@@ -1290,7 +1290,7 @@
                     
                     // Add saved contacts
                     if (savedContacts.length > 0) {
-                        contactsHtml += `<h3 style="color: #60a5fa; margin: 20px 0 12px 0;">Your Contacts</h3>`;
+                        contactsHtml += `<h3 style="color: #22c55e; margin: 20px 0 12px 0;">Your Contacts</h3>`;
                         savedContacts.forEach(contact => {
                             contactsHtml += `
                                 <div class="contact-card">
@@ -1385,8 +1385,8 @@
             const progress = Math.min((totalSavings / monthlyGoal) * 100, 100);
             
             // Determine colors based on whether expenses exceed savings
-            const amountColor = netAmount < 0 ? '#dc2626' : '#60a5fa';
-            const todayColor = todayTotal > 0 ? '#dc2626' : '#60a5fa';
+            const amountColor = netAmount < 0 ? '#dc2626' : '#22c55e';
+            const todayColor = todayTotal > 0 ? '#dc2626' : '#22c55e';
             
             content.innerHTML = `
                 <div class="card">
@@ -1407,13 +1407,13 @@
                             <p>Total saved</p>
                         </div>
                         <div class="progress-item">
-                            <h3 style="color: #60a5fa">${progress.toFixed(0)}%</h3>
+                            <h3 style="color: #22c55e">${progress.toFixed(0)}%</h3>
                             <p>Goal progress</p>
                         </div>
                     </div>
                     
                     <div style="margin-top: 20px;">
-                        <h3 style="color: #60a5fa; margin-bottom: 12px;">Recent Transactions</h3>
+                        <h3 style="color: #22c55e; margin-bottom: 12px;">Recent Transactions</h3>
                         ${expenses.length > 0 ? expenses.slice(0, 5).map(expense => {
                             const isExpense = expense.type === 'expense';
                             const color = isExpense ? '#dc2626' : '#34d399';
@@ -1557,7 +1557,7 @@
             }
             
             // Add user message to chat
-            addMessageToChat('You', message, '#60a5fa');
+            addMessageToChat('You', message, '#22c55e');
             input.value = '';
             
             // Show typing indicator
@@ -1734,7 +1734,7 @@
                 entriesHtml += `
                     <div style="background: #374151; padding: 16px; border-radius: 12px; margin-bottom: 12px; border: 1px solid #4b5563;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                            <span style="color: #60a5fa; font-weight: 600;">${moodEmoji} ${entry.mood.charAt(0).toUpperCase() + entry.mood.slice(1)}</span>
+                            <span style="color: #22c55e; font-weight: 600;">${moodEmoji} ${entry.mood.charAt(0).toUpperCase() + entry.mood.slice(1)}</span>
                             <span style="color: #9ca3af; font-size: 12px;">${entry.date} ${entry.time}</span>
                         </div>
                         <p style="color: #f9fafb; margin: 0; line-height: 1.5;">${entry.content}</p>
@@ -2165,7 +2165,7 @@
             circle.className = 'breathing-circle';
             text.textContent = 'Tap to Start';
             button.textContent = 'Start Breathing Exercise';
-            button.style.background = '#3b82f6';
+            button.style.background = '#16a34a';
         }
         
         function breathingCycle() {

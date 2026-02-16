@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   button: {
-    backgroundColor: '#60a5fa', // Light blue
+    backgroundColor: '#22c55e', // Light blue
     paddingVertical: 8,
   },
   crisisButton: {

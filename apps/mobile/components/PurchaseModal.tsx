@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   priceText: {
-    color: '#60a5fa',
+    color: '#22c55e',
     fontWeight: 'bold',
     marginBottom: 8,
   },

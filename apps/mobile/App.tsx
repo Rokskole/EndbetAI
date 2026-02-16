@@ -8,7 +8,7 @@ const darkTheme = {
   ...MD3DarkTheme,
   colors: {
     ...MD3DarkTheme.colors,
-    primary: '#60a5fa',
+    primary: '#22c55e',
     onPrimary: '#000000',
     secondary: '#34d399',
     onSecondary: '#000000',
@@ -50,7 +50,7 @@ function CrisisSupportScreen() {
             <View style={styles.buttonContainer}>
               <Button 
                 mode="contained" 
-                style={[styles.emergencyButton, { backgroundColor: '#60a5fa' }]}
+                style={[styles.emergencyButton, { backgroundColor: '#22c55e' }]}
                 onPress={callSuicidePrevention}
                 textColor="#000000"
               >
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: '#60a5fa', // Light blue
+    color: '#22c55e', // Green
     textAlign: 'center',
     marginBottom: 16,
   },
@@ -225,10 +225,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#dc2626', // Red
   },
   primaryButton: {
-    backgroundColor: '#60a5fa', // Light blue
+    backgroundColor: '#22c55e', // Green
   },
   secondaryButton: {
-    borderColor: '#60a5fa', // Light blue border
+    borderColor: '#22c55e', // Green border
   },
   exerciseSteps: {
     marginTop: 12,

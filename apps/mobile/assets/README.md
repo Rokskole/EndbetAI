@@ -38,7 +38,7 @@ This directory contains the required assets for the QuitBet AI mobile app.
 ### Option 1: Design Tools
 - Use Canva, Figma, or Adobe Photoshop
 - Create designs with the app's color scheme:
-  - Primary: #60a5fa (light blue)
+  - Primary: #22c55e (green)
   - Secondary: #34d399 (green)
   - Background: #111827 (dark gray)
   - Text: #f9fafb (light)
@@ -59,7 +59,7 @@ If you need placeholder assets for testing:
 
 ```bash
 # Create a simple placeholder icon (requires ImageMagick)
-convert -size 1024x1024 xc:#111827 -gravity center -pointsize 200 -fill "#60a5fa" -annotate +0+0 "QB" apps/mobile/assets/icon.png
+convert -size 1024x1024 xc:#111827 -gravity center -pointsize 200 -fill "#22c55e" -annotate +0+0 "QB" apps/mobile/assets/icon.png
 ```
 
 ## Notes

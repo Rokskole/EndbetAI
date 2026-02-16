@@ -6,10 +6,10 @@ export const theme: MD3Theme = {
   colors: {
     ...MD3DarkTheme.colors,
     // Primary colors
-    primary: '#60a5fa', // Light blue
+    primary: '#22c55e', // Green
     onPrimary: '#000000',
-    primaryContainer: '#1e3a8a',
-    onPrimaryContainer: '#dbeafe',
+    primaryContainer: '#14532d',
+    onPrimaryContainer: '#dcfce7',
     
     // Secondary colors
     secondary: '#34d399', // Light green
@@ -50,7 +50,7 @@ export const theme: MD3Theme = {
     shadow: '#000000',
     scrim: '#000000',
     inverseSurface: '#f9fafb',
-    inversePrimary: '#3b82f6',
+    inversePrimary: '#16a34a',
   },
   roundness: 12,
 };

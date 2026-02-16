@@ -53,7 +53,7 @@ export default function WelcomeScreen() {
             mode="contained" 
             style={styles.primaryButton}
             onPress={handleSignIn}
-            buttonColor="#60a5fa"
+            buttonColor="#22c55e"
             textColor="#000"
           >
             Sign In with Email
@@ -61,9 +61,9 @@ export default function WelcomeScreen() {
           
           <Button 
             mode="outlined" 
-            style={[styles.secondaryButton, { borderColor: '#60a5fa' }]}
+            style={[styles.secondaryButton, { borderColor: '#22c55e' }]}
             onPress={handleCreateAccount}
-            textColor="#60a5fa"
+            textColor="#22c55e"
           >
             Create Account
           </Button>
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
     marginBottom: 16,
-    color: '#60a5fa', // Light blue for dark theme
+    color: '#22c55e', // Green for dark theme
     fontWeight: 'bold',
   },
   subtitle: {
@@ -130,10 +130,10 @@ const styles = StyleSheet.create({
     marginBottom: 32,
   },
   primaryButton: {
-    backgroundColor: '#60a5fa', // Light blue for dark theme
+    backgroundColor: '#22c55e', // Green for dark theme
   },
   secondaryButton: {
-    borderColor: '#60a5fa', // Light blue border for dark theme
+    borderColor: '#22c55e', // Green border for dark theme
   },
   disclaimer: {
     textAlign: 'center',
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
   },
   loadingText: {
-    color: '#60a5fa',
+    color: '#22c55e',
     fontSize: 18,
     textAlign: 'center',
   },

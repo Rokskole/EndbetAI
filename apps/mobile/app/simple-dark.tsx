@@ -56,6 +56,6 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   button: {
-    backgroundColor: '#60a5fa', // Light blue
+    backgroundColor: '#22c55e', // Light blue
   },
 });

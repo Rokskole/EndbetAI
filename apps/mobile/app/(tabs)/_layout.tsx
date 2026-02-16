@@ -7,7 +7,7 @@ export default function TabLayout() {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: '#60a5fa',
+        tabBarActiveTintColor: '#22c55e',
         tabBarInactiveTintColor: '#4b5563',
         tabBarStyle: {
           backgroundColor: '#1f2937',

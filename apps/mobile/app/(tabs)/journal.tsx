@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
   },
   title: {
-    color: '#60a5fa', // Light blue for dark theme
+    color: '#22c55e', // Green for dark theme
     fontWeight: 'bold',
     marginBottom: 4,
   },
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   addButton: {
-    backgroundColor: '#60a5fa', // Light blue for dark theme
+    backgroundColor: '#22c55e', // Green for dark theme
   },
   listContainer: {
     padding: 16,
@@ -235,6 +235,6 @@ const styles = StyleSheet.create({
     margin: 16,
     right: 0,
     bottom: 0,
-    backgroundColor: '#60a5fa', // Light blue for dark theme
+    backgroundColor: '#22c55e', // Green for dark theme
   },
 });

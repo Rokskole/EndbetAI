@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   groundingTitle: {
-    color: '#60a5fa', // Light blue
+    color: '#22c55e', // Light blue
     fontWeight: 'bold',
   },
   groundingSubtitle: {
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   stepNumber: {
-    color: '#60a5fa', // Light blue
+    color: '#22c55e', // Light blue
     fontWeight: 'bold',
     marginRight: 16,
     minWidth: 30,
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     color: '#f9fafb', // Light text
   },
   continueButton: {
-    backgroundColor: '#60a5fa', // Light blue
+    backgroundColor: '#22c55e', // Light blue
     marginTop: 8,
   },
 });

@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   button: {
-    backgroundColor: '#60a5fa',
+    backgroundColor: '#22c55e',
   },
   helpText: {
     fontSize: 14,

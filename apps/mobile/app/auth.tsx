@@ -93,7 +93,7 @@ export default function AuthScreen() {
               mode="outlined"
               theme={{
                 colors: {
-                  primary: '#60a5fa',
+                  primary: '#22c55e',
                   onSurface: '#f9fafb',
                   surface: '#374151',
                   outline: '#4b5563'
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
     marginBottom: 16,
-    color: '#60a5fa', // Light blue for dark theme
+    color: '#22c55e', // Light blue for dark theme
     fontWeight: 'bold',
   },
   subtitle: {
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 16,
-    backgroundColor: '#60a5fa', // Light blue for dark theme
+    backgroundColor: '#22c55e', // Light blue for dark theme
   },
   message: {
     marginBottom: 24,
@@ -247,11 +247,11 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: '#1e3a8a',
+    backgroundColor: '#14532d',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
-    shadowColor: '#60a5fa',
+    shadowColor: '#22c55e',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,

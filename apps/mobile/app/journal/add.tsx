@@ -173,9 +173,9 @@ export default function AddJournalEntryScreen() {
                     step={1}
                     value={value}
                     onValueChange={onChange}
-                    minimumTrackTintColor="#1e3a8a"
+                    minimumTrackTintColor="#14532d"
                     maximumTrackTintColor="#e5e7eb"
-                    thumbTintColor="#1e3a8a"
+                    thumbTintColor="#14532d"
                   />
                   
                   <View style={styles.sliderLabels}>
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   title: {
-    color: '#1e3a8a',
+    color: '#14532d',
     fontWeight: 'bold',
     marginBottom: 8,
   },
@@ -335,6 +335,6 @@ const styles = StyleSheet.create({
   },
   submitButton: {
     flex: 1,
-    backgroundColor: '#1e3a8a',
+    backgroundColor: '#14532d',
   },
 });

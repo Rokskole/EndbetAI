@@ -30,7 +30,7 @@ export default function CrisisSupportScreen() {
           style={styles.backButton}
           onPress={() => router.back()}
           icon="arrow-left"
-          textColor="#60a5fa"
+          textColor="#22c55e"
         >
           Back to Chat
         </Button>
@@ -57,7 +57,7 @@ export default function CrisisSupportScreen() {
           <View style={styles.helpButtons}>
             <Button
               mode="contained"
-              style={[styles.emergencyButton, { backgroundColor: '#60a5fa' }]}
+              style={[styles.emergencyButton, { backgroundColor: '#22c55e' }]}
               onPress={callSuicidePrevention}
               icon="phone"
               textColor="#000000"
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
   },
   backButton: {
     marginBottom: 16,
-    borderColor: '#60a5fa',
+    borderColor: '#22c55e',
   },
   crisisHeader: {
     backgroundColor: '#dc2626', // Red background for crisis
@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   groundingTitle: {
-    color: '#60a5fa', // Light blue
+    color: '#22c55e', // Light blue
     fontWeight: 'bold',
   },
   groundingSubtitle: {
@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   stepNumber: {
-    color: '#60a5fa', // Light blue
+    color: '#22c55e', // Light blue
     fontWeight: 'bold',
     marginRight: 12,
     minWidth: 20,
@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   groundingButton: {
-    backgroundColor: '#60a5fa', // Light blue
+    backgroundColor: '#22c55e', // Light blue
   },
   supportCard: {
     backgroundColor: '#1f2937', // Dark surface
@@ -299,7 +299,7 @@ const styles = StyleSheet.create({
     color: '#f9fafb', // Light text
   },
   continueButton: {
-    backgroundColor: '#60a5fa', // Light blue
+    backgroundColor: '#22c55e', // Light blue
     marginTop: 8,
   },
 });

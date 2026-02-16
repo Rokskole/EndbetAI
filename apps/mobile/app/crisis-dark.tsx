@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   suicideButton: {
-    backgroundColor: '#60a5fa', // Blue button
+    backgroundColor: '#22c55e', // Blue button
     marginBottom: 12,
   },
   groundingCard: {
@@ -155,10 +155,10 @@ const styles = StyleSheet.create({
   },
   stepNumber: {
     fontWeight: 'bold',
-    color: '#60a5fa', // Blue accent
+    color: '#22c55e', // Blue accent
   },
   backButton: {
-    borderColor: '#60a5fa', // Blue border
+    borderColor: '#22c55e', // Blue border
     marginTop: 20,
   },
 });

@@ -300,7 +300,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   title: {
-    color: '#60a5fa', // Light blue for dark theme
+    color: '#22c55e', // Light blue for dark theme
     fontWeight: 'bold',
     marginBottom: 8,
   },
@@ -379,7 +379,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#374151', // Dark gray chip
   },
   contactButton: {
-    backgroundColor: '#60a5fa', // Light blue for dark theme
+    backgroundColor: '#22c55e', // Light blue for dark theme
   },
   exerciseItem: {
     marginBottom: 16,

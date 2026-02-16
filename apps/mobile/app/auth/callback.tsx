@@ -61,7 +61,7 @@ export default function AuthCallbackScreen() {
   if (status === 'loading') {
     return (
       <View style={styles.container}>
-        <ActivityIndicator size="large" color="#1e3a8a" />
+        <ActivityIndicator size="large" color="#14532d" />
         <Text variant="headlineSmall" style={styles.title}>
           Verifying your email...
         </Text>
@@ -81,7 +81,7 @@ export default function AuthCallbackScreen() {
         <Text variant="bodyMedium" style={styles.subtitle}>
           Your email has been verified. Redirecting to the app...
         </Text>
-        <ActivityIndicator size="small" color="#1e3a8a" style={styles.loader} />
+        <ActivityIndicator size="small" color="#14532d" style={styles.loader} />
       </View>
     );
   }
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     marginTop: 24,
     marginBottom: 16,
     textAlign: 'center',
-    color: '#1e3a8a',
+    color: '#14532d',
   },
   subtitle: {
     textAlign: 'center',
@@ -128,6 +128,6 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   button: {
-    backgroundColor: '#1e3a8a',
+    backgroundColor: '#14532d',
   },
 });

@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1f2937',
     margin: 16,
     borderWidth: 1,
-    borderColor: '#60a5fa',
+    borderColor: '#22c55e',
   },
   title: {
     color: '#f9fafb',
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   upgradeButton: {
-    backgroundColor: '#60a5fa',
+    backgroundColor: '#22c55e',
   },
 });
 

@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   rowEnd: { justifyContent: 'flex-end' },
   bubble: { maxWidth: '85%', borderRadius: 16 },
   assistantBubble: { backgroundColor: '#1f2937' }, // Dark surface
-  userBubble: { backgroundColor: '#60a5fa' }, // Light blue for dark theme
+  userBubble: { backgroundColor: '#22c55e' }, // Green for dark theme
   assistantText: { color: '#f9fafb' }, // Light text
   userText: { color: '#000000' }, // Dark text on light background
   composer: {
@@ -213,6 +213,6 @@ const styles = StyleSheet.create({
   },
   sosButton: {
     flex: 1,
-    borderColor: '#60a5fa',
+    borderColor: '#22c55e',
   },
 });

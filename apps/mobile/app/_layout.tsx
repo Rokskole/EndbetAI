@@ -12,7 +12,7 @@ const FORCE_DARK_THEME = {
     background: '#111827',
     surface: '#1f2937',
     onSurface: '#f9fafb',
-    primary: '#60a5fa',
+    primary: '#22c55e',
   },
 };
 
