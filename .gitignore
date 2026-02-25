@@ -52,3 +52,6 @@ web-build/
 
 # Supabase
 .supabase/
+
+.vercel
+.env*.local
